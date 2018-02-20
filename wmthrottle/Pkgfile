@@ -1,6 +1,5 @@
 # Description: The version of wmthrottle dockapp that supports acpi/performance and Enhanced Speedstep
 # URL: http://rffr.de/acpi
-# Maintainer: Mikhail Kolesnik, mike at openbunker dot org
 # Depends on: xorg
 
 name=wmthrottle

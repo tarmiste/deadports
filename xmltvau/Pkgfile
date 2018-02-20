@@ -1,7 +1,5 @@
 # Description: XML-TV Script for Australia.
 # URL: http://www.onlinetractorparts.com.au/rohbags/xmltvau/
-# Maintainer: Danny Rawlins, monster dot romster at gmail dot com
-# Packager: James Mills, prologic at shortcircuit dot net dot au
 # Depends on: xmltv
 
 name=xmltvau

@@ -1,6 +1,5 @@
 # Description:  Arbitrary Command Output Colourer
 # URL:          http://www.caliban.org/ruby/acoc.shtml
-# Maintainer:   Bartlomiej Palmowski, rotwang at crux dot org dot pl
 # Depends on:   ruby
 
 name=acoc

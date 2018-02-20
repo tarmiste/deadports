@@ -1,7 +1,5 @@
 # Description: QCA aims to provide a straightforward and cross-platform crypto API, using Qt.
 # URL: https://userbase.kde.org/QCA
-# Maintainer: Jose V Beneyto, sepen at crux dot nu
-# Packager: Jose V Beneyto, sepen at crux dot nu
 # Depends on: qt4
 
 name=qca

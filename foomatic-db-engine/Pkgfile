@@ -1,7 +1,5 @@
 # Description: Generates PPD files from foomatic-db's database.
 # URL:         http://linuxprinting.org/
-# Maintainer:  James Mills, prologic at shortcircuit dot net dot au
-# Packager:    James Mills, prologic at shortcircuit dot net dot au
 #
 # Depends on:
 

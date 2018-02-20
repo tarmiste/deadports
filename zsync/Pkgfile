@@ -1,7 +1,5 @@
 # Description: Optimized client-side rsync algorithm like rsync -z, that no requires a remote server application
 # URL: http://zsync.moria.org.uk/
-# Maintainer: Jose V Beneyto, sepen at crux dot nu
-# Packager: Jose V Beneyto, sepen at crux dot nu
 # Depends on:
 
 name=zsync

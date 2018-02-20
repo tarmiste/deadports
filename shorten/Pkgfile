@@ -1,7 +1,5 @@
 # Description: fast, low complexity waveform coder (lossless audio compressor)
 # URL: http://www.etree.org/shnutils/shorten/
-# Maintainer: Jose V Beneyto, sepen at crux dot nu
-# Packager: Ricardo Oliveira, crux at roliveira dot eu
 # Depends on:
 
 name=shorten

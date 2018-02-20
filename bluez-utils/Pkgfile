@@ -1,6 +1,5 @@
 # Description:	Official linux bluetooth protocol stack - utilities
 # URL:	http://www.bluez.org/
-# Maintainer:	Alan Mizrahi, alan at mizrahi dot com dot ve
 # Depends on:	python, cups, libusb, bluez-libs
 
 name=bluez-utils

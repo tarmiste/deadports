@@ -1,6 +1,5 @@
 # Description: A C library for executing name service queries asynchronously
 # URL: http://0pointer.de/lennart/projects/libasyncns/
-# Maintainer: Mikhail Kolesnik, mike at openbunker dot org
 # Depends on: 
 
 name=libasyncns

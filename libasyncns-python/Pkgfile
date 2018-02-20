@@ -1,6 +1,5 @@
 # Description: A python binding for the libasyncns
 # URL: https://launchpad.net/libasyncns-python
-# Maintainer: Mikhail Kolesnik, mike at openbunker dot org
 # Depends on: libasyncns python
 
 name=libasyncns-python

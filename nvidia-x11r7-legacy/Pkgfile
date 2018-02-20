@@ -1,7 +1,5 @@
 # Description: nVIDIA Linux Display Driver
 # URL: http://www.nvidia.com/
-# Maintainer: Danny Rawlins, romster at shortcircuit dot net dot au
-# Packager: Matt Housh, jaeger at morpheus dot net
 # Depends on: xorg
 
 # Nice to have: gl-select-x11r7

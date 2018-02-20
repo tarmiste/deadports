@@ -1,7 +1,5 @@
 # Description: A comprehensive Free Software Prolog environment
 # URL:         http://www.swi-prolog.org/
-# Packager:    Younes Hafri <ycrux@club-internet.fr>
-# Maintainer:  James Mills, prologic at shortcircuit dot net dot au
 #
 # Depends on:  x11, jdk
 

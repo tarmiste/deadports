@@ -1,6 +1,5 @@
 # Description: Rotates, compresses, removes and mails system log files
 # URL: https://fedorahosted.org/releases/l/o/logrotate/
-# Maintainer: Mikhail Kolesnik, mike at openbunker dot org
 # Depends on: popt
 
 name=logrotate

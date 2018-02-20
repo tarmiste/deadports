@@ -1,6 +1,5 @@
 # Description:  Library supporting additional image formats for Tcl/Tk
 # URL:          http://tkimg.sourceforge.net/
-# Maintainer:   Moritz Wilhelmy, moritz plus crux at wzff dot de
 # Depends On:   tk
 # Nice to have: libpng libtiff libjpeg
 

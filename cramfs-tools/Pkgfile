@@ -1,6 +1,5 @@
 # Description: Cramfs tools
 # URL: http://sourceforge.net/projects/cramfs
-# Maintainer: Rene Lengwinat, rugek at dirtyhack dot net
 # Depends on:
 
 name=cramfs-tools

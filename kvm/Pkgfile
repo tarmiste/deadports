@@ -1,6 +1,5 @@
 # Description: full virtualization solution for Linux on x86 hardware
 # URL:         http://kvm.qumranet.com/kvmwiki
-# Maintainer:  Thomas Penteker, tek at serverop dot de
 # Depends on:  libsdl
 
 name=kvm

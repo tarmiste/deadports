@@ -1,7 +1,5 @@
 # Description: Alternative storage methods for django
 # URL: http://code.welldev.org/django-storages/wiki/Home
-# Maintainer: Lucas Hazel, lucas at die dot net dot au
-# Packager:
 # Depends on:
 
 name=django-storages

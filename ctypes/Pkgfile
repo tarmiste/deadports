@@ -1,7 +1,5 @@
 # Description: Python library to create and manipulate C data types.
 # URL: http://starship.python.net/crew/theller/ctypes/
-# Maintainer: Danny Rawlins, romster at shortcircuit dot net dot au
-# Packager: Danny Rawlins, romster at shortcircuit dot net dot au
 # Depends on: python
 
 name=ctypes

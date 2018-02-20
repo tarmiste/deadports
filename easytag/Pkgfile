@@ -1,6 +1,5 @@
 # Description: Tag editor for MP3 etc.
 # URL: http://easytag.sf.net/
-# Maintainer: Antti Nykanen, aon at iki dot fi
 # Depends on: gtk, id3lib
 # Nice to have: libogg, libvorbis, flac
 

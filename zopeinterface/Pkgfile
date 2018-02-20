@@ -1,7 +1,5 @@
 # Description: Zope3 interface library.
 # URL: http://www.zope.org/Products/ZopeInterface
-# Maintainer: Lucas Hazel, lucas at die dot net dot au
-# Packager: Lucas Hazel, lucas at die dot net dot au
 # Depends on: python
 	
 name=zopeinterface

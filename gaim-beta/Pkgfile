@@ -1,5 +1,4 @@
 # Description: A multi-protocol instant messaging client with encryption
-# Maintainer: Matt Housh, jaeger at morpheus dot net
 # URL: http://gaim.sourceforge.net/
 # Depends on: gtk, nss, p5-xml-parser, avahi
 

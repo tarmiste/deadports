@@ -1,6 +1,5 @@
 # Description: Network traffic monitoring program
 # URL:         http://iptraf.seul.org
-# Maintainer:  Juergen Daubert, juergen dot daubert at t-online dot de
 
 name=iptraf
 version=3.0.0

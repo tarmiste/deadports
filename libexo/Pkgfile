@@ -1,7 +1,5 @@
 # Description: Extension library for Xfce4
 # URL: http://thunar.xfce.org/
-# Maintainer: Jose V Beneyto, joberui at ei dot upv dot es
-# Packager: Jose V Beneyto, joberui at ei dot upv dot es
 # Depends on: gtk,libxfce4util,python,p5-uri
 
 name=libexo

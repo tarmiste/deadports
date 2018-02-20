@@ -1,7 +1,5 @@
 # Description: Multiple precision floating-point computation library with cumulative patches.
 # URL: http://www.mpfr.org/
-# Maintainer: Danny Rawlins, monster dot romster at gmail dot com
-# Packager: acrux, acrux at homelinux dot org
 # Depends on: libgmp
 
 name=mpfr

@@ -1,6 +1,5 @@
 # Description: Converts filenames from one encoding to another
 # URL: http://www.j3e.de/linux/convmv/
-# Maintainer: Mikhail Kolesnik, mike at openbunker dot org
 # Depends on:
 
 name=convmv

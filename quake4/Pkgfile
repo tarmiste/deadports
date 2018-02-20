@@ -1,6 +1,5 @@
 # Description: Linux client for ID Software's Quake 4
 # URL: http://www.quake4game.com/
-# Maintainer: Matt Housh, jaeger at morpheus dot net
 # Depends on: xorg-libx11, xorg-libxau, xorg-libxcb, xorg-libxdmcp, xorg-libxext, libsdl
 
 name=quake4

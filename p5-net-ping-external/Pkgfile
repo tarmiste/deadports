@@ -1,7 +1,5 @@
 # Description: Perl library Net::Ping::External
 # URL: http://search.cpan.org/~chorny/
-# Maintainer: Simon Glossner, viper at hometux dot de
-# Packager: Simon Glossner, viper at hometux dot de
 
 name=p5-net-ping-external
 version=0.13

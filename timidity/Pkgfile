@@ -1,7 +1,5 @@
 # Description: MIDI-to-WAVE converter and player.
 # URL: http://timidity.sourceforge.net/
-# Maintainer: Danny Rawlins, monster dot romster at gmail dot com
-# Packager: Vincenzo Colosimo vico at bicisport dot de
 # Depends on: alsa-lib libao libvorbis
 
 name=timidity

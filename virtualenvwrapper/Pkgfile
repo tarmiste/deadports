@@ -1,6 +1,5 @@
 # Description:  A set of enhancements to virtualenv
 # URL:          http://www.doughellmann.com/projects/virtualenvwrapper/
-# Maintainer:   James Mills, prologic at shortcircuit dot net dot au
 
 # Depends on:   virtualenv virtualenv-clone stevedore
 

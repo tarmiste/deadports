@@ -1,7 +1,5 @@
 # Description: Flexible container object, designed to store hierarchical data.
 # URL:         http://effbot.org/zone/element-index.htm
-# Maintainer:  James Mills, prologic at shortcircuit dot net dot au
-# Packager:    Johannes Winkelmann, jw at tks6 dot net
 #
 # Depends on:  python
 

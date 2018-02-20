@@ -1,7 +1,5 @@
 # Description: Firmware for the Intel PRO/Wireless 2200BG
 # URL: http://ipw2200.sourceforge.net/firmware.php
-# Maintainer: Jose V Beneyto, sepen at crux dot nu
-# Packager: Jose V Beneyto, sepen at crux dot nu
 
 name=ipw2200-fw
 version=3.1

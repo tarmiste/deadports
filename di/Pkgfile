@@ -1,7 +1,5 @@
 # Description: disk information utility, displaying everything (and more) that your 'df' command does.
 # URL: http://www.gentoo.com/di/
-# Maintainer: Jose V Beneyto, sepen at crux dot nu
-# Packager: Jose V Beneyto, sepen at crux dot nu
 
 name=di
 version=4.42

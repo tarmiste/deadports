@@ -1,7 +1,5 @@
 # Description: Perl library Config::Std
 # URL: http://search.cpan.org/~dconway/
-# Maintainer: Simon Glossner, viper at hometux dot de
-# Packager: Simon Glossner, viper at hometux dot de
 # Depends on: p5-class-std, p5-version
 
 name=p5-config-std

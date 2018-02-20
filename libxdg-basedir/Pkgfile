@@ -1,6 +1,5 @@
 # Description: The XDG Base Directory Specification (implementation)
 # URL:         http://n.ethz.ch/student/nevillm/download/libxdg-basedir
-# Maintainer:  Bartlomiej Palmowski, rotwang at crux dot org dot pl
 
 name=libxdg-basedir
 version=1.2.0

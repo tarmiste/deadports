@@ -1,7 +1,5 @@
 # Description: Bandwidth Monitor using Urwid.
 # URL:         http://excess.org/speedometer/
-# Maintainer:  James Mills, prologic at shortcircuit dot net dot au
-# Packager:    James Mills, prologic at shortcircuit dot net dot au
 #
 # Depends on:  urwid
 

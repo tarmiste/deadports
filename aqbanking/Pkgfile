@@ -1,6 +1,5 @@
 # Description: Basic HBCI interface
 # URL: http://www.aqbanking.de/
-# Maintainer: Simon Gloﬂner, viper at hometux dot de
 # Depends on: libgmp, ktoblzcheck, gwenhywfar, qt3
 
 name=aqbanking

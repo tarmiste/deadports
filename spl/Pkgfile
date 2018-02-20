@@ -1,6 +1,5 @@
 # Description:  A Linux kernel module which provides many of the Solaris kernel APIs
 # URL:          http://zfsonlinux.org/
-# Maintainer:   James Mills, prologic at shortcircuit dot net dot au
 #
 # Depends on:
 

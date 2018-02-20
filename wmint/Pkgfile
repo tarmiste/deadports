@@ -1,6 +1,5 @@
 # Description: A dockable app that displays flashing lights for IRQ's
 # URL: http://www.cs.mun.ca/~gstarkes/wmaker/dockapps/sys.html
-# Maintainer: Mikhail Kolesnik, mike at openbunker dot org
 # Depends on: xorg-libxpm
 
 name=wmint

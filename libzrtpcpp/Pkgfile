@@ -1,6 +1,5 @@
 # Description:	Secure RTP library
 # URL:	http://wiki.gnutelephony.org/index.php/Secure_Call
-# Maintainer:	Alan Mizrahi, alan at mizrahi dot com dot ve
 # Depends on:	ccrtp
 
 name=libzrtpcpp

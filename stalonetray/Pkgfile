@@ -1,6 +1,5 @@
 # Description: stand-alone freedesktop.org and KDE system tray (notification area) for X Window System/X11
 # URL:         http://stalonetray.sourceforge.net/
-# Maintainer:  Bartlomiej Palmowski, rotwang at crux dot org dot pl
 # Depends on:  xorg-libx11
 
 name=stalonetray

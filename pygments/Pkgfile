@@ -1,6 +1,5 @@
 # Description: A generic syntax highlighter
 # URL: http://pygments.org/
-# Maintainer: Mikhail Kolesnik, mike at openbunker dot org
 # Depends on: distribute
 
 name=pygments

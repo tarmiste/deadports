@@ -1,7 +1,5 @@
 # Description: A simple template language for XML based vocabularies.
 # URL:         http://kid.lesscode.org/
-# Maintainer:  James Mills, prologic at shortcircuit dot net dot au
-# Packager:    James Mills, prologic at shortcircuit dot net dot au
 #
 # Depends on:  elementtree
 

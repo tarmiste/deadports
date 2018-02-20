@@ -1,6 +1,5 @@
 # Description: A cli tool to interact with an EWMH/NetWM compatible wm
 # URL: http://tomas.styblo.name/wmctrl/
-# Maintainer: Mikhail Kolesnik, mike at openbunker dot org
 # Depends on: glib xorg-libxmu
 
 name=wmctrl

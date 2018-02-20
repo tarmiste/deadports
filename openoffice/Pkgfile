@@ -1,7 +1,5 @@
 # Description: full featured cross platform office suite (binary)
 # URL: http://www.openoffice.org
-# Maintainer: Bartlomiej Palmowski, rotwang at crux dot org dot pl
-# Packager: Simone Rota, sip at crux dot nu
 # Depends on: mesa3d xorg-libxaw xorg-libxcursor xorg-libxft xorg-libxinerama xorg-libxi xorg-libxrandr
 
 name=openoffice

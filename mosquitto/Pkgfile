@@ -1,6 +1,5 @@
 # Description:  MQTT compatible server and client libraries
 # URL:          http://www.mosquitto.org
-# Maintainer:   James Mills, prologic at shortcircuit dot net dot au
 #
 # Depends on:   cmake c-ares
 

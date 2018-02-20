@@ -1,6 +1,5 @@
 # Description: A curses front-end for various audio players
 # URL: http://www.tf.hut.fi/~flu/cplay/
-# Maintainer: Rene Lengwinat, rugek at dirtyhack dot net
 # Depends on: vorbis-tools, mpg321, python, ncurses
 
 name=cplay

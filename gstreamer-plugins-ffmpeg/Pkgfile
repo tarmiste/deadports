@@ -1,7 +1,5 @@
 # Description: FFmpeg-based plug-ins for gstreamer.
 # URL: http://gstreamer.freedesktop.org/modules/gst-ffmpeg.html
-# Maintainer: Danny Rawlins, romster at shortcircuit dot net dot au
-# Packager: Matt Housh, jaeger at morpheus dot net
 # Depends on: gstreamer-plugins-base, python
 
 name=gstreamer-plugins-ffmpeg

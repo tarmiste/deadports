@@ -1,7 +1,5 @@
 # Description: A collection of extractor wrappers for deco.
 # URL: http://hartlich.com/deco/
-# Maintainer: Danny Rawlins, monster dot romster at gmail dot com
-# Packager: Danny Rawlins, monster dot romster at gmail dot com
 
 name=deco-archive
 version=1.6

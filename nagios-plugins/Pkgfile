@@ -1,6 +1,5 @@
 # Description: Standalone extensions to Nagios Core
 # URL: http://www.nagios.org/project/nagiosplugins
-# Maintainer: Jose V Beneyto, sepen at crux dot nu
 # Depends on: nagios net-snmp
 
 name=nagios-plugins

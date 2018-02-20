@@ -1,6 +1,5 @@
 # Description: A fancy interface to the Python interpreter for Unix-like OS
 # URL: http://www.bpython-interpreter.org/
-# Maintainer: Mikhail Kolesnik, mike at openbunker dot org
 # Depends on: pygments
 # Nice to have: pygtk
 

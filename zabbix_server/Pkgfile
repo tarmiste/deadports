@@ -1,6 +1,5 @@
 # Description: Applications, network and servers monitoring software
 # URL: http://www.zabbix.com
-# Maintainer: Mikhail Kolesnik, mike at openbunker dot org
 # Depends on: net-snmp fping mysql
 
 name=zabbix_server

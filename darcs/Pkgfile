@@ -1,6 +1,5 @@
 # Description: Distributed version control system
 # URL:         http://www.darcs.net/
-# Maintainer:  Juergen Daubert, juergen dot daubert at t-online dot de
 # Depends on:  curl ncurses libgmp
 
 name=darcs

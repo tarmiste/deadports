@@ -1,7 +1,5 @@
 # Description: Window Maker configuration tool
 # URL: http://wmakerconf.sourceforge.net/
-# Maintainer: Mikhail Kolesnik, mike at openbunker dot org
-# Packager: Olle Gustafsson, ogg at linux dot se
 # Depends on: windowmaker
 
 name=wmakerconf

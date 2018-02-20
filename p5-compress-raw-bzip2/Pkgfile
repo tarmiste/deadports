@@ -1,6 +1,5 @@
 # Description: Low-Level Interface to bzip2 compression library
 # URL: http://search.cpan.org/~pmqs/Compress-Raw-Bzip2/
-# Maintainer: Mikhail Kolesnik, mike at openbunker dot org
 # Depends on: 
 
 name=p5-compress-raw-bzip2

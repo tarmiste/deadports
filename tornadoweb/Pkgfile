@@ -1,6 +1,5 @@
 # Description:  scalable, non-blocking webserver
 # URL:          http://tornadoweb.org
-# Maintainer:   Thomas Penteker, tek at serverop dot de
 # Depends on:   python
 # Nice to have: python-pycurl, python-simplejson
 

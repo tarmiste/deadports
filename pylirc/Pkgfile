@@ -1,7 +1,5 @@
 # Description: Python module for interaction with LIRC.
 # URL:         http://pylirc.mccabe.nu/
-# Maintainer:  James Mills, prologic at shortcircuit dot net dot au
-# Packager:    James Mills, prologic at shortcircuit dot net dot au
 #
 # Depends on:  python, lirc
 

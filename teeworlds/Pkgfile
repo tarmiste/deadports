@@ -1,6 +1,5 @@
 # Description: retro multiplayer shooter
 # URL:         http://www.teeworlds.com/
-# Maintainer:  Bartlomiej Palmowski, rotwang at crux dot org dot pl
 # Depends on:  alsa-lib python libsdl
 
 name=teeworlds

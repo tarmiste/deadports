@@ -1,7 +1,5 @@
 # Description: Python module for character encoding auto-detection.
 # URL: https://github.com/erikrose/chardet
-# Maintainer: Danny Rawlins, crux at romster dot me
-# Packager: Marcin Karpezo, sirmacik at crux dot org dot pl
 # Depends on: setuptools
 
 name=chardet

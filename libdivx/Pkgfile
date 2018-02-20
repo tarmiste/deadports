@@ -1,7 +1,5 @@
 # Description: DivX Codecs for Linux (binary).
 # URL: http://labs.divx.com/DivXLinuxCodec
-# Maintainer: Danny Rawlins, monster dot romster at gmail dot com
-# Packager: Martin Opel, mo at obbl-net dot de
 
 name=libdivx
 version=6.1.1

@@ -1,7 +1,5 @@
 # Description: Python collection of cryptographic algorithms and protocols.
 # URL: http://www.dlitz.net/software/pycrypto/
-# Maintainer: Danny Rawlins, crux at romster dot me
-# Packager: Lucas Hazel, lucas at die dot net dot au
 # Depends on: libgmp python
 
 name=pycrypto

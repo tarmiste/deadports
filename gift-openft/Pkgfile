@@ -1,7 +1,5 @@
 # Description: The OpenFT plug-in for giFT.
 # URL: http://sourceforge.net/projects/gift/
-# Maintainer: Danny Rawlins, monster dot romster at gmail dot com
-# Packager: Coviello Giuseppe, giuseppecoviello at tin dot it
 # Depends on: gift
 
 name=gift-openft

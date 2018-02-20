@@ -1,7 +1,5 @@
 # Description: Intermediate Queueing Device, Iptables filter.
 # URL: http://www.linuximq.net/
-# Maintainer: Danny Rawlins, romster at shortcircuit dot net dot au
-# Packager: Danny Rawlins, romster at shortcircuit dot net dot au
 # Depends on: iproute2
 
 name=iptables-imq

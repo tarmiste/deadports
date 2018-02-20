@@ -1,7 +1,5 @@
 # Description: Lightweight, free and opensource dynamic dns client.
 # URL: http://inadyn-mt.sourceforge.net/
-# Maintainer: Jose V Beneyto, sepen at crux dot nu
-# Packager: Jose V Beneyto, sepen at crux dot nu
 # Depends on:
 
 name=inadyn-mt

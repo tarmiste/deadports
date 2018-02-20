@@ -1,7 +1,5 @@
 # Description: Masquerade directory to use ccache with gdc.
 # URL: http://dgcc.sourceforge.net/
-# Maintainer: Danny Rawlins, monster dot romster at gmail dot com
-# Packager: Danny Rawlins, monster dot romster at gmail dot com
 # Depends on: gdc ccache
 
 name=gdc-ccache-bindings

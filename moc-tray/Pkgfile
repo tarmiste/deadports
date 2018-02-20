@@ -1,6 +1,5 @@
 # Description: tray icon for music on console player
 # URL:         http://code.google.com/p/moc-tray/
-# Maintainer:  Bartlomiej Palmowski, rotwang at crux dot org dot pl
 # Depends on:  moc p5-gtk2
 
 name=moc-tray

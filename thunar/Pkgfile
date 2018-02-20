@@ -1,7 +1,5 @@
 # Description: Thunar is a new modern file manager for the Xfce Desktop Environment
 # URL: http://thunar.xfce.org/
-# Maintainer: Jose V Beneyto, joberui at ei dot upv dot es
-# Packager: Jose V Beneyto, joberui at ei dot upv dot es
 # Depends on: libexo,hal,shared-mime-info,desktop-file-utils
 # Optional: intltool
 

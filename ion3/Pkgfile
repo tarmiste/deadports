@@ -1,6 +1,5 @@
 # Description: tiling tabbed window manager
 # URL: http://modeemi.fi/~tuomov/ion/
-# Maintainer: Rene Lengwinat, rugek at dirtyhack dot net
 # Depends on: lua, xorg-libsm, xorg-libxext
 
 name=ion3

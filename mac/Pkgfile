@@ -1,7 +1,5 @@
 # Description: Monkeys Audio Lossless compressor for CD audio
 # URL: http://supermmx.org/linux/mac
-# Maintainer: Jose V Beneyto, sepen at crux dot nu
-# Packager: Han Boetes, han at mijncomputer dot nl
 # Depends on: lame shorten shntool cuetools
 
 name=mac

@@ -1,7 +1,5 @@
 # Description: Second generation of the XMMS music player
 # URL:         http://xmms2.sourceforge.net
-# Maintainer:  Bartlomiej Palmowski, rotwang at crux dot org dot pl
-# Packager:    Rene Lengwinat, rugek at dirtyhack dot net
 # Depends on:  libmad sqlite3 python glib
 # Nice2have:   ecore pyrex ruby samba ffmpeg faad2
 

@@ -1,7 +1,5 @@
 # Description: Complete solution to record, convert and stream audio and video.
 # URL: http://ffmpeg.mplayerhq.hu/
-# Maintainer: Danny Rawlins, monster dot romster at gmail dot com
-# Packager: Matt Housh, jaeger at crux dot nu
 # Depends on: amrnb amrwb faac imlib2 lame libsdl libtheora libxvid x264
 
 name=ffmpeg-0.5

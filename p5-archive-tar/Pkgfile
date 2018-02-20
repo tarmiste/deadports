@@ -1,7 +1,5 @@
 # Description: A module for for tar archives manipulations
 # URL: http://search.cpan.org/~kane/Archive-Tar/
-# Maintainer: Mikhail Kolesnik, mike at openbunker dot org
-# Packager: Younes Hafri, ycrux at club-internet fr
 # Depends on: p5-io-zlib p5-io-string p5-io-compress-bzip2
 # Nice to have: p5-text-diff
 

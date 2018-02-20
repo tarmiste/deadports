@@ -1,7 +1,5 @@
 # Description: Quick launch bar
 # URL: http://code.google.com/p/wbar/
-# Maintainer: Bartlomiej Palmowski, rotwang at crux dot org dot pl
-# Packager: Younes Hafri, ycrux at club-internet dot fr
 # Depends on: imlib2 intltool gtk libglade
 
 name=wbar

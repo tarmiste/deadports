@@ -1,6 +1,5 @@
 # Description: Cisco VPN Client 
 # URL: http://www.cisco.com/en/US/products/sw/secursw/ps2308/
-# Maintainer: Rene Lengwinat, rugek at dirtyhack dot net
 
 name=vpnclient
 version=4.6.00.0045-k9

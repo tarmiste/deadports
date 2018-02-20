@@ -1,6 +1,5 @@
 # Description: extremely fast, small, and dynamic window manager for X
 # URL:         http://awesome.naquadah.org/
-# Maintainer:  Bartlomiej Palmowski, rotwang at crux dot org dot pl
 # Depends on:  cmake gperf glib lua cairo pango imlib2 libev dbus
 
 name=awesome

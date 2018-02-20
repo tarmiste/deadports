@@ -1,7 +1,5 @@
 # Description: GTK+2 color selector
 # URL: http://gcolor2.sourceforge.net/
-# Maintainer: Jose V Beneyto, sepen at users dot sourceforge dot net
-# Packager: Vincenzo Colosimo, vico at bicisport dot de
 # Depends on: gtk p5-xml-parser
 
 name=gcolor2

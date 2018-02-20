@@ -1,6 +1,5 @@
 # Description: QT3-based online banking program 
 # URL: http://www.aquamaniac.de/
-# Maintainer: Simon Gloﬂner, viper at hometux dot de
 # Depends on: aqbanking, qt3
 
 name=qbankmanager

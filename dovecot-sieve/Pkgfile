@@ -1,6 +1,5 @@
 # Description: Mail filter for the dovecot LDA
 # URL: http://wiki.dovecot.org/LDA/Sieve
-# Maintainer: Lucas Hazel, lucas at die dot net dot au
 # Depends on: dovecot
 
 name=dovecot-sieve

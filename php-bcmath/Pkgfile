@@ -1,7 +1,5 @@
 # Description: BC Math module for PHP
 # URL:         http://www.php.net
-# Maintainer:  Juergen Daubert, jue at crux dot nu
-# Packager:    Mikhail Kolesnik, mike at openbunker dot org
 # Depends on: 
 
 name=php-bcmath

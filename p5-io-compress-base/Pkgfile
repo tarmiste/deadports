@@ -1,6 +1,5 @@
 # Description: Base class for all IO::Compress and IO::Uncompress modules
 # URL: http://search.cpan.org/~pmqs/IO-Compress-Base/
-# Maintainer: Mikhail Kolesnik, mike at openbunker dot org
 # Depends on:
 
 name=p5-io-compress-base

@@ -1,6 +1,5 @@
 # Description: A Nintendo 64 emulator desgined to be multi-OS
 # URL: http://code.google.com/p/mupen64plus/
-# Maintainer: Mikhail Kolesnik, mike at openbunker dot org
 # Depends on: sdl_ttf libpng
 
 name=mupen64plus

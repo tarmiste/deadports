@@ -1,7 +1,5 @@
 # Description: Minimal X Display Lock Program
 # URL:         http://packages.debian.org/xtrlock
-# Maintainer:  James Mills, prologic at shortcircuit dot net dot au
-# Packager:    James Mills, prologic at shortcircuit dot net dot au
 #
 # Depends on:  x11
 

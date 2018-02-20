@@ -1,6 +1,5 @@
 # Description: Displays many system related stats (cpu usage, memory usage, swap usage etc)
 # URL: http://xosview.sourceforge.net/
-# Maintainer: Mikhail Kolesnik, mike at openbunker dot org
 # Depends on: x11
 
 name=xosview

@@ -1,7 +1,5 @@
 # Description: P2P application for web searching.
 # URL: http://yacy.net/
-# Maintainer: Danny Rawlins, monster dot romster at gmail dot com
-# Packager: Danny Rawlins, monster dot romster at gmail dot com
 # Depends on: ant
 
 name=yacy

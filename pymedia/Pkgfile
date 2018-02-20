@@ -1,7 +1,5 @@
 # Description: Python Multimedia Library
 # URL:         http://pymedia.org/index.html
-# Maintainer:  James Mills, prologic at shortcircuit dot net dot au
-# Packager:    James Mills, prologic at shortcircuit dot net dot au
 #
 # Depends on:  python, libvorbis, faad2, lame
 

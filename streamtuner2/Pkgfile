@@ -1,7 +1,5 @@
 # Description: An internet radio browser.
 # URL: http://web135.srv3.sysproserver.de/milki.erphesfurt.de./streamtuner2/
-# Maintainer: Danny Rawlins, monster dot romster at gmail dot com
-# Packager: Danny Rawlins, monster dot romster at gmail dot com
 # Depends on: pyxdg pygtk lxml pyquery pil
 
 name=streamtuner2

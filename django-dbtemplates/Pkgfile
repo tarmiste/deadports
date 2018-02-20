@@ -1,6 +1,5 @@
 # Description: Django app for storing templates in database
 # URL: http://wiki.github.com/jezdez/django-dbtemplates
-# Maintainer: Lucas Hazel, lucas at die dot net dot au
 # Depends on: django
 
 name=django-dbtemplates

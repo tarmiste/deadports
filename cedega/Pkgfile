@@ -1,7 +1,5 @@
 # Description: TransGaming's flagship Linux portability product
 # URL: http://www.transgaming.com/
-# Maintainer: Lucas Hazel, lucas at die dot net dot au
-# Packager: Matt Housh, jaeger at morpheus dot net
 # Depends on: alsa-lib, pygtk, dbus-python
 
 name=cedega

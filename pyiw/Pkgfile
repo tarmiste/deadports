@@ -1,7 +1,5 @@
 # Description:	Python extension interfacing with libiw
 # URL:			http://www.emperorlinux.com/etc/contrib/?page=pyiw
-# Maintainer:	James Mills, prologic at shortcircuit dot net dot au
-# Packager:		James Mills, prologic at shortcircuit dot net dot au
 #
 # Depends on:	wireless-tools, python
 

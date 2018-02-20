@@ -1,6 +1,5 @@
 # Description: Postfix greylisting policy server
 # URL: http://postgrey.schweikert.ch/
-# Maintainer: Lucas Hazel, lucas at die dot net dot au
 # Depends on: p5-net-server p5-io-multiplex p5-berkeleydb
 
 name=postgrey

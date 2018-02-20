@@ -1,6 +1,5 @@
 # Description: A mini-pinboard dockapp
 # URL: http://www.dockapps.org/file.php/id/93
-# Maintainer: Mikhail Kolesnik, mike at openbunker dot org
 # Depends on: x11
 
 name=wmpinboard

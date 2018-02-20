@@ -1,7 +1,5 @@
 # Description: QCA openssl plugin.
 # URL: http://delta.affinix.com/qca/
-# Maintainer: Danny Rawlins, crux at romster dot me
-# Packager: Jose V Beneyto, sepen at crux dot nu
 # Depends on: qca openssl
 
 name=qca-ossl

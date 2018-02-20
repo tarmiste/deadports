@@ -1,6 +1,5 @@
 # Description: Nagios Remote Plugin Executor
 # URL: http://exchange.nagios.org/directory/Addons/Monitoring-Agents/NRPE--2D-Nagios-Remote-Plugin-Executor/details
-# Maintainer: Jose V Beneyto, sepen at crux dot nu
 # Depends on: nagios
 
 name=nagios-nrpe

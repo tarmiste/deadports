@@ -1,7 +1,5 @@
 # Description:  A system for controlling process state under UNIX
 # URL:          http://supervisord.org
-# Maintainer:   James Mills, prologic at shortcircuit dot net dot au
-# Packager:     Massimiliano Torromeo <massimiliano.torromeo@gmail.com>
 #
 # Depends on:   meld3 setuptools
 

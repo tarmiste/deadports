@@ -1,5 +1,4 @@
 # Description: A selector for gl/glx libraries and extensions
-# Maintainer: Matt Housh, jaeger at morpheus dot net
 
 name=gl-select-x11r7
 version=1.0

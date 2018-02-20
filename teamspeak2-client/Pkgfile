@@ -1,5 +1,4 @@
 # Description: TeamSpeak VoIP Client for Linux
-# Maintainer: Matt Housh, jaeger at morpheus dot net
 # URL: http://www.teamspeak.org/
 # Depends on: libjpeg, xorg-libice, xorg-libsm, xorg-libx11, xorg-libxau, xorg-libxcb, xorg-libxdmcp, xorg-libxext
 

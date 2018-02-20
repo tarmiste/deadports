@@ -1,7 +1,5 @@
 # Description: Python tool for automating interactive applications.
 # URL:         http://pexpect.sourceforge.net/
-# Maintainer:  James Mills, prologic at shortcircuit dot net dot au
-# Packager:    James Mills, prologic at shortcircuit dot net dot au
 #
 # Depends on:  python
 

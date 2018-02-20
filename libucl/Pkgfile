@@ -1,7 +1,5 @@
 # Description: A portable lossless data compression library written in ANSI C.
 # URL: http://www.oberhumer.com/opensource/ucl/
-# Maintainer: Danny Rawlins, romster at shortcircuit dot net dot au
-# Packager: Younes Hafri ycrux at club-internet dot fr
 # Depends on:
 
 name=libucl

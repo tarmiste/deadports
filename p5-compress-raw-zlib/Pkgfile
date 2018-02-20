@@ -1,6 +1,5 @@
 # Description: Low-Level Interface to zlib compression library
 # URL: http://search.cpan.org/~pmqs/Compress-Raw-Zlib/
-# Maintainer: Mikhail Kolesnik, mike at openbunker dot org
 # Depends on:
 
 name=p5-compress-raw-zlib

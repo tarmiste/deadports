@@ -1,7 +1,5 @@
 # Description: Perl bindings for cairo
 # URL: http://search.cpan.org/dist/Cairo/
-# Maintainer: Jose V Beneyto, sepen at crux dot nu
-# Packager: Han Boetes, han at mijncomputer dot nl
 # Depends on: cairo p5-glib
 
 name=p5-cairo

@@ -1,6 +1,5 @@
 # Description:	PBX Software implementation
 # URL:		http://www.asterisk.org
-# Maintainer:   Alan Mizrahi, alan at mizrahi dot com dot ve
 # Depends on:	openssl, ncurses, ilbc
 
 name=asterisk14

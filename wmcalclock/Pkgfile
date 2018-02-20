@@ -1,6 +1,5 @@
 # Description: A Calendar clock applet with antialiased text.
 # URL: http://www.dockapps.org/file.php/id/9
-# Maintainer: Mikhail Kolesnik, mike at openbunker dot org
 # Depends on: xorg-libxpm
 
 name=wmcalclock

@@ -1,6 +1,5 @@
 # Description:  VTE-based terminal emulator (part of LXDE)
 # URL:          http://lxde.org
-# Maintainer:   James Mills, prologic at shortcircuit dot net dot au
 #
 # Depends on:   gtk vte
 

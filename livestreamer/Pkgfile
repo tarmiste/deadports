@@ -1,7 +1,5 @@
 # Description: CLI program that launches streams from various streaming services in a custom video player.
 # URL: https://github.com/chrippa/livestreamer
-# Maintainer: Danny Rawlins, crux at romster dot me
-# Packager: Danny Rawlins, crux at romster dot me
 # Depends on: futures requests rtmpdump singledispatch six
 
 name=livestreamer

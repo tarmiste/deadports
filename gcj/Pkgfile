@@ -1,7 +1,5 @@
 # Description: GNU Java Compiler.
 # URL: http://gcc.gnu.org/
-# Maintainer: Danny Rawlins, monster dot romster at gmail dot com
-# Packager: Aaron Marks, nymacro at gmail dot com
 # Depends on: alsa-lib gtk libart_lgpl libmpc util-linux-ng xorg-libxtst
 
 name=gcj

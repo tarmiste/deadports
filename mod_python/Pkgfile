@@ -1,7 +1,5 @@
 # Description: Apache module that embeds the Python interpreter
 # URL: http://www.modpython.org
-# Maintainer: Jose V Beneyto, sepen at crux dot nu
-# Packager: James Mills, prologic at shortcircuit dot net dot au
 # Depends on: apache python
 
 name=mod_python

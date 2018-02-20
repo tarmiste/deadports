@@ -1,7 +1,5 @@
 # Description: Flash Rendering Library.
 # URL: http://swfdec.freedesktop.org/wiki/
-# Maintainer: Danny Rawlins, crux at romster dot me
-# Packager: Stefan Lohmaier, noneus at noneus dot de
 # Depends on: gtk libdca libmad libsoup gst-plugins-base gst-ffmpeg
 # Optional: gthread freetype libxml2 libpng gnutls
 

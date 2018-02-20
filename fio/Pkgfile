@@ -1,6 +1,5 @@
 # Description:  Scriptable I/O tool for storage benchmarks and drive testing
 # URL:          http://freshmeat.net/projects/fio
-# Maintainer:   James Mills, prologic at shortcircuit dot net dot au
 #
 # Depends on:   libaio
 # Optional:     gtk gnuplot

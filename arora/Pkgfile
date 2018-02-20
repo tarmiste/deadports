@@ -1,7 +1,5 @@
 # Description: Cross platform web browser
 # URL: http://arora.googlecode.com
-# Maintainer: Jose V Beneyto, sepen at crux dot nu
-# Packager: Jose V Beneyto, sepen at crux dot nu
 # Depends on: qt4
 
 name=arora

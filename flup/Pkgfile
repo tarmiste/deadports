@@ -1,7 +1,5 @@
 # Description: Python modules for setting up a FastCGI server (ex. lighttpd)
 # URL: http://trac.saddi.com/flup
-# Maintainer: Mikhail Kolesnik, mike at openbunker dot org
-# Packager: Lucas Hazel, lucas at die dot net dot au
 # Depends on: setuptools
 
 name=flup

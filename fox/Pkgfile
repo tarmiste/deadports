@@ -1,7 +1,5 @@
 # Description: FOX graphical toolkit.
 # URL:         http://www.fox-toolkit.org/
-# Packager:    Johannes, Schick dot Johannes at gmail dot com
-# Maintainer:  Bartlomiej Palmowski, maks1k at wp dot pl
 # Depends on:  mesa3d libpng libtiff xorg-libxft xorg-libxcursor
 
 name=fox

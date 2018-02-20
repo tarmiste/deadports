@@ -1,7 +1,5 @@
 # Description: Python Bindings to the enchant library.
 # URL:         http://pyenchant.sourceforge.net/
-# Packager:    James Mills, prologic at shortcircuit dot net dot au
-# Maintainer:  James Mills, prologic at shortcircuit dot net dot au
 #
 # Depends on:  enchant, setuptools
 

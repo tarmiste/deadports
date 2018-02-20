@@ -1,7 +1,5 @@
 # Description: Network performance measurement
 # URL: http://www.netperf.org/netperf/NetperfPage.html
-# Maintainer: Mikhail Kolesnik, mike at openbunker dot org
-# Packager: Younes Hafri, ycrux at club-internet dot fr
 # Depends on:
 
 name=netperf

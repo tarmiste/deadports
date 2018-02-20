@@ -1,7 +1,5 @@
 # Description: A program to record a desktop session
 # URL: http://recordmydesktop.sourceforge.net/
-# Maintainer: Jose V Beneyto, sepen at crux dot nu
-# Packager: Vincenzo Colosimo, vico at bicisport dot de
 # Depends on: libtheora xorg-libxdamage xorg-libxext
 
 name=recordmydesktop

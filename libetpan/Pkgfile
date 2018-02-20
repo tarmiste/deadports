@@ -1,7 +1,5 @@
 # Description: A Library for low-level mail work.
 # URL: http://www.etpan.org/
-# Maintainer: Mikhail Kolesnik, mike at openbunker dot org
-# Packager: Brett Goulder, predatorfreak at dcaf-security dot org
 # Depends on: db openssl
 
 # Nice to have: cyrus-sasl

@@ -1,6 +1,5 @@
 # Description: A driver that implements the PDO interface to MySQL
 # URL: http://www.php.net
-# Maintainer: Mikhail Kolesnik, mike at openbunker dot org
 # Depends on: mysql
 
 name=php-pdo-mysql

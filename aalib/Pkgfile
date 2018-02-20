@@ -1,6 +1,5 @@
 # Description: Library for converting images/movies to ascii art
 # URL: http://aa-project.sourceforge.net/aalib/ 
-# Maintainer: Mikhail Kolesnik, mike at openbunker dot org
 # Depends on: xorg-libx11 ncurses
 
 name=aalib

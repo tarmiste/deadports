@@ -1,7 +1,5 @@
 # Description: Pythonic, object-oriented web development framework.
 # URL:         http://www.cherrypy.org/
-# Maintainer:  James Mills, prologic at shortcircuit dot net dot au
-# Packager:    James Mills, prologic at shortcircuit dot net dot au
 #
 # Depends on:  python
 

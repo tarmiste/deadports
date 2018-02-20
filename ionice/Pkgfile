@@ -1,7 +1,5 @@
 # Description: Nice levels for input and output data transfers for harddisks.
 # URL: http://freshmeat.net/projects/util-linux/
-# Maintainer: Danny Rawlins, romster at shortcircuit dot net dot au
-# Packager: Danny Rawlins, romster at shortcircuit dot net dot au
 # Depends on: 
 
 name=ionice

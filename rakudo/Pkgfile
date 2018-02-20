@@ -1,6 +1,5 @@
 # Description: distribution of Perl 6
 # URL:         http://rakudo.org/
-# Maintainer:  Bartlomiej Palmowski, rotwang at crux dot org dot pl
 # Depends on:  icu parrot nqp
 
 name=rakudo

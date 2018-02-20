@@ -1,6 +1,5 @@
 # Description: display / zoom images in framebuffer
 # URL:         https://www.autistici.org/dezperado/
-# Maintainer:  Thomas Penteker, tek at serverop dot de
 # Depends on:  libungif, libtiff, libpng
 
 name=fim

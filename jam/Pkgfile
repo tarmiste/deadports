@@ -1,7 +1,5 @@
 # Description: Software build tool.
 # URL: http://www.perforce.com/jam/jam.html
-# Maintainer: Danny Rawlins, monster dot romster at gmail dot com
-# Packager: Mark Rosenstand, mark at borkware dot net
 # Depends on: 
 
 name=jam

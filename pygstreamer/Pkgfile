@@ -1,7 +1,5 @@
 # Description: Python bindings for gstreamer.
 # URL: http://kopete.kde.org/
-# Maintainer: Danny Rawlins, romster at shortcircuit dot net dot au
-# Packager: Danny Rawlins, romster at shortcircuit dot net dot au
 # Depends on: gstreamer-plugins-base pygtk
 
 name=pygstreamer

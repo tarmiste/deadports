@@ -1,6 +1,5 @@
 # Description: record streaming mp3 to your hard drive
 # URL:         http://streamripper.sourceforge.net/
-# Maintainer:  Bartlomiej Palmowski, rotwang at crux dot org dot pl
 # Depends on:  glib libmad 
 # Nice2have:   faad2 libogg libvorbis
 

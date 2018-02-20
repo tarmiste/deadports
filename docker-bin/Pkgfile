@@ -1,6 +1,5 @@
 # Description:  Pack, ship and run any application as a lightweight container
 # URL:          http://www.docker.io/
-# Maintainer:   James Mills, prologic at shortcircuit dot net dot au
 #
 # Depends on:   sqlite3 cgroupfs-mount
 

@@ -1,7 +1,5 @@
 # Description: GUS-compatible MIDI patch files for Timidity.
 # URL: http://packages.debian.org/stable/sound/timidity-patches
-# Maintainer: Danny Rawlins, monster dot romster at gmail dot com
-# Packager: Vincenzo Colosimo, vico at bicisport dot de
 # Depends on: timidity
 
 name=timidity-patches

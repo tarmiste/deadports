@@ -1,6 +1,5 @@
 # Description:  a modern configuration of the Vim text editor
 # URL:          http://cream.sourceforge.net/
-# Maintainer:   Bartlomiej Palmowski, rotwang at crux dot org dot pl
 # Depends on:   gvim
 
 name=cream

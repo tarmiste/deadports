@@ -1,6 +1,5 @@
 # Description: Perl library and a command-line application for manipulating some media files meta information
 # URL: http://www.sno.phy.queensu.ca/~phil/exiftool/
-# Maintainer: Mikhail Kolesnik, mike at openbunker dot org
 # Depends on:
 
 name=exiftool

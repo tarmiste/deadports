@@ -1,7 +1,5 @@
 # Description: Program to stream audio to listeners.
 # URL:         http://www.icecast.org 
-# Maintainer: Lucas Hazel, lucas at die dot net dot au
-# Packager:    James Mills, prologic at shortcircuit dot net dot au
 #
 # Depends on:  libxslt, libvorbis
 

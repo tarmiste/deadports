@@ -1,6 +1,5 @@
 # Description:	OpenOffice spanish dictionary and hyphenation for Venezuela
 # URL:		http://lingucomponent.openoffice.org/
-# Maintainer:	Alan Mizrahi, alan at mizrahi dot com dot ve
 # Depends on:	openoffice
 
 name=openoffice-dict-es-ve

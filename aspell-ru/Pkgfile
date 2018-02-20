@@ -1,7 +1,5 @@
 # Description: Russian dictionary for aspell
 # URL: http://aspell.net
-# Maintainer: Mikhail Kolesnik, mike at openbunker dot org
-# Packager: Evgeny Kozhemyakin, evg at net21 dot ru
 # Depends on: aspell
 
 name=aspell-ru

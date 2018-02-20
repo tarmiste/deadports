@@ -1,6 +1,5 @@
 # Description:	Linux DXR3 and Hollywood+ Driver
 # URL:		http://dxr3.sf.net
-# Maintainer:	Alan Mizrahi, alan at mizrahi dot com dot ve
 # Depends on:
 
 name=em8300

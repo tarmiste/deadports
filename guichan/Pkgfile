@@ -1,6 +1,5 @@
 # Description: small, efficient C++ GUI library designed for games
 # URL:         http://guichan.sourceforge.net/
-# Maintainer:  Bartlomiej Palmowski, rotwang at crux dot org dot pl
 # Depends on:  sdl_image
 
 name=guichan

@@ -1,7 +1,5 @@
 # Description: Foreign Function Interface for Python calling C code.
 # URL: http://cffi.readthedocs.org/
-# Maintainer: Danny Rawlins, crux at romster dot me
-# Packager: Danny Rawlins, crux at romster dot me
 # Depends on: libffi pycparser
 
 name=cffi

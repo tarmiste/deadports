@@ -1,7 +1,5 @@
 # Description: Python Imaging Library (PIL) fork.
 # URL: http://python-pillow.github.io/
-# Maintainer: Danny Rawlins, crux at romster dot me
-# Packager: Danny Rawlins, crux at romster dot me
 # Depends on: setuptools lcms libwebp
 
 name=pillow

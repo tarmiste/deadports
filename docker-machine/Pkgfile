@@ -1,6 +1,5 @@
 # Description:  Machine management for a container-centric world
 # URL:          https://github.com/docker/machine/
-# Maintainer:   James Mills, prologic at shortcircuit dot net dot au
 #
 # Depends on:	docker
 

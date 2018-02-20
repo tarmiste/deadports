@@ -1,7 +1,5 @@
 # Description: Binary diff, differential compression tools.
 # URL: http://xdelta.org/
-# Maintainer: Danny Rawlins, monster dot romster at gmail dot com
-# Packager: Danny Rawlins, monster dot romster at gmail dot com
 # Depends on: glib1
 
 name=xdelta

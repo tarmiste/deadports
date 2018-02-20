@@ -1,7 +1,5 @@
 # Description: Zope3 interface library.
 # URL: http://pypi.python.org/pypi/zope.interface/
-# Maintainer: Danny Rawlins, crux at romster dot me
-# Packager: Lucas Hazel, lucas at die dot net dot au
 # Depends on: setuptools
 	
 name=zope.interface

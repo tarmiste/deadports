@@ -1,7 +1,5 @@
 # Description: A Jabber Instant Messenger
 # URL: http://www.gajim.org
-# Maintainer: Mikhail Kolesnik, mike at openbunker dot org
-# Packager: Artur Tulyulya, artur at idt dot org dot ua
 # Depends on: pygtk pyopenssl pycrypto libasyncns-python
 # Nice to have: gtkspell dbus-python gnome-python-extras bind docutils libxss notify-python
 # you'll want nslookup (from bind) OR libasyncns-python

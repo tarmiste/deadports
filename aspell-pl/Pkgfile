@@ -1,6 +1,5 @@
 # Description: Polish dictionary for aspell
 # URL:         http://aspell.net
-# Maintainer:  Bartlomiej Palmowski, rotwang at crux dot org dot pl
 # Depends on:  aspell
 
 a_ver=6.0

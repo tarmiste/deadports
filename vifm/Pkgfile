@@ -1,7 +1,5 @@
 # Description: A ncurses based file manager with vi like keybindings
 # URL:         http://vifm.sourceforge.net/
-# Maintainer:  James Mills, prologic at shortcircuit dot net dot au
-# Packager:    Vincenzo Colosimo, vico at bicisport dot de
 # 
 # Depends on:
 

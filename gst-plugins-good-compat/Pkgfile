@@ -1,7 +1,5 @@
 # Description: A set of good-quality plugins for gstreamer under the LGPL.
 # URL: http://gstreamer.freedesktop.org/modules/gst-plugins-good.html
-# Maintainer: Danny Rawlins, crux at romster dot me
-# Packager: Matt Housh, jaeger at morpheus dot net
 # Depends on: flac gst-plugins-base-compat gtk libdv libshout libsoup libtheora speex taglib wavpack
 
 name=gst-plugins-good-compat

@@ -1,7 +1,5 @@
 # Description: An IM client with support for ICQ and AIM/MSN networks
 # URL: http://www.licq.org
-# Maintainer: Mikhail Kolesnik, mike at openbunker dot org
-# Packager: Magnus Bohman, magbo at kbab dot net
 # Depends on: boost qt3
 
 name=licq

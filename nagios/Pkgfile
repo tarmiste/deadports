@@ -1,6 +1,5 @@
 # Description: Nagios is an open source host, service and network monitoring program.
 # URL: http://www.nagios.org/projects/nagioscore
-# Maintainer: Jose V Beneyto, sepen at crux dot nu
 # Depends on: libgd fontconfig apache
 
 name=nagios

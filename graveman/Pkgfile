@@ -1,7 +1,5 @@
 # Description: A GTK2 frontend for cd/dvd-burner stuff.
 # URL:         http://graveman.tuxfamily.org
-# Packager:    Fredrik Rinnestam, fredrik at obra dot se
-# Maintainer:  Bartlomiej Palmowski, maks1k at wp dot pl
 # Depends on:  gtk glib libglade flac libmng dvd+rw-tools cdrdao sox
 
 name=graveman

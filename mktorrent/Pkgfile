@@ -1,6 +1,5 @@
 # Description: BitTorrent metainfo file generator
 # URL: http://mktorrent.sf.net/
-# Maintainer: Antti Nykanen, aon at iki dot fi
 # Depends on:
 
 name=mktorrent

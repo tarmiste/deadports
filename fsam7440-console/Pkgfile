@@ -1,6 +1,5 @@
 # Description: Wireless switch for Fujitsu-Siemens Amilo M7440 laptop
 # URL: http://fsam7440.sourceforge.net/index2.html
-# Maintainer: Mikhail Kolesnik, mike at openbunker dot org
 # Depends on:
 
 name=fsam7440-console

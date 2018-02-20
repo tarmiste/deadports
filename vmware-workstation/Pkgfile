@@ -1,7 +1,5 @@
 # Description: Virtual Machine Emulator from vmware.com
 # URL:         http://www.vmware.com
-# Packager:    James Mills, prologic at shortcircuit dot net dot au
-# Maintainer:  James Mills, prologic at shortcircuit dot net dot au
 #
 # Depends on:  pciutils
 

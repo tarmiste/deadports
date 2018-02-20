@@ -1,7 +1,5 @@
 # Description: Text console IRC client with intuitive menu driven user interface.
 # URL: http://rhapsody.sourceforge.net/
-# Maintainer: Jose V Beneyto, sepen at crux dot nu
-# Packager: Jose V Beneyto, sepen at crux dot nu
 # Depends on: ncurses
 
 name=rhapsody

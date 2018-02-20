@@ -1,6 +1,5 @@
 # Description: A combined network and serial communication software 
 # URL: http://www.columbia.edu/kermit/ck90.html
-# Maintainer: Mikhail Kolesnik, mike at openbunker dot org
 # Depends on: ncurses
 
 name=ckermit

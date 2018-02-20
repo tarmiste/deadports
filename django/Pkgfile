@@ -1,7 +1,5 @@
 # Description: Web framework written in python
 # URL: http://djangoproject.com
-# Maintainer: Mikhail Kolesnik, mike at openbunker dot org
-# Packager: Lucas Hazel, lucas at die dot net dot au
 # Depends on: python
 
 name=django

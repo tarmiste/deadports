@@ -1,7 +1,5 @@
 # Description: Python bindings for SDL.
 # URL: http://pygame.org/
-# Maintainer: Danny Rawlins, crux at romster dot me
-# Packager: Han Boetes, han at mijncomputer dot nl
 # Depends on: numeric sdl_image sdl_mixer sdl_ttf
 
 name=pygame

@@ -1,7 +1,5 @@
 # Description: Plugins for geany
 # URL: http://plugins.geany.org/geany-plugins/
-# Maintainer: Jose V Beneyto, sepen at crux dot nu
-# Packager: Jose V Beneyto, sepen at crux dot nu
 # Depends on: geany vte enchant
 
 name=geany-plugins

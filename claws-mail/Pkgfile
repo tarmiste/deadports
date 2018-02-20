@@ -1,7 +1,5 @@
 # Description: An e-mail client (and news reader), based on GTK+ 
 # URL: http://www.claws-mail.org/index.php
-# Maintainer: Mikhail Kolesnik, mike at openbunker dot org
-# Packager: Brett Goulder, predatorfreak at dcaf-security dot org
 # Depends on: gtk libetpan gpgme gnutls
 # Nice to have: enchant clamav dillo libgnomeprintui openldap poppler
 

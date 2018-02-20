@@ -1,6 +1,5 @@
 # Description: utility designed to clean up filenames
 # URL:         http://detox.sourceforge.net/
-# Maintainer:  Bartlomiej Palmowski, rotwang at crux dot org dot pl
 # Depends on:  
 
 name=detox

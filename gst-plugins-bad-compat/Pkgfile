@@ -1,7 +1,5 @@
 # Description: A set of plugins for gstreamer that may pose distribution problems.
 # URL: http://gstreamer.freedesktop.org/modules/gst-plugins-bad.html
-# Maintainer: Danny Rawlins, crux at romster dot me
-# Packager: Matt Housh, jaeger at morpheus dot net
 # Depends on: curl faad2 gst-plugins-base-compat libdca libdvdnav libmms libmpcdec libmusicbrainz librsvg libsndfile mjpegtools openldap ladspa
 
 name=gst-plugins-bad-compat

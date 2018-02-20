@@ -1,7 +1,5 @@
 # Description: Open Source implementation of the Renderman(R) standard
 # URL: http://www.aqsis.org/
-# Maintainer: Jose V Beneyto, sepen at users dot sourceforge dot net
-# Packager: Jose V Beneyto, sepen at users dot sourceforge dot net
 # Depends on: libtiff,fltk,bison,flex,boost,openexr,scons
 
 name=aqsis

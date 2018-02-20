@@ -1,6 +1,5 @@
 # Description: Python style guide checker
 # URL: http://pep8.readthedocs.org/
-# Maintainer: Mikhail Kolesnik, mike at openbunker dot org
 # Depends on: distribute
 
 name=pep8

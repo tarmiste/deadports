@@ -1,7 +1,5 @@
 # Description: VDPAU back-end for NVIDIA and VIA chipsets.
 # URL: http://www.splitted-desktop.com/~gbeauchesne/vdpau-video/
-# Maintainer: Danny Rawlins, monster dot romster at gmail dot com
-# Packager: Danny Rawlins, monster dot romster at gmail dot com
 # Depends on: libva libvdpau
 
 name=vdpau-video

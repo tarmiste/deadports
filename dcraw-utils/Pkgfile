@@ -1,6 +1,5 @@
 # Description: Additional dcraw utilities
 # URL: http://www.cybercom.net/~dcoffin/dcraw/
-# Maintainer: Mikhail Kolesnik, mike at openbunker dot org
 # Depends on: 
 
 name=dcraw-utils

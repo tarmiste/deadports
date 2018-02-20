@@ -1,7 +1,5 @@
 # Description: (FPS) computer game, and a standalone sequel to Return to Castle Wolfenstein.
 # URL: http://www.enemy-territory.com/
-# Maintainer: Jose V Beneyto, sepen at crux dot nu
-# Packager: Jose V Beneyto, sepen at crux dot nu
 # Depends on: mesa3d-32
 
 name=enemy-territory

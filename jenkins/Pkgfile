@@ -1,7 +1,5 @@
 # Description: An extensible open source continuous integration server
 # URL: http://jenkins.io/
-# Maintainer: Jose V Beneyto, sepen at crux dot nu
-# Packager: Jose V Beneyto, sepen at crux dot nu
 # Depends on: jdk
 
 name=jenkins

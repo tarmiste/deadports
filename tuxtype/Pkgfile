@@ -1,7 +1,5 @@
 # Description: Tux Typing (game) for learning to type!
 # URL:         http://tuxtype.sourceforge.net/
-# Maintainer:  James Mills, prologic at shortcircuit dot net dot au
-# Packager:    James Mills, prologic at shortcircuit dot net dot au
 #
 # Depends on:  sdl_mixer, sdl_image, sdl_ttf
 

@@ -1,7 +1,5 @@
 # Description: A trash can for GNU/Linux that uses LD_PRELOAD.
 # URL:         http://pages.stern.nyu.edu/~marriaga/software/libtrash/
-# Maintainer:  James Mills, prologic at shortcircuit dot net dot au
-# Packager:    James Mills, prologic at shortcircuit dot net dot au
 #
 # Depends on:   
 

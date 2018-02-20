@@ -1,6 +1,5 @@
 # Description: Multibyte string module for PHP
 # URL: http://www.php.net
-# Maintainer: Mikhail Kolesnik, mike at openbunker dot org
 # Depends on: 
 
 name=php-mbstring

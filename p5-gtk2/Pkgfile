@@ -1,7 +1,5 @@
 # Description: Perl bindings for GTK2
 # URL: http://search.cpan.org/dist/Gtk2/
-# Maintainer: Jose V Beneyto, sepen at crux dot nu
-# Packager: Han Boetes, han at mijncomputer dot nl
 # Depends on: gtk p5-pango xorg-libxdamage
 
 name=p5-gtk2

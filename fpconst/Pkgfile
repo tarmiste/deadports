@@ -1,7 +1,5 @@
 # Description:	Utilities for handling IEEE 754 floating point special values
 # URL:			http://cheeseshop.python.org/pypi/fpconst/
-# Maintainer:	James Mills, prologic at shortcircuit dot net dot au
-# Packager:		James Mills, prologic at shortcircuit dot net dot au
 #
 # Depends on:	python
 

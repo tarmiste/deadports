@@ -1,7 +1,5 @@
 # Description: An X11 window manager with a NEXTSTEP look and feel
 # URL:         http://www.windowmaker.info/
-# Maintainer:  Mikhail Kolesnik, mike at openbunker dot org
-# Packager:    Per Liden
 # Depends on:  xorg-libxft libtiff libungif
 
 name=windowmaker

@@ -1,6 +1,5 @@
 # Description:	Asterisk addons
 # URL:		http://www.asterisk.org
-# Maintainer:   Alan Mizrahi, alan at mizrahi dot com dot ve
 # Depends on:	asterisk
 
 name=asterisk-addons

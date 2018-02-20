@@ -1,6 +1,5 @@
 # Description: A minimalistic music player
 # URL: http://herrie.info/
-# Maintainer: Antti Nykanen, aon at iki dot fi
 # Depends on: glib, alsa-lib, libid3tag, libmad, libmodplug, libsndfile, libvorbis
 
 name=herrie

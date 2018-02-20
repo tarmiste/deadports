@@ -1,7 +1,5 @@
 # Description:	Python graphics package for PDF and PostScript creation.
 # URL:			http://pyx.sourceforge.net/
-# Maintainer:	James Mills, prologic at shortcircuit dot net dot au
-# Packager:		James Mills, prologic at shortcircuit dot net dot au
 #
 # Depends on:	python, tetex
 

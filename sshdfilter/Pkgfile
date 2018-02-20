@@ -1,6 +1,5 @@
 # Description:	ssh brute force attack blocker
 # URL:		http://www.csc.liv.ac.uk/~greg/sshdfilter/
-# Maintainer:	Alan Mizrahi, alan at mizrahi dot com dot ve
 # Depends on:	openssh, iptables, perl
 
 name=sshdfilter

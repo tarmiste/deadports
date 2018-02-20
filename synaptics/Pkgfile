@@ -1,6 +1,5 @@
 # Description: Synaptics TouchPad driver for XOrg/XFree86
 # URL: http://web.telia.com/~u89404340/touchpad/
-# Maintainer: Mikhail Kolesnik, mike at openbunker dot org
 # Depends on: x11
 
 name=synaptics

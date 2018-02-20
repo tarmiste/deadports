@@ -1,7 +1,5 @@
 # Description: Set of utilities for working with cue files and toc files.
 # URL: http://developer.berlios.de/projects/cuetools/
-# Maintainer: Jose V Beneyto, sepen at users dot sourceforge dot net
-# Packager: Han Boetes, han at mijncomputer dot nl
 # Depends on:
 # Nice to have: flac, vorbis-tools
 

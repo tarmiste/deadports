@@ -1,6 +1,5 @@
 # Description: PHP based webmail client
 # URL: http://squirrelmail.org
-# Maintainer: Lucas Hazel, lucas at die dot net au
 # Depends on: php
 
 name=squirrelmail

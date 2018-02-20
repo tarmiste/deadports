@@ -1,6 +1,5 @@
 # Description: Perl interface to allow reading and writing zip/gzip files/buffers
 # URL: http://search.cpan.org/~pmqs/IO-Compress-Zlib/
-# Maintainer: Mikhail Kolesnik, mike at openbunker dot org
 # Depends on: p5-compress-raw-zlib p5-io-compress-base
 
 name=p5-io-compress-zlib

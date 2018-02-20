@@ -1,7 +1,5 @@
 # Description: Python bindings to SQLite.
 # URL:         http://initd.org/tracker/pysqlite
-# Maintainer:  James Mills, prologic at shortcircuit dot net dot au
-# Packager:    James Mills, prologic at shortcircuit dot net dot au
 #
 # Depends on:  python, sqlite3
 

@@ -1,7 +1,5 @@
 # Description: Implementation of functools.singledispatch from Python 3.4.
 # URL: https://bitbucket.org/ambv/singledispatch
-# Maintainer: Danny Rawlins, crux at romster dot me
-# Packager: Danny Rawlins, crux at romster dot me
 # Depends on: setuptools
 
 name=singledispatch

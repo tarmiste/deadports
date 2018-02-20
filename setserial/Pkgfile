@@ -1,6 +1,5 @@
 # Description: A program that allows to view and change various attributes of a serial device
 # URL: http://setserial.sourceforge.net/
-# Maintainer: Mikhail Kolesnik, mike at openbunker dot org
 # Depends on:
 
 name=setserial

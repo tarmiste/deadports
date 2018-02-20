@@ -1,6 +1,5 @@
 # Description: C program that decodes raw images from nearly any digitall camera
 # URL: http://www.cybercom.net/~dcoffin/dcraw/
-# Maintainer: Mikhail Kolesnik, mike at openbunker dot org
 # Depends on: lcms2 jasper
 
 name=dcraw

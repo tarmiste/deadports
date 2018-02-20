@@ -1,6 +1,5 @@
 # Description: simple GTK+ disc burner
 # URL:         http://code.google.com/p/recorder/
-# Maintainer:  Bartlomiej Palmowski, rotwang at crux dot org dot pl
 # Depends on:  pygtk
 # Nice2Have:   stuff for burning discs (cdrkit, dvd+rw-tools, etc.)
 

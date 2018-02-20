@@ -1,6 +1,5 @@
 # Description:  gui frontend for xmms2
 # URL:          http://lxde.org/
-# Maintainer:   James Mills, prologic at shortcircuit dot net dot au
 
 # Depends on:   xmms2 gtk intltool xorg-libxdamage
 

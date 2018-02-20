@@ -1,7 +1,5 @@
 # Description: A free, GPL-licensed video player for UNIX-like systems.
 # URL: http://xine.sourceforge.net
-# Maintainer: Danny Rawlins, crux at romster dot me
-# Packager: sten, nick dot steeves at shaw dot ca
 # Depends on: ffmpeg flac gdk-pixbuf glu liba52 libdca libdvdnav libgmp libmad libmng libmpcdec util-linux vcdimager
 
 name=xine-lib

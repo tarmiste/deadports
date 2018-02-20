@@ -1,7 +1,5 @@
 # Description: The FastTrack plug-in for giFT.
 # URL: http://developer.berlios.de/projects/gift-fasttrack
-# Maintainer: Danny Rawlins, monster dot romster at gmail dot com
-# Packager: Coviello Giuseppe, giuseppecoviello at tin dot it
 # Depends on: gift
 
 name=gift-fasttrack

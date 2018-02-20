@@ -1,7 +1,5 @@
 # Description: GTK2 interface to MPlayer (GNOME independent)
 # URL:         http://code.google.com/p/gnome-mplayer/
-# Maintainer:  Bartlomiej Palmowski, rotwang at crux dot org dot pl
-# Packager:    Fredrik Rinnestam, fredrik at obra dot se
 # Depends on:  gtk mplayer dbus-glib xorg-libxdamage
 
 name=gnome-mplayer

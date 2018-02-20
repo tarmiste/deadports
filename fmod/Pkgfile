@@ -1,7 +1,5 @@
 # Description: A music & sound effects system.
 # URL: http://www.fmod.org/
-# Maintainer: Jose V Beneyto, sepen at crux dot nu
-# Packager: Jose V Beneyto, sepen at crux dot nu
 # Depends on:
 
 name=fmod

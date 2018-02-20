@@ -1,7 +1,5 @@
 # Description: cksfv (Check SFV) creates simple file verification (.sfv) listings and tests existing sfv files.
 # URL:         http://www.iki.fi/shd/foss/cksfv/
-# Maintainer:  James Mills, prologic at shortcircuit dot net dot au
-# Packager:    Han Boetes, han at mijncomputer dot nl
 #
 # Depends on:  
 

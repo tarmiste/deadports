@@ -1,6 +1,5 @@
 # Description: KVM-accelerated qemu
 # URL:         http://www.linux-kvm.org
-# Maintainer:  Thomas Penteker, tek at serverop dot de
 # Depends on:  libsdl
 
 name=qemu-kvm

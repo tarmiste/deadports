@@ -1,7 +1,5 @@
 # Description: LMMS aims to be a free alternative to popular programs like FruityLoops.
 # URL: http://lmms.sourceforge.net/
-# Maintainer: Jose V Beneyto, sepen at crux dot nu
-# Packager: Jose V Beneyto, sepen at crux dot nu
 # Depends on: cmake qt4 jack-audio-connection-kit fftw xorg-libxft
 # Nice to have: libsamplerate fluidsynth
 

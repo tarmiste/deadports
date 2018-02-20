@@ -1,7 +1,5 @@
 # Description: Multi-platform multi-network peer-to-peer client.
 # URL: http://mldonkey.sourceforge.net/
-# Maintainer: Jose V Beneyto, sepen at crux dot nu
-# Packager: Jose V Beneyto, sepen at crux dot nu
 # Depends on: bzip2
 # Nice to have: libgd
 

@@ -1,7 +1,5 @@
 # Description: Netscape navigator
 # URL: http://browser.netscape.com/
-# Maintainer: Jose V Beneyto, sepen at users dot sourceforge dot net
-# Packager: Jose V Beneyto, sepen at users dot sourceforge dot net
 # Depends on: gtk
 
 name=netscape-navigator

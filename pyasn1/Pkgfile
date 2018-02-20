@@ -1,7 +1,5 @@
 # Description: ASN.1 types and codecs.
 # URL: http://pypi.python.org/pypi/pyasn1
-# Maintainer: Danny Rawlins, crux at romster dot me
-# Packager: Danny Rawlins, crux at romster dot me
 # Depends on: setuptools
 
 name=pyasn1

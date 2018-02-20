@@ -1,6 +1,5 @@
 # Description: nVIDIA Linux Display Driver
 # URL: http://www.nvidia.com/
-# Maintainer: Matt Housh, jaeger at morpheus dot net
 # Depends on: x11
 
 # Nice to have: gl-select-x11r7

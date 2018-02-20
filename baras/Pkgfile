@@ -1,7 +1,5 @@
 # Description: backup script utilizing DAR (Disk ARchive)
 # URL: http://sourceforge.net/projects/baras
-# Maintainer: Simon Glossner, viper at hometux dot de
-# Packager: Simon Glossner, viper at hometux dot de
 # Depends on: dar
 # Nice to have: par2cmdline
 

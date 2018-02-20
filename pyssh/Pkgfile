@@ -1,7 +1,5 @@
 # Description: Python Library to OpenSSH (ssh, scp).
 # URL:         http://pyssh.sourceforge.net/
-# Maintainer:  James Mills, prologic at shortcircuit dot net dot au
-# Packager:    James Mills, prologic at shortcircuit dot net dot au
 #
 # Depends on:  python
 

@@ -1,7 +1,5 @@
 # Description: An alternative to make based on Jam.
 # URL: http://www.boost.org/
-# Maintainer: Danny Rawlins, monster dot romster at gmail dot com
-# Packager: Danny Rawlins, monster dot romster at gmail dot com
 # Depends on:
 
 name=boost-jam

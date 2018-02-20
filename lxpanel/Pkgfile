@@ -1,6 +1,5 @@
 # Description:  desktop panel from lxde project
 # URL:          http://lxde.org/
-# Maintainer:   James Mills, prologic at shortcircuit dot net dot au
 # Depends on: alsa-lib libwnck lxmenu-data menu-cache wireless-tools xorg-libxdamage
 
 name=lxpanel

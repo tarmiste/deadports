@@ -1,6 +1,5 @@
 # Description:  Combined filesystem and logical volume manager from Sun Microsystems/Oracle
 # URL:          http://zfsonlinux.org/
-# Maintainer:   James Mills, prologic at shortcircuit dot net dot au
 
 # Depends on:   spl
 

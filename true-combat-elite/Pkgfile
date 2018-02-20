@@ -1,7 +1,5 @@
 # Description: TrueCombat:Elite is a team-based realism modification based on Enemy Territory.
 # URL: http://www.truecombatelite.com/
-# Maintainer: Jose V Beneyto, sepen at crux dot nu
-# Packager: Jose V Beneyto, sepen at crux dot nu
 # Depends on: enemy-territory
 
 name=true-combat-elite

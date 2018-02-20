@@ -1,6 +1,5 @@
 # Description: Registration application for django
 # URL: http://bitbucket.org/ubernostrum/django-profiles/wiki/Home
-# Maintainer: Lucas Hazel, lucas at die dot net dot au
 # Depends on: django
 
 name=django-profiles

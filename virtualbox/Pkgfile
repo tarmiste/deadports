@@ -1,6 +1,5 @@
 # Description: VirtualBox is a general-purpose full virtualizer for x86 hardware.
 # URL: http://www.virtualbox.org/
-# Maintainer: Jose V Beneyto, sepen at crux dot nu
 # Depends on: bin86 dev86 libsdl libidl qt5 xerces-c iasl xorg-libxmu libcap makeself cdrkit glu libvpx
 
 name=virtualbox

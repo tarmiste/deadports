@@ -1,6 +1,5 @@
 # Description:  A tool for installing and managing Python packages
 # URL:          http://www.pip-installer.org/
-# Maintainer:   James Mills, prologic at shortcircuit dot net dot au
 #
 # Depends on:   setuptools
 

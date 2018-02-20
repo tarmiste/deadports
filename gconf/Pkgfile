@@ -1,7 +1,5 @@
 # Description: Configuration database system.
 # URL: http://www.gnome.org/projects/gconf/
-# Maintainer: Danny Rawlins, monster dot romster at gmail dot com
-# Packager: Matt Housh, jaeger at morpheus dot net
 # Depends on: dbus-glib gtk3 intltool xorg-libxdamage
 
 name=gconf

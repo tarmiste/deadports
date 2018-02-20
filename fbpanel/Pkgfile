@@ -1,7 +1,5 @@
 # Description: Lightweight X11 desktop panel
 # URL: http://fbpanel.sourceforge.net/
-# Maintainer: Jose V Beneyto, sepen at users dot sourceforge dot net
-# Packager: Han Boetes, han at mijncomputer dot nl
 # Depends on: gtk
 
 name=fbpanel

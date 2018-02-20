@@ -1,7 +1,5 @@
 # Description: Psi is a GPLed instant messaging client for the Jabber (XMPP) protocol which uses the Qt toolkit.
 # URL: http://psi-im.org/
-# Maintainer: Jose V Beneyto, sepen at crux dot net
-# Packager: Jose V Beneyto, sepen at crux dot net
 # Depends on: qca
 
 name=psi-im

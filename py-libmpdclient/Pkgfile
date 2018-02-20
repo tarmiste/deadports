@@ -1,7 +1,5 @@
 # Description: MPD Client Library for Python.
 # URL:         http://www.musicpd.org/
-# Maintainer:  James Mills, prologic at shortcircuit dot net dot au
-# Packager:    James Mills, prologic at shortcircuit dot net dot au
 #
 # Depends on:  python
 

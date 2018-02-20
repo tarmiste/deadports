@@ -1,6 +1,5 @@
 # Description: A portable console hex editor
 # URL: http://heme.sourceforge.net/
-# Maintainer: Mikhail Kolesnik, mike at openbunker dot org
 # Depends on:
 
 name=heme

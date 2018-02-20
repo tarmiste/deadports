@@ -1,7 +1,5 @@
 # Description: renders an ascii linux logo
 # URL:         http://www.deater.net/weave/vmwprod/linux_logo/
-# Maintainer:  Bartlomiej Palmowski, rotwang at crux dot org dot pl
-# Packager:    Olle Gustafsson <ogg att linux dot se>
 
 name=linux_logo
 version=5.11

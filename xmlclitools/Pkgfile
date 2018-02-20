@@ -1,7 +1,5 @@
 # Description: XML Command Line Tools.
 # URL: http://robur.slu.se/jensl/xmlclitools/
-# Maintainer: Jose V Beneyto, sepen at users dot sourceforge dot net
-# Packager: James Mills, prologic at shortcircuit dot net dot au
 # Depends on: libpcre glib libxml2
 
 name=xmlclitools

@@ -1,6 +1,5 @@
 # Description: A network load monitor
 # URL: http://www.wormulon.net/projects/slurm
-# Maintainer: Rene Lengwinat, rugek at dirtyhack dot net
 # Depends on: ncurses
 
 name=slurm

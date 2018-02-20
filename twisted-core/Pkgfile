@@ -1,6 +1,5 @@
 # Description: An event-driven networking framework written in Python
 # URL: http://twistedmatrix.com/trac/
-# Maintainer: Matt Housh, jaeger at crux dot nu
 # Depends on: python, zopeinterface
 
 name=twisted-core

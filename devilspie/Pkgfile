@@ -1,6 +1,5 @@
 # Description: A window-matching utility
 # URL: http://www.burtonini.com/blog/computers/devilspie
-# Maintainer: Mikhail Kolesnik, mike at openbunker dot org
 # Depends on: libwnck
 
 name=devilspie

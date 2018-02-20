@@ -1,6 +1,5 @@
 # Description:	RTP protocol stack
 # URL:	http://www.gnu.org/software/ccrtp/
-# Maintainer:	Alan Mizrahi, alan at mizrahi dot com dot ve
 # Depends on:	commoncpp2
 
 name=ccrtp

@@ -1,7 +1,5 @@
 # Description: Windows 32 OpenGL.
 # URL: http://www.libsdl.org/
-# Maintainer: Danny Rawlins, monster dot romster at gmail dot com
-# Packager: Danny Rawlins, monster dot romster at gmail dot com
 # Depends on:
 
 name=w32-opengl

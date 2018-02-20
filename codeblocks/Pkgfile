@@ -1,6 +1,5 @@
 # Description: Code::Blocks is a free C++ IDE
 # URL: http://www.codeblocks.org/
-# Maintainer: Victor Martinez, pitillo at ono dot com
 # Depends on: wxgtk
 
 name=codeblocks

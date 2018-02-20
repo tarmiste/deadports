@@ -1,7 +1,5 @@
 # Description: Tool for updating versions of the Linux kernel source.
 # URL: http://www.selenic.com/ketchup/wiki/
-# Maintainer: Danny Rawlins, crux at romster dot me
-# Packager: Mark Rosenstand, mark at borkware dot net
 # Depends on: python gnupg
 
 name=ketchup

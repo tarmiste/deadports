@@ -1,7 +1,5 @@
 # Description: Terminal-based Tetris clone
 # URL: http://victornils.net/tetris/
-# Maintainer: Jose V Beneyto, sepen at crux dot nu
-# Packager: Jose V Beneyto, sepen at crux dot nu
 # Depends on:
 
 name=vitetris

@@ -1,6 +1,5 @@
 # Description: virtual machine designed to efficiently compile and execute bytecode for dynamic languages
 # URL:         http://www.parrot.org
-# Maintainer:  Bartlomiej Palmowski, rotwang at crux dot org dot pl
 # Depends on:
 
 name=parrot

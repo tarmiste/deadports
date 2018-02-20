@@ -1,6 +1,5 @@
 # Description: Tagging framework for django
 # URL: http://code.google.com/p/django-tagging/
-# Maintainer: Lucas Hazel, lucas at die dot net dot au
 # Depends on: django
 
 name=django-tagging

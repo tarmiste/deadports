@@ -1,7 +1,5 @@
 # Description: NVIDIA Dock is a tray icon for easy management of the settings for NVIDIA video cards.
 # URL: http://www.opsat.net/user/bob/projects/nvdock
-# Maintainer: Danny Rawlins, monster dot romster at gmail dot com
-# Packager: Danny Rawlins, monster dot romster at gmail dot com
 # Depends on: nvclock
 
 name=nvdock

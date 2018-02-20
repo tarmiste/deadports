@@ -1,7 +1,5 @@
 # Description: MPD GTK2 Client.
 # URL:         http://www.musicpd.org/
-# Maintainer:  Thomas Penteker, tek at serverop dot de
-# Packager:    James Mills, prologic at shortcircuit dot net dot au
 # Depends on:  mpd, gtk
 
 name=gtk2mp

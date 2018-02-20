@@ -1,7 +1,5 @@
 # Description: GPL'ed reader of DjVu format
 # URL: http://djvu.sourceforge.net/
-# Maintainer: Mikhail Kolesnik, mike at openbunker dot org
-# Packager: Oleksiy V. Khilkevich, centericq at ukr dot net
 # Depends on: libjpeg-turbo librsvg
 
 name=djvulibre

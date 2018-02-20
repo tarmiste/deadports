@@ -1,7 +1,5 @@
 # Description: Advanced memory diagnostic tool.
 # URL: http://www.memtest.org/
-# Maintainer: Danny Rawlins, crux at romster dot me
-# Packager: Mark Rosenstand, mark at borkware dot net
 
 name=memtest86+
 version=5.01

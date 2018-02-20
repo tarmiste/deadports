@@ -1,6 +1,5 @@
 # Description: Interface to zlib compression library  
 # URL: http://search.cpan.org/~pmqs/Compress-Zlib/
-# Maintainer: Mikhail Kolesnik, mike at openbunker dot org
 # Depends on: p5-io-compress-zlib
 
 name=p5-compress-zlib

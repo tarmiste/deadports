@@ -1,6 +1,5 @@
 # URL: http://dejavu.sourceforge.net
 # Description: A font family based on the Bitstream Vera Fonts
-# Maintainer: Rene Lengwinat, rugek at dirtyhack dot net
 # Depends on: x11
 
 name=x11-fonts-dejavu

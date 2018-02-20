@@ -1,7 +1,5 @@
 # Description: A generic archive file extractor that has a consistent command line interface.
 # URL: http://hartlich.com/deco/
-# Maintainer: Danny Rawlins, monster dot romster at gmail dot com
-# Packager: Danny Rawlins, monster dot romster at gmail dot com
 # Depends on: deco-archive
 
 name=deco

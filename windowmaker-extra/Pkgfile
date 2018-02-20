@@ -1,7 +1,5 @@
 # Description: Few extra themes and icons for Window Maker
 # URL: http://www.windowmaker.info
-# Maintainer: Mikhail Kolesnik, mike at openbunker dot org
-# Packager: Vincenzo Colosimo, vico at bicisport dot de
 # Depends on: windowmaker
 
 name=windowmaker-extra

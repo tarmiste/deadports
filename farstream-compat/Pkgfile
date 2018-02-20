@@ -1,7 +1,5 @@
 # Description: Audio/video conferencing framework.
 # URL: http://www.freedesktop.org/wiki/Software/Farstream
-# Maintainer: Danny Rawlins, crux at romster dot me
-# Packager: Alan Mizrahi, alan at mizrahi dot com dot ve
 # Depends on: gst-ffmpeg gst-plugins-bad-compat gst-plugins-good-compat gst-python-compat libnice
 
 name=farstream-compat

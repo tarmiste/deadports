@@ -1,7 +1,5 @@
 # Description: GStreamer Multimedia Framework VA Plugins.
 # URL: http://freedesktop.org/wiki/Software/vaapi/
-# Maintainer: Danny Rawlins, crux at romster dot me
-# Packager: Danny Rawlins, crux at romster dot me
 # Depends on: gst-plugins-base-compat gst-plugins-bad-compat libva xorg-libxrandr libvpx
 
 name=gstreamer-vaapi-compat

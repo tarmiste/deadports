@@ -1,6 +1,5 @@
 # Description:	Zaptel driver for various telephony cards
 # URL:		http://www.voip-info.org/wiki/view/Zaptel
-# Maintainer:	Alan Mizrahi, alan at mizrahi dot com dot ve
 # Depends on:	libusb
 
 name=zaptel

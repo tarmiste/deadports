@@ -1,7 +1,5 @@
 # Description: Masquerade directory to use distcc with gcc34.
 # URL: http://gcc.gnu.org/
-# Maintainer: Danny Rawlins, monster dot romster at gmail dot com
-# Packager: Danny Rawlins, monster dot romster at gmail dot com
 # Depends on: gcc34 distcc
 
 name=gcc34-distcc-bindings

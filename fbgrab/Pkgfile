@@ -1,6 +1,5 @@
 # Description: framebuffer screenshot program
 # URL:         http://fbgrab.monells.se/
-# Maintainer:  Bartlomiej Palmowski, rotwang at crux dot org dot pl
 # Depends on:  libpng 
 
 name=fbgrab

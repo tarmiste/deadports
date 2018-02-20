@@ -1,7 +1,5 @@
 # Description: Backport of the concurrent.futures package from Python 3.2.
 # URL: http://code.google.com/p/pythonfutures/
-# Maintainer: Danny Rawlins, crux at romster dot me
-# Packager: Danny Rawlins, crux at romster dot me
 # Depends on: setuptools
 
 name=futures

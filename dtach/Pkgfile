@@ -1,6 +1,5 @@
 # Description:	Tiny implementation of the detach feature from screen(1)
 # URL:		http://dtach.sourceforge.net/
-# Maintainer:	Mark Rosenstand, mark at borkware dot net
 
 name=dtach
 version=0.7

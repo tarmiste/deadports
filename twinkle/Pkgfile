@@ -1,6 +1,5 @@
 # Description:	SIP softphone for Linux
 # URL:		http://www.twinklephone.com/
-# Maintainer:	Alan Mizrahi, alan at mizrahi dot com dot ve
 # Depends on:	qt3, libsndfile, speex, commoncpp2, ccrtp, libzrtpcpp, ilbc, boost
 # Nice to have:	kdepim
 

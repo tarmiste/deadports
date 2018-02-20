@@ -1,7 +1,5 @@
 # Description: Perl bindings for glib
 # URL: http://search.cpan.org/dist/Glib/
-# Maintainer: Jose V Beneyto, sepen at crux dot nu
-# Packager: Han Boetes, han at mijncomputer dot nl
 # Depends on: glib p5-extutils-depends p5-extutils-pkgconfig
 
 name=p5-glib

@@ -1,6 +1,5 @@
 # Description: powerful, flexible, and utterly configurable file manager for UNIX systems
 # URL:         http://nao.linux.pl/
-# Maintainer:  Bartlomiej Palmowski, maks1k at wp dot pl
 # Depends on:  boost fox python
 
 name=nao

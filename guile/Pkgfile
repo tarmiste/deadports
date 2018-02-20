@@ -1,6 +1,5 @@
 # Description: Embeddable library implementation of Scheme
 # URL: http://www.gnu.org/software/guile/
-# Maintainer: Matt Housh, jaeger at morpheus dot net
 # Depends on: libgmp, libtool, ncurses, readline
 
 name=guile

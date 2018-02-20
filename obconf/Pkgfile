@@ -1,7 +1,5 @@
 # Description: openbox preferences manager
 # URL:         http://openbox.org/wiki/Obconf
-# Packager:    Marcin Karpezo <sirmacik@happylinux.pl>
-# Maintainer:  Bartlomiej Palmowski, rotwang at crux dot org dot pl
 # Depends on:  openbox libglade startup-notification
 
 name=obconf

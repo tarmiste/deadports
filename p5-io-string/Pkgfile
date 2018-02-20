@@ -1,7 +1,5 @@
 # Description: Emulate file interface for in-core strings
 # URL: http://search.cpan.org/~gaas/IO-String/
-# Maintainer: Mikhail Kolesnik, mike at openbunker dot org
-# Packager: Younes Hafri, ycrux at club-internet dot fr
 # Depends on:
 
 name=p5-io-string

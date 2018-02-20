@@ -1,7 +1,5 @@
 # Description: return the canonicalized absolute pathname
 # URL:         http://packages.debian.org/sid/realpath
-# Maintainer:  Thomas Penteker, tek at serverop dot de
-# Packager:    Simon Glossner, viper at hometux dot de
 
 name=realpath
 version=1.19

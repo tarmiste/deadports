@@ -1,6 +1,5 @@
 # Description: Shows and controls XKB groups
 # URL: http://wmalms.tripod.com/#WMXKB
-# Maintainer: Mikhail Kolesnik, mike at openbunker dot org
 # Depends on: xorg-libxpm
 
 name=wmxkb

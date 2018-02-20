@@ -1,6 +1,5 @@
 # Description:  ZFS pool monitoring and notification daemon
 # URL:          http://zfswatcher.damicon.fi/
-# Maintainer:   ames Mills, prologic at shortcircuit dot net dot au
 #
 # Depends on:   go zfs
 

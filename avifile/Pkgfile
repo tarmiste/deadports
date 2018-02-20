@@ -1,7 +1,5 @@
 # Description: Library for AVI video files.
 # URL: http://avifile.sourceforge.net/
-# Maintainer: Danny Rawlins, monster dot romster at gmail dot com
-# Packager: Martin Opel, mo at obbl-net dot de
 # Depends on: ffmpeg liba52 libdivx libdivx-legacy libmad win32-essential-codecs xorg-libxft xorg-libxi xorg-libxinerama xorg-libxv xorg-libxxf86dga
 
 name=avifile

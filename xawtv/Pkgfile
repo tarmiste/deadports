@@ -1,7 +1,5 @@
 # Description: Simple TV Viewer
 # URL: http://linux.bytesex.org/xawtv/
-# Maintainer: Jose V Beneyto, sepen at users dot sourceforge dot net
-# Packager: Christoph Anderegg, ca256 at gmx dot net
 # Depends on: xaw3d xorg-libfs xorg-libxaw xorg-libxft libxvid libdv libjpeg-turbo
 
 name=xawtv

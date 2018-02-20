@@ -1,7 +1,5 @@
 # Description: Multiplatform disk encryption software
 # URL: http://www.truecrypt.org
-# Packager:	Alan Mizrahi, alan at mizrahi dot com dot ve
-# Maintainer:	Alan Mizrahi, alan at mizrahi dot com dot ve
 # Depends on: libdevmapper
 
 name=truecrypt

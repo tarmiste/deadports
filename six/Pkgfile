@@ -1,7 +1,5 @@
 # Description: Python compatibility utilities.
 # URL: http://pypi.python.org/pypi/six/
-# Maintainer: Danny Rawlins, crux at romster dot me
-# Packager: Danny Rawlins, crux at romster dot me
 # Depends on: setuptools
 
 name=six

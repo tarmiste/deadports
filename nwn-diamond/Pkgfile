@@ -1,6 +1,5 @@
 # Description: Neverwinter Nights linux client (Diamond Edition)
 # URL: http://nwn.bioware.com/downloads/linuxclient.html
-# Maintainer: Matt Housh, jaeger at morpheus dot net
 # Depends on: xorg-libx11, xorg-libxau, xorg-libxcb, xorg-libxdmcp, xorg-libxext, libsdl
 
 name=nwn-diamond

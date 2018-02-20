@@ -1,7 +1,5 @@
 # Description: Fully integrated 3D graphics creation suite
 # URL: http://www.blender.org/
-# Maintainer: Jose V Beneyto, sepen at crux dot nu
-# Packager: Jose V Beneyto, sepen at crux dot nu
 # Depends on: xorg-libxi libtiff libpng ode fmod smpeg ftgl scons openexr freealut yasm
 
 name=blender

@@ -1,6 +1,5 @@
 # Description:  A text WWW browser, similar to Lynx
 # URL:          http://links.twibright.com/
-# Maintainer:   James Mills, prologic at shortcircuit dot net dot au
 #
 # Depends on:   bzip2 xz openssl gpm
 # Nice to have: xorg libtiff libpng

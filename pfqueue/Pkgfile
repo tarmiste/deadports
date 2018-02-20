@@ -1,6 +1,5 @@
 # Description:	A console-based tool for handling MTA queues
 # URL:		http://pfqueue.sourceforge.net/
-# Maintainer:	Mark Rosenstand, mark at borkware dot net
 # Depends on:	ncurses
 
 name=pfqueue

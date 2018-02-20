@@ -1,6 +1,5 @@
 # Description: Jnettop is a traffic visualiser.
 # URL: http://jnettop.kubs.info/wiki/
-# Maintainer: Victor Martinez, pitillo at ono dot com
 # Depends on: glib ncurses libpcap 
 
 name=jnettop

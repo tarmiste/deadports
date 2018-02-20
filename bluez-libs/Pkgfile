@@ -1,6 +1,5 @@
 # Description:	Official linux bluetooth protocol stack - libraries
 # URL:	http://www.bluez.org/
-# Maintainer:	Alan Mizrahi, alan at mizrahi dot com dot ve
 
 name=bluez-libs
 version=2.25

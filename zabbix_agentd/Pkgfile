@@ -1,6 +1,5 @@
 # Description: zabbix agent daemon
 # URL: http://www.zabbix.com
-# Maintainer: Mikhail Kolesnik, mike at openbunker dot org
 # Depends on:
 
 name=zabbix_agentd

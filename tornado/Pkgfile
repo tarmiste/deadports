@@ -1,6 +1,5 @@
 # Description: clone of a C64 game, goal of the game is to destroy the opponent's house with certain weather phenomenons
 # URL:         http://kiza.kcore.de/software/tornado/
-# Maintainer:  Bartlomiej Palmowski, rotwang at crux dot org dot pl
 
 name=tornado
 version=1.4

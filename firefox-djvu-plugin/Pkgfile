@@ -1,6 +1,5 @@
 # Description: Firefox plugin for DjVu format
 # URL: http://djvu.sourceforge.net/
-# Maintainer: Mikhail Kolesnik, mike at openbunker dot org
 # Depends on: djview4
 
 name=firefox-djvu-plugin

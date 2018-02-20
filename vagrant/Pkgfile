@@ -1,6 +1,5 @@
 # Description:  Build and distribute virtualized development environments
 # URL:          http://vagrantup.com
-# Maintainer:   James Mills, prologic at shortcircuit dot net dot au
 #
 # Depends on:   ruby curl lzo libidn rtmpdump virtualbox
 

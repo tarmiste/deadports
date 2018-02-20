@@ -1,7 +1,5 @@
 # Description: Implements the XSL standard, performing XSLT transformations using the libxslt library
 # URL:         http://www.php.net
-# Maintainer:  Juergen Daubert, jue at crux dot nu
-# Packager:    Mikhail Kolesnik, mike at openbunker dot org
 # Depends on:  libxslt
 
 name=php-xsl

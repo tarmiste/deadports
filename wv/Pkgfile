@@ -1,6 +1,5 @@
 # Description:	Command line utilities to convert Microsoft Word documents.
 # URL:	http://wvware.sourceforge.net/
-# Maintainer:	Alan Mizrahi, alan at mizrahi dot com dot ve
 # Depends on:	libwmf, libgsf, glib
 
 name=wv

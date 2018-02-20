@@ -1,7 +1,5 @@
 # Description: Small, efficient and fast rendering engine for Web Browsers.
 # URL: http://www.webkitgtk.org/
-# Maintainer: Danny Rawlins, crux at romster dot me
-# Packager: Brett Goulder, predatorfreak at dcaf-security dot org
 # Depends on: enchant glu gperf gst-plugins-base gtk gtk3 harfbuzz-icu libsecret libsoup libwebp ruby shared-mime-info xorg-libxt
 
 name=webkit-gtk3

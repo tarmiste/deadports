@@ -1,7 +1,5 @@
 # Description: Perl XML-Twig Library.
 # URL: http://xmltwig.com/xmltwig/
-# Maintainer: Danny Rawlins, monster dot romster at gmail dot com
-# Packager: James Mills, prologic at shortcircuit dot net dot au
 # Depends on: 
 
 name=p5-xml-twig

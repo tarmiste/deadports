@@ -1,6 +1,5 @@
 # Description: OS abstraction layer
 # URL: http://gwenhywfar.sourceforge.net/
-# Maintainer: Simon Gloﬂner, viper at hometux dot de
 # Depends on: libgcrypt, gnutls
 
 name=gwenhywfar

@@ -1,6 +1,5 @@
 # Description:	Lightweight graphical login manager
 # URL:		http://users.student.lth.se/d04ran/enter/
-# Maintainer:	Mark Rosenstand, mark at borkware dot net
 # Depends on:	imlib2
 
 name=enter

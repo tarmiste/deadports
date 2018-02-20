@@ -1,6 +1,5 @@
 # Description: DjVu viewer based on QT4
 # URL: http://djvu.sourceforge.net/
-# Maintainer: Mikhail Kolesnik, mike at openbunker dot org
 # Depends on: djvulibre qt4
 
 name=djview4

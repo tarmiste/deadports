@@ -1,7 +1,5 @@
 # Description: A quake-style popup terminal
 # URL: http://tilda.sourceforge.net/wiki/index.php/Main_Page
-# Maintainer: Jose V Beneyto, sepen at users dot sourceforge dot net
-# Packager: Matt Housh, jaeger at morpheus dot net
 # Depends on: libconfuse vte libglade
 
 name=tilda

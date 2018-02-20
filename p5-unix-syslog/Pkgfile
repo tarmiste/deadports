@@ -1,6 +1,5 @@
 # Description: Perl interface to the UNIX syslog(3) calls
 # URL: http://search.cpan.org/~mharnisch/Unix-Syslog/
-# Maintainer: Mikhail Kolesnik, mike at openbunker dot org
 # Depends on:
 
 name=p5-unix-syslog

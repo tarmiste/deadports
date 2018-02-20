@@ -1,7 +1,5 @@
 # Description: An open-source Super Nintendo emulator.
 # URL: http://www.zsnes.com/
-# Maintainer: Danny Rawlins, monster dot romster at gmail dot com
-# Packager: Simone Rota, sip at crux dot nu
 # Depends on: libpng libsdl ncurses
 
 name=zsnes

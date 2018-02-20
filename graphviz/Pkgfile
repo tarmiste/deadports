@@ -1,7 +1,5 @@
 # Description: An Open Source Graph Visualization Software
 # URL:         http://www.graphviz.org/
-# Maintainer:  James Mills, prologic at shortcircuit dot net dot au
-# Packager:    Logan Ingalls log at plutor dot org
 #
 # Depends on:  x11, libpng, libjpeg, zlib, freetype, tcl, libgd, libiconv, python
 

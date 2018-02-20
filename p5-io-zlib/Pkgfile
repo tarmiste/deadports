@@ -1,7 +1,5 @@
 # Description: IO:: style interface to Compress::Zlib
 # URL: http://search.cpan.org/~tomhughes/IO-Zlib/
-# Maintainer: Mikhail Kolesnik, mike at openbunker dot org
-# Packager: Younes Hafri, ycrux at club-internet dot fr
 # Depends on: p5-compress-zlib
 
 name=p5-io-zlib

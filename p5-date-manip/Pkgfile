@@ -1,7 +1,5 @@
 # Description: perl date manip.
 # URL: http://search.cpan.org/~sbeck/Date-Manip-6.37/lib/Date/Manip.pod
-# Maintainer: Danny Rawlins, monster dot romster at gmail dot com
-# Packager: Han Boetes han at mijncomputer dot nl
 
 name=p5-date-manip
 version=6.39

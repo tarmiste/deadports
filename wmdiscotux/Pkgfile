@@ -1,6 +1,5 @@
 # Description: A visualization plugin for XMMS
 # URL: http://fragment.stc.cx/?page=wmdiscotux
-# Maintainer: Mikhail Kolesnik, mike at openbunker dot org
 # Depends on: xmms
 
 name=wmdiscotux

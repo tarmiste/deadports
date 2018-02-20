@@ -1,6 +1,5 @@
 # Description:	OpenOffice icons & menu entries for KDE
 # URL:		http://www.openoffice.org/
-# Maintainer:	Alan Mizrahi, alan at mizrahi dot com dot ve
 # Depends on:	openoffice, kdebase
 
 name=openoffice-kde-icons

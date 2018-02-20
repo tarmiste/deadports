@@ -1,7 +1,5 @@
 # Description: Java programmer's text editor
 # URL: http://www.jedit.org
-# Maintainer: Mikhail Kolesnik, mike at openbunker dot org
-# Packager: Simone Rota, sip at crux dot nu
 # Depends on: jre, unzip
 
 name=jedit

@@ -1,7 +1,5 @@
 # Description: Plugins for Cairo-Dock
 # URL: http://glx-dock.org/
-# Maintainer: Jose V Beneyto, sepen at crux dot nu
-# Packager: Jose V Beneyto, sepen at crux dot nu
 # Depends on: cairo-dock libexif libxklavier lm_sensors pulseaudio upowe
 # Optional: webkitgtk vte-gtk3 ruby
 

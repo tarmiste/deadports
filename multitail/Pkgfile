@@ -1,7 +1,5 @@
 # Description: Lets you view one or multiple files like the original tail program
 # URL: http://www.vanheusden.com/multitail/
-# Maintainer: Jose V Beneyto, sepen at crux dot nu
-# Packager: Jose V Beneyto, sepen at crux dot nu
 # Depends on: ncurses
 
 name=multitail

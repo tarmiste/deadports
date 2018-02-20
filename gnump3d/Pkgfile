@@ -1,7 +1,5 @@
 # Description: The GNU Streaming MP3 / Media Server
 # URL:         http://www.gnump3d.org
-# Maintainer:  James Mills, prologic at shortcircuit dot net dot au
-# Packager:    Olle Gustafsson, ogg at linux dot se
 #
 # Depends on:  perl
 

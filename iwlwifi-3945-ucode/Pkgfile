@@ -1,7 +1,5 @@
 # Description: Microcode image for the Intel Wireless WiFi link driver
 # URL: http://wireless.kernel.org/en/users/Drivers/iwlegacy
-# Maintainer: Jose V Beneyto, sepen at crux dot nu
-# Packager: Rouven Schuerch, rs at tegonal dot com
 # Depends on:
 
 name=iwlwifi-3945-ucode

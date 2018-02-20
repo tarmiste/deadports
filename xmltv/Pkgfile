@@ -1,7 +1,5 @@
 # Description: Set of utilities to manage your TV viewing.
 # URL: http://membled.com/work/apps/xmltv/
-# Maintainer: Danny Rawlins, monster dot romster at gmail dot com
-# Packager: James Mills, prologic at shortcircuit dot net dot au
 # Depends on: p5-term-readkey p5-date-manip p5-xml-twig p5-xml-writer p5-xml-parser p5-lwp p5-file-slurp
 
 name=xmltv

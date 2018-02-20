@@ -1,7 +1,5 @@
 # Description: PHP Version 4.
 # URL: http://www.php.net
-# Maintainer: Jose V Beneyto, sepen at users dot sourceforge dot net
-# Packager: Jose V Beneyto, sepen at users dot sourceforge dot net
 # Depends on: bzip2,libpcre,libpng,libxml2,openssl 
 
 name=php4

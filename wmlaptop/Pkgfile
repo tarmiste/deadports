@@ -1,6 +1,5 @@
 # Description: A dockapp to control CPU frequency and monitor battery state
 # URL: http://wmlaptop.sourceforge.net/
-# Maintainer: Mikhail Kolesnik, mike at openbunker dot org
 # Depends on: xorg-libxpm
 
 name=wmlaptop

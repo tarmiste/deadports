@@ -1,7 +1,5 @@
 # Description: A Window Maker applet which displays date and time
 # URL: http://www.jmknoble.net/WindowMaker/wmclock/
-# Maintainer: Mikhail Kolesnik, mike at openbunker dot org
-# Packager: Simone Rota, sip at crux dot nu
 # Depends on: xorg-gccmakedep, xorg-imake, xorg-libxpm
 
 name=wmclock

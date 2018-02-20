@@ -1,7 +1,5 @@
 # Description: Formatting Objects Processor.
 # URL:         http://xml.apache.org/fop/
-# Packager:    James Mills, prologic at shortcircuit dot net dot au
-# Maintainer:  James Mills, prologic at shortcircuit dot net dot au
 #
 # Depends on:  j2re
 

@@ -1,7 +1,5 @@
 # Description: The GNU Compiler Collection.
 # URL: http://gcc.gnu.org/
-# Maintainer: Danny Rawlins, monster dot romster at gmail dot com
-# Packager: Antonio SJ Musumeci
 
 name=gcc34
 version=3.4.6

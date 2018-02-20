@@ -1,7 +1,5 @@
 # Description: Flock is an amazing new web browser that makes it easier to share media and connect to other people online.
 # URL: http://www.flock.com/
-# Maintainer: Jose V Beneyto, sepen at crux dot nu
-# Packager: Jose V Beneyto, sepen at crux dot nu
 # Depends on: gtk
 
 name=flock

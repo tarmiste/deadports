@@ -1,6 +1,5 @@
 # Description: network statistics including packets, kilobytes per second, average packet sizes and more.
 # URL:         http://nicstat.sourceforge.net/
-# Maintainer:  Bartlomiej Palmowski, rotwang at crux dot org dot pl
 # Depends on:  
 
 name=nicstat

@@ -1,6 +1,5 @@
 # Description:	TLS plugin for the Qt Crypto API
 # URL:	http://delta.affinix.com/qca/
-# Maintainer:	Alan Mizrahi, alan at mizrahi dot com dot ve
 # Depends on:	qca, openssl
 
 name=qca-tls

@@ -1,6 +1,5 @@
 # Description: A suite of basic django applications
 # URL: http://code.google.com/p/django-basic-apps/
-# Maintainer: Lucas Hazel, lucas at die dot net dot au
 # Depends on: django-tagging python-markdown beautifulsoup
 
 name=django-basic-apps

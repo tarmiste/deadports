@@ -1,6 +1,5 @@
 # Description: Simple, but fast and widely used WikiWiki clone written in Perl
 # URL:         http://www.usemod.com/cgi-bin/wiki.pl
-# Maintainer:  Juergen Daubert, juergen dot daubert at t-online dot de
 # Depends on:  perl, apache
 
 name=usemod

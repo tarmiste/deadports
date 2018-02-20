@@ -1,5 +1,4 @@
 # Description: Runs the files encoded by the Zend Guard
-# Maintainer: Mikhail Kolesnik, mike at openbunker dot org
 # URL: http://www.zend.com/products/zend_optimizer
 # Depends on: mod_php
 

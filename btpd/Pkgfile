@@ -1,6 +1,5 @@
 # Description: BitTorrent client daemon
 # URL:         http://wiki.github.com/btpd/btpd/
-# Maintainer:  Juergen Daubert, jue at crux dot nu
 # Depends on:  openssl
 
 name=btpd

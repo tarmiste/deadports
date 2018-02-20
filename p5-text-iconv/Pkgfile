@@ -1,6 +1,5 @@
 # Description: Perl interface to iconv() codeset conversion function
 # URL: http://search.cpan.org/~mpiotr/Text-Iconv/
-# Maintainer: Mikhail Kolesnik, mike at openbunker dot org
 # Depends on: 
 
 name=p5-text-iconv

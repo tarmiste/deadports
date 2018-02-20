@@ -1,6 +1,5 @@
 # Description: lightweight Perl 6-like environment for virtual machines
 # URL:         https://github.com/perl6/nqp
-# Maintainer:  Bartlomiej Palmowski, rotwang at crux dot org dot pl
 # Depends on:  parrot
 
 name=nqp

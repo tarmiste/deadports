@@ -1,7 +1,5 @@
 # Description: Perl library version
 # URL: http://search.cpan.org/~jpeacock/
-# Maintainer: Simon Gloﬂner, viper at hometux dot de
-# Packager: Simon Gloﬂner, viper at hometux dot de
 
 name=p5-version
 version=0.76
