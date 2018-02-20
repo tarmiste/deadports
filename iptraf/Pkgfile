@@ -1,0 +1,21 @@
+# Description: Network traffic monitoring program
+# URL:         http://iptraf.seul.org
+# Maintainer:  Juergen Daubert, juergen dot daubert at t-online dot de
+
+name=iptraf
+version=3.0.0
+release=2
+source=(ftp://iptraf.seul.org/pub/$name/$name-$version.tar.gz \
+        $name-$version.patch)
+
+build () {
+    cd $name-$version
+    patch -p1 < ../$name-$version.patch
+    cd src
+    make
+    install -D -m 0700 iptraf $PKG/usr/sbin/iptraf
+    install -D -m 0700 rvnamed $PKG/usr/sbin/rvnamed
+    install -d $PKG/{usr/man/man8,var/lib}
+    install -m 0644 ../Documentation/*.8 $PKG/usr/man/man8
+    install -d -m 0700 $PKG/var/lib/iptraf
+}

@@ -1,0 +1,6 @@
+#!/bin/sh
+
+# regenerate module dependencies
+/sbin/depmod
+
+# End of File

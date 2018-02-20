@@ -1,0 +1,11 @@
+
+README for quake4
+
+This port installs the linux client for Id Software's Quake 4. You'll need
+to copy some files from your quake4 CD/DVD to the local drive to play the game
+after the port's installed. Use the following commands to do so, substituting
+your cdrom mount point (and perhaps language) as necessary:
+
+	# install -m 644 /mnt/cdrom/Setup/Data/q4base/{pak*,zpak_english}.pk4 \
+	    /usr/share/quake4/q4base/
+

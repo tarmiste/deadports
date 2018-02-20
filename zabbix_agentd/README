@@ -1,0 +1,29 @@
+README for zabbix agent daemon
+
+REQUIREMENTS
+
+PRE-INSTALL
+This port include zabbix_agentd. For other apps see my zabbix_utils port.
+
+POST-INSTALL
+1. Change Hostname, ListenIP and Server in /etc/zabbix_agentd.conf to
+something useful.
+
+2. On the client (monitored) machines, you may add the following lines to
+ /etc/services:
+  zabbix_agent 10050/tcp
+  zabbix_trap 10051/tcp
+
+3. Run post-install to create dedicated user for the agent instead of 'daemon'.
+
+PRECAUTION
+Starting from version 1.6.3 linux agent suppports 'iowait', 'interrupt',
+'softirq' and 'steal' for 'system.cpu.util' out of the box. The patch is no
+longer provided.
+
+After upgrading from version 1.6.4 log default file location was changed,
+adjust /etc/zabbix/zabbix_agentd.conf file:
+ LogFile=/var/log/zabbix_agentd/zabbix_agentd.log
+and change it's permissions, and possibly delete old log dir.
+
+RESOURCES

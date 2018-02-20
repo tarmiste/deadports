@@ -1,0 +1,29 @@
+diff -ru wmtop-0.84-orig/Makefile wmtop-0.84/Makefile
+--- wmtop-0.84-orig/Makefile	2001-03-06 23:30:55.000000000 +0200
++++ wmtop-0.84/Makefile	2006-01-25 22:11:31.000000000 +0200
+@@ -3,11 +3,10 @@
+ LIBS   = -lXpm -lXext -lX11
+ INCS   = -I/usr/X11R6/share/include -I/usr/X11R6/include
+ OBJS   = wmtop.o wmgeneral/wmgeneral.o wmgeneral/misc.o wmgeneral/list.o
+-OPTS   = -O3 -g -Wall
+-FLAGS  = $(DEBUG) $(OPTS) -D$(OS)
++FLAGS  = -Wall -D$(OS) $(CFLAGS)
+ MAKE   = make
+ CC     = cc
+-PREFIX ?= /usr/local
++PREFIX = $(DESTDIR)/usr
+ 
+ default:
+ 	@echo Use '"make os"' where '"os"' is one of:
+@@ -38,9 +37,6 @@
+ 	rm -f *~
+ 
+ install: wmtop
+-	strip wmtop
+-	cp -f wmtop $(PREFIX)/bin/
+-	chmod 755 $(PREFIX)/bin/wmtop
+-	cp -f wmtop.1 $(PREFIX)/man/man1
+-	chmod 644 $(PREFIX)/man/man1/wmtop.1
++	/usr/bin/install -D -o 0 -g 0 -m 755 -s wmtop $(PREFIX)/bin/wmtop
++	/usr/bin/install -D -o 0 -g 0 -m 644 wmtop.1 $(PREFIX)/man/man1/wmtop.1
+ 	@echo "wmtop Installation finished..."

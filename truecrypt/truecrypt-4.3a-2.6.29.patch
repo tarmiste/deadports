@@ -1,0 +1,14 @@
+--- truecrypt-4.3a/Linux/Kernel/Dm-target.c.orig	2009-03-30 01:21:25.386081862 +0900
++++ truecrypt-4.3a/Linux/Kernel/Dm-target.c	2009-03-30 01:21:46.450270403 +0900
+@@ -705,10 +705,7 @@
+ {
+ 	int r;
+ 
+-	r = dm_unregister_target (&truecrypt_target);
+-
+-	if (r < 0)
+-		error ("unregister failed %d", r);
++	dm_unregister_target (&truecrypt_target);
+ 
+ 	destroy_workqueue (work_queue);
+ 	kmem_cache_destroy (bio_ctx_cache);

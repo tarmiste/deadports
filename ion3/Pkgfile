@@ -1,0 +1,22 @@
+# Description: tiling tabbed window manager
+# URL: http://modeemi.fi/~tuomov/ion/
+# Maintainer: Rene Lengwinat, rugek at dirtyhack dot net
+# Depends on: lua, xorg-libsm, xorg-libxext
+
+name=ion3
+version=3-20081002
+release=1
+source=(http://iki.fi/tuomov/dl/ion-$version.tar.gz)
+
+build () {
+    cd ion-$version
+
+    # adjust paths
+    sed -ie 's|^LUA_DIR=/usr/local|LUA_DIR=/usr|g' system.mk
+    sed -ie 's|^MANDIR=$(PREFIX)/share/man|MANDIR=$(PREFIX)/man|g' system.mk
+
+    make
+    make PREFIX=$PKG/usr install
+    rm -rf $PKG/usr/share/{doc,ion3,locale}
+    rm -rf $PKG/usr/man/{fi,cs,de}
+}

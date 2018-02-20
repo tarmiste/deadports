@@ -1,0 +1,64 @@
+diff -ru wmthrottle-0.1.1-orig/Makefile wmthrottle-0.1.1/Makefile
+--- wmthrottle-0.1.1-orig/Makefile	2005-11-28 23:48:59.000000000 +0200
++++ wmthrottle-0.1.1/Makefile	2006-04-12 10:28:36.000000000 +0300
+@@ -40,9 +40,9 @@
+ 
+ top_builddir = .
+ 
+-ACLOCAL = aclocal-1.9
++ACLOCAL = aclocal
+ AUTOCONF = autoconf
+-AUTOMAKE = automake-1.9
++AUTOMAKE = automake
+ AUTOHEADER = autoheader
+ 
+ INSTALL = /usr/bin/install -c
+diff -ru wmthrottle-0.1.1-orig/configure wmthrottle-0.1.1/configure
+--- wmthrottle-0.1.1-orig/configure	2005-11-28 23:48:53.000000000 +0200
++++ wmthrottle-0.1.1/configure	2006-04-12 10:44:32.000000000 +0300
+@@ -1730,13 +1730,13 @@
+ 
+ # Some tools Automake needs.
+ 
+-ACLOCAL=${ACLOCAL-"${am_missing_run}aclocal-${am__api_version}"}
++ACLOCAL=${ACLOCAL-"${am_missing_run}aclocal"} #-${am__api_version}"}
+ 
+ 
+ AUTOCONF=${AUTOCONF-"${am_missing_run}autoconf"}
+ 
+ 
+-AUTOMAKE=${AUTOMAKE-"${am_missing_run}automake-${am__api_version}"}
++AUTOMAKE=${AUTOMAKE-"${am_missing_run}automake"} #-${am__api_version}"}
+ 
+ 
+ AUTOHEADER=${AUTOHEADER-"${am_missing_run}autoheader"}
+diff -ru wmthrottle-0.1.1-orig/doc/Makefile wmthrottle-0.1.1/doc/Makefile
+--- wmthrottle-0.1.1-orig/doc/Makefile	2005-11-28 23:48:59.000000000 +0200
++++ wmthrottle-0.1.1/doc/Makefile	2006-04-12 10:35:01.000000000 +0300
+@@ -40,9 +40,9 @@
+ 
+ top_builddir = ..
+ 
+-ACLOCAL = aclocal-1.9
++ACLOCAL = aclocal
+ AUTOCONF = autoconf
+-AUTOMAKE = automake-1.9
++AUTOMAKE = automake
+ AUTOHEADER = autoheader
+ 
+ INSTALL = /usr/bin/install -c
+diff -ru wmthrottle-0.1.1-orig/src/Makefile wmthrottle-0.1.1/src/Makefile
+--- wmthrottle-0.1.1-orig/src/Makefile	2005-11-28 23:48:59.000000000 +0200
++++ wmthrottle-0.1.1/src/Makefile	2006-04-12 10:29:00.000000000 +0300
+@@ -40,9 +40,9 @@
+ 
+ top_builddir = ..
+ 
+-ACLOCAL = aclocal-1.9
++ACLOCAL = aclocal
+ AUTOCONF = autoconf
+-AUTOMAKE = automake-1.9
++AUTOMAKE = automake
+ AUTOHEADER = autoheader
+ 
+ INSTALL = /usr/bin/install -c

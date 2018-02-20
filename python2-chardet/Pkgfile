@@ -1,0 +1,16 @@
+# Description: Python module for character encoding auto-detection.
+# URL: https://github.com/erikrose/chardet
+# Maintainer: Danny Rawlins, monster dot romster at gmail dot com
+# Packager: Marcin Karpezo, sirmacik at crux dot org dot pl
+# Depends on: setuptools
+
+name=python2-chardet
+version=2.1.1
+release=1
+source=(https://pypi.python.org/packages/source/c/chardet/chardet-$version.tar.gz)
+
+build() {
+	cd chardet-$version
+	/usr/bin/python setup.py install --root=$PKG
+	find $PKG -name '*.egg-info' | xargs rm -rf
+}

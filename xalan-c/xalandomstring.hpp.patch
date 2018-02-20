@@ -1,0 +1,11 @@
+--- xml-xalan/c/src/xalanc/XalanDOM/XalanDOMString.hpp	2005-08-08 12:25:52.000000000 -0300
++++ xml-xalan/c/src/xalanc/XalanDOM/XalanDOMString.hpp.new	2008-12-15 12:38:40.369221435 -0200
+@@ -16,7 +16,7 @@
+ #if !defined(XALANDOMSTRING_HEADER_GUARD_1357924680)
+ #define XALANDOMSTRING_HEADER_GUARD_1357924680
+ 
+-
++#include <string.h>
+ 
+ #include <xalanc/XalanDOM/XalanDOMDefinitions.hpp>
+ 

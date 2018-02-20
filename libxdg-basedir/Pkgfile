@@ -1,0 +1,15 @@
+# Description: The XDG Base Directory Specification (implementation)
+# URL:         http://n.ethz.ch/student/nevillm/download/libxdg-basedir
+# Maintainer:  Bartlomiej Palmowski, rotwang at crux dot org dot pl
+
+name=libxdg-basedir
+version=1.2.0
+release=1
+source=(http://n.ethz.ch/~nevillm/download/$name/$name-$version.tar.gz)
+
+build() {
+    cd $name-$version
+    ./configure --prefix=/usr --disable-static
+    make
+    make DESTDIR=$PKG install
+}

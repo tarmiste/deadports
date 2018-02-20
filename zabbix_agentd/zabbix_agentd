@@ -1,0 +1,23 @@
+#!/bin/sh
+#
+# /etc/rc.d/zabbix_agentd: start/stop zabbix agent daemon
+#
+
+case $1 in
+start)
+	su daemon -c /usr/bin/zabbix_agentd
+	;;
+stop)
+	kill `cat /var/run/zabbix_agentd/zabbix_agentd.pid`
+	;;
+restart)
+	$0 stop
+	sleep 2
+	$0 start
+	;;
+*)
+	echo "usage: $0 [start|stop|restart]"
+	;;
+esac
+
+# End of file

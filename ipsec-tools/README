@@ -1,0 +1,25 @@
+README for ipsec-tools
+
+REQUIREMENTS
+For ipv4 IPSEC you'll need to enable:
+  CONFIG_XFRM_USER
+  CONFIG_NET_KEY
+  CONFIG_INET_AH
+  CONFIG_INET_ESP
+  CONFIG_INET_XFRM_MODE_TRANSPORT
+  CONFIG_INET_XFRM_MODE_TUNNEL
+
+PRE-INSTALL
+
+POST-INSTALL
+
+RESOURCES
+
+PRECAUTION
+This is a very important piece of software, test your configuration
+(try to capture/analyze some data) before production use.
+
+Both transport and tunnel mode was tested for ipv4, but I am unsure if
+automatic keying will work out of the box - no rc file for racoon is
+provided for now. Any suggestions on template configurations from
+people who use racoon in real life are welcome.

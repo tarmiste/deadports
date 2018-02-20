@@ -1,0 +1,18 @@
+# Description: Library to provide access to configuration files.
+# URL:         http://ftp.gnome.org/pub/GNOME/stable/sources/libPropList/
+# Maintainer:  James Mills, prologic at shortcircuit dot net dot au
+# Packager:    Olle Gustafsson <ogg at linux dot se>
+#
+# Depends on:   
+
+name=libproplist
+version=0.8.3
+release=1
+source=(http://ftp.gnome.org/pub/GNOME/sources/libPropList/0.8/libPropList-$version.tar.gz)
+
+build() {
+   cd libPropList-$version
+   ./configure --prefix=/usr --disable-nls
+   make && make DESTDIR=$PKG install
+   chown root:root $PKG
+}

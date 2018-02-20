@@ -1,0 +1,33 @@
+# Description: retro multiplayer shooter
+# URL:         http://www.teeworlds.com/
+# Maintainer:  Bartlomiej Palmowski, rotwang at crux dot org dot pl
+# Depends on:  alsa-lib python libsdl
+
+name=teeworlds
+version=0.5.2
+_bamver=0.2.0
+release=2
+source=(
+    http://www.$name.com/files/$name-$version-src.tar.gz
+    http://www.$name.com/files/bam-$_bamver.tar.gz
+    gui_tee.png $name.desktop $name.bash ${name}_srv.bash)
+
+build() {
+    mkdir -p $PKG/usr/share/$name
+    # build bam
+    cd bam-$_bamver
+    ./make_unix.sh $CFLAGS
+    # build teeworlds
+    cd $SRC/$name-$version-src
+    # everytime developer chooses bam for his project, god kills a kitten
+    sed -i "/settings\.cc\.flags:Add(\"-Wall\", \"-fno-exceptions\")/s|)|, \"$CFLAGS\" )|" default.bam
+    ../bam-$_bamver/src/bam server_release client_release
+    install -m 0755 $name ${name}_srv $PKG/usr/share/$name
+    cp -r data $PKG/usr/share/$name
+
+    cd $SRC
+    install -D -m 0644 $name.desktop $PKG/usr/share/applications/$name.desktop
+    install -D -m 0644 gui_tee.png $PKG/usr/share/pixmaps/gui_tee.png
+    install -D -m 0755 $name.bash $PKG/usr/bin/$name
+    install -m 0755 ${name}_srv.bash $PKG/usr/bin/${name}_srv
+}

@@ -1,0 +1,21 @@
+
+README for nagios
+
+
+PRE-INSTALL
+
+  Execute pre-install script to add all required users and groups
+
+
+POST-INSTALL
+
+  Setup apache web server:
+
+  - Add the following line to httpd.conf in order to tell apache about nagios:
+    Include /etc/apache/extra/nagios.conf
+
+  - Then create the password file:
+    $ sudo /usr/sbin/htpasswd -c /etc/nagios/htpasswd.users nagiosadmin
+    New password:
+    Re-type new password:
+    Adding password for user nagiosadmin

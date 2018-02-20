@@ -1,0 +1,17 @@
+# Description: Cramfs tools
+# URL: http://sourceforge.net/projects/cramfs
+# Maintainer: Rene Lengwinat, rugek at dirtyhack dot net
+# Depends on:
+
+name=cramfs-tools
+version=1.1
+release=1
+source=(http://optusnet.download.sourceforge.net/cramfs/cramfs-$version.tar.gz)
+
+build() {
+    cd cramfs-$version
+    make
+    mkdir -p $PKG/usr/sbin
+    install -c -m 755 cramfsck $PKG/usr/sbin
+    install -c -m 755 mkcramfs $PKG/usr/sbin
+}

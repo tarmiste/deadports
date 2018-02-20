@@ -1,0 +1,16 @@
+# Description:	A console-based tool for handling MTA queues
+# URL:		http://pfqueue.sourceforge.net/
+# Maintainer:	Mark Rosenstand, mark at borkware dot net
+# Depends on:	ncurses
+
+name=pfqueue
+version=0.5.5
+release=1
+source=(http://dl.sourceforge.net/sourceforge/pfqueue/pfqueue-$version.tar.gz)
+
+build() {
+	cd pfqueue-$version
+	./configure --prefix=/usr --mandir=/usr/man --disable-static
+	make
+	make DESTDIR=$PKG install
+}

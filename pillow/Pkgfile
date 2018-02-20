@@ -1,0 +1,16 @@
+# Description: Python Imaging Library (PIL) fork.
+# URL: http://python-pillow.github.io/
+# Maintainer: Danny Rawlins, crux at romster dot me
+# Packager: Danny Rawlins, crux at romster dot me
+# Depends on: setuptools lcms libwebp
+
+name=pillow
+version=2.8.1
+release=1
+source=(https://pypi.python.org/packages/source/P/Pillow/Pillow-$version.tar.gz)
+
+build() {
+	cd Pillow-$version
+	/usr/bin/python setup.py build
+	/usr/bin/python setup.py install --root=$PKG --optimize=0
+}

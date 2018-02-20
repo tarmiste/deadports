@@ -1,0 +1,24 @@
+# Description: TeamSpeak VoIP Client for Linux
+# Maintainer: Matt Housh, jaeger at morpheus dot net
+# URL: http://www.teamspeak.org/
+# Depends on: libjpeg, xorg-libice, xorg-libsm, xorg-libx11, xorg-libxau, xorg-libxcb, xorg-libxdmcp, xorg-libxext
+
+name=teamspeak2-client
+version=2.0.32.60
+release=1
+source=(ftp://ftp.freenet.de/pub/4players/teamspeak.org/releases/ts2_client_rc2_2032.tar.bz2)
+
+build() {
+	mkdir -p $PKG/usr/lib/teamspeak2-client/sounds \
+		$PKG/usr/bin $PKG/usr/share/pixmaps
+	cd ts2_client_rc2_2032/setup.data/image
+	sed -i -e 's|%installdir%|/usr/lib/teamspeak2-client|g' TeamSpeak
+	install -m 0644 *.so* $PKG/usr/lib/teamspeak2-client/
+	install -m 0755 TeamSpeak.bin TeamSpeak \
+		$PKG/usr/lib/teamspeak2-client/
+	ln -s /usr/lib/teamspeak2-client/TeamSpeak $PKG/usr/bin/TeamSpeak
+	install -m 0644 sounds/* \
+		$PKG/usr/lib/teamspeak2-client/sounds/
+	install -m 0644 icon.xpm $PKG/usr/share/pixmaps/TeamSpeak.xpm
+	chown -R root.root $PKG
+}

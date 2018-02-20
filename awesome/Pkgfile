@@ -1,0 +1,39 @@
+# Description: extremely fast, small, and dynamic window manager for X
+# URL:         http://awesome.naquadah.org/
+# Maintainer:  Bartlomiej Palmowski, rotwang at crux dot org dot pl
+# Depends on:  cmake gperf glib lua cairo pango imlib2 libev dbus
+
+name=awesome
+version=3.2.1
+release=2
+source=(http://$name.naquadah.org/download/$name-$version.tar.bz2
+    $name-client.1 $name.1 awsetbg.1 ${name}rc.5)
+
+build() {
+    mkdir -p $PKG/usr/man/man{1,5}
+    cp $name{,-client}.1 awsetbg.1 $PKG/usr/man/man1
+    cp ${name}rc.5 $PKG/usr/man/man5
+    
+    cd $name-$version
+    # quick and ugly hack to pass libev nonstandard headers dir to compiler
+    # see contrib/libev Pkgfile for details
+    sed -i '/\${AWESOME_OPTIONAL_INCLUDE_DIRS})$/s/)$/ ${LIBEV_INCLUDE_DIRS})/' \
+        CMakeLists.txt
+    # remove warnings on redundand declarations and undefined identifier stuff
+    # so we doesnt get shitloads of warnings from ev.h
+    sed -i -e 's/-Wredundant-decls//' \
+        -e 's/-Wundef//' awesomeConfig.cmake
+    cmake . -DCMAKE_BUILD_TYPE=Release \
+        -DCMAKE_INSTALL_PREFIX=/usr \
+        -DXDG_CONFIG_DIR=/usr/etc/xdg \
+        -DAWESOME_MAN_PATH=/usr/man \
+	-DCMAKE_C_FLAGS_RELEASE="-DNDEBUG" \
+	-DGENERATE_MANPAGES=OFF \
+        -DLIBEV_INCLUDE_DIRS=/usr/include/libev
+    # at this point i'd like to express my aversion to cmake
+    # I sincerely hate it :<
+    make
+    make DESTDIR=$PKG install
+
+    rm -rf $PKG/usr/share/doc/
+}

@@ -1,0 +1,19 @@
+# Description: Base class for all IO::Compress and IO::Uncompress modules
+# URL: http://search.cpan.org/~pmqs/IO-Compress-Base/
+# Maintainer: Mikhail Kolesnik, mike at openbunker dot org
+# Depends on:
+
+name=p5-io-compress-base
+version=2.015
+release=1
+source=(http://search.cpan.org/CPAN/authors/id/P/PM/PMQS/IO-Compress-Base-$version.tar.gz)
+
+build() {
+	cd IO-Compress-Base-$version
+	perl Makefile.PL
+	make OPTIMIZE="$CFLAGS"
+	make DESTDIR=$PKG install
+	find $PKG -name .packlist -exec rm {} \;
+	find $PKG -name perllocal.pod -exec rm {} \;
+	find $PKG -depth -type d -empty -exec rm -rf {} \;
+}

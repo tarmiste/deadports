@@ -1,0 +1,19 @@
+# Description:	ssh brute force attack blocker
+# URL:		http://www.csc.liv.ac.uk/~greg/sshdfilter/
+# Maintainer:	Alan Mizrahi, alan at mizrahi dot com dot ve
+# Depends on:	openssh, iptables, perl
+
+name=sshdfilter
+version=1.5.5
+release=1
+source=(http://www.csc.liv.ac.uk/~greg/sshdfilter-$version.tar.gz sshdfilter)
+
+build () {
+	cd $name-$version
+	mkdir -p $PKG/etc
+	cat etc/sshdfilterrc patterns/rhFC30.partconf > $PKG/etc/sshdfilterrc
+	install -m 755 -o root -g root -D source/sshdfilter.pl $PKG/usr/sbin/sshdfilter
+	install -m 755 -o root -g root -D $SRC/sshdfilter $PKG/etc/rc.d/sshdfilter
+	install -m 644 -o root -g root -D man/sshdfilter.1 $PKG/usr/man/man1/sshdfilter.1
+	install -m 644 -o root -g root -D man/sshdfilterrc.5 $PKG/usr/man/man5/sshdfilterrc.5
+}

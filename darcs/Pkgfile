@@ -1,0 +1,15 @@
+# Description: Distributed version control system
+# URL:         http://www.darcs.net/
+# Maintainer:  Juergen Daubert, juergen dot daubert at t-online dot de
+# Depends on:  curl ncurses libgmp
+
+name=darcs
+version=2.10.3
+release=1
+source=(http://jue.li/crux/files/$name-$version-$release-linux-x86_64.tar.xz)
+
+build() {
+    cd $name-$version
+    install -D -m 755 darcs $PKG/usr/bin/darcs
+    install -D -m 644 darcs.1 $PKG/usr/share/man/man1/darcs.1
+}

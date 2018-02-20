@@ -1,0 +1,26 @@
+# Description:	Zaptel driver for various telephony cards
+# URL:		http://www.voip-info.org/wiki/view/Zaptel
+# Maintainer:	Alan Mizrahi, alan at mizrahi dot com dot ve
+# Depends on:	libusb
+
+name=zaptel
+version=1.4.11
+release=1
+source=(http://ftp.digium.com/pub/$name/releases/$name-$version.tar.gz zaptel-mmx.patch)
+
+build () {
+	mkdir -p $PKG/usr/share/man/man8
+	cd $name-$version
+	./configure --prefix=/usr --disable-nls
+        # Check if this processor supports MMX instruction set
+	if [ -n "`grep '^flags.*mmx' /proc/cpuinfo`" ]; then
+		patch -p1 < $SRC/zaptel-mmx.patch
+	fi
+	make
+	make prefix=/usr DESTDIR=$PKG install
+	rm -rf $PKG/dev $PKG/lib/modules/*/modules.*
+	mkdir -p $PKG/etc/udev/rules.d
+	./build_tools/genudevrules > $PKG/etc/udev/rules.d/50-zaptel.rules
+	cp zaptel.conf.sample $PKG/etc/zaptel.conf
+	mv $PKG/usr/share/man $PKG/usr
+}

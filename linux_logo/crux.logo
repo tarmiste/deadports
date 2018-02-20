@@ -1,0 +1,30 @@
+# CRUX logo by Bartlomiej Palmowski, rotwang at crux dot org dot pl
+
+SYSINFO_POSITION right
+NAME crux
+DESCRIPTION_STRING CRUX logo
+BEGIN_ASCII_LOGO
+       #####           KKKK  IIII   S    S  S   S
+      # o 0 #         K      I   I  S    S   S S
+      # \"/ #         K      IIII   S    S    S
+      #  v  #         K      I  I   S    S   S S
+    #        #         KKKK  I   I   SSSS   S   S
+   #%  -----   %
+   # %/     \ %%
+   @@@%%    @%@#
+    @@ ---- @@#
+     @~~~~~~@#
+END_ASCII_LOGO
+
+BEGIN_LOGO
+       [34;1m#####[0m           [1mKKKK  IIII   S    S  S   S
+      [34;1m##[37;1mo[34m#[37;1m0[34m##[0m         [1mK      I   I  S    S   S S
+      [34;1m##[33;1m\"/[34m##[0m         [1mK      IIII   S    S    S
+      [34;1m###[33;1mv[34m###[0m         [1mK      I  I   S    S   S S
+    [34;1m###########[0m        [1mKKKK  I   I   SSSS   S   S
+   [34;1m#%##[37m&&&&&[34m###%[0m
+   [34;1m##%[37m&&&&&&&[34m#%%[0m
+   [33;1m@@@[34m%%[37m&&&&[33m@[34m%[33m@[34m#[0m
+    [33;1m@@[34m#[37m&&&&[34m#[33m@@[34m#[0m
+     [33;1m@[34m######[33m@[34m#[0m
+END_LOGO

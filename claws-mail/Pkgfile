@@ -1,0 +1,22 @@
+# Description: An e-mail client (and news reader), based on GTK+ 
+# URL: http://www.claws-mail.org/index.php
+# Maintainer: Mikhail Kolesnik, mike at openbunker dot org
+# Packager: Brett Goulder, predatorfreak at dcaf-security dot org
+# Depends on: gtk libetpan gpgme gnutls
+# Nice to have: enchant clamav dillo libgnomeprintui openldap poppler
+
+name=claws-mail
+version=3.10.1
+release=1
+source=(http://download.sourceforge.net/project/claws-mail/Claws%20Mail/$version/$name-$version.tar.xz)
+
+build() {
+	cd $name-$version
+	./configure --prefix=/usr \
+				--disable-nls \
+				--disable-manual \
+				--mandir=/usr/man
+	make
+	make DESTDIR=$PKG install
+	rm -rf $PKG/usr/share/doc
+}

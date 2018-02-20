@@ -1,0 +1,27 @@
+# Description: Monitoring program for motherboards. Also includes mbmon command line utility.
+# URL: http://www.nt.phys.kyushu-u.ac.jp/shimizu/download/download.html
+# Maintainer: Jose V Beneyto, sepen at users dot sourceforge dot net
+# Packager: Jose V Beneyto, sepen at users dot sourceforge dot net
+# Depends on: xorg-libxt
+
+name=xmbmon
+version=2.0.5
+release=3
+source=(http://www.nt.phys.kyushu-u.ac.jp/shimizu/download/$name/${name}205.tar.gz \
+        http://www.nt.phys.kyushu-u.ac.jp/shimizu/download/$name/${name}205_A7N8X-VM.patch \
+        http://www.nt.phys.kyushu-u.ac.jp/shimizu/download/$name/${name}205_fflush.patch \
+        Makefile.in.diff)
+
+build() {
+  cd ${name}205
+
+  patch -p0 -i $SRC/${name}205_A7N8X-VM.patch
+  patch -p0 -i $SRC/${name}205_fflush.patch
+  patch -p0 -i $SRC/Makefile.in.diff
+
+  ./configure --prefix=/usr \
+              --with-x
+  make
+  make DESTDIR=$PKG install
+  make DESTDIR=$PKG install-man
+}

@@ -1,0 +1,15 @@
+# Description:	LinuxTV-firmware bundle containing many firmwares
+# URL:			http://linuxtv.org/downloads/firmware/
+# Maintainer:	James Mills, prologic at shortcircuit dot net dot au
+#
+# Depends on:
+
+name=dvb-firmware
+version=20140831
+release=1
+source=(http://linuxtv.org/downloads/firmware/dvb-firmwares.tar.bz2)
+
+build() {
+	mkdir -p $PKG/lib/firmware
+	cp -a $SRC/*.fw* $PKG/lib/firmware
+}

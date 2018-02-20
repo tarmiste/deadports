@@ -1,0 +1,17 @@
+# Description: Foreign Function Interface for Python calling C code.
+# URL: http://cffi.readthedocs.org/
+# Maintainer: Danny Rawlins, crux at romster dot me
+# Packager: Danny Rawlins, crux at romster dot me
+# Depends on: libffi pycparser
+
+name=cffi
+version=1.9.1
+release=1
+source=(https://pypi.python.org/packages/a1/32/e3d6c3a8b5461b903651dd6ce958ed03c093d2e00128e3f33ea69f1d7965/$name-$version.tar.gz)
+
+build() {
+	cd $name-$version
+
+	/usr/bin/python setup.py build
+	/usr/bin/python setup.py install --root=$PKG --optimize=1
+}

@@ -1,0 +1,32 @@
+diff -ur src/Iconv.cpp src2/Iconv.cpp
+--- src/Iconv.cpp	2007-05-12 12:51:28.000000000 +0200
++++ src2/Iconv.cpp	2008-05-09 14:46:38.000000000 +0200
+@@ -26,6 +26,7 @@
+ #include <libxml/xpath.h>
+ 
+ #include "config.h"
++#include <string.h>
+ 
+ Iconv::Iconv(string toEncoding,string fromEncoding)
+ {
+@@ -181,4 +182,4 @@
+ 	return toUTF8(name);
+ 	else
+ 	return name;
+-}
+\ Brak znaku nowej linii na koñcu pliku
++}
+diff -ur src/libfactory/DynLibManager.hpp src2/libfactory/DynLibManager.hpp
+--- src/libfactory/DynLibManager.hpp	2006-10-25 23:58:29.000000000 +0200
++++ src2/libfactory/DynLibManager.hpp	2008-05-09 14:46:23.000000000 +0200
+@@ -43,7 +43,8 @@
+ 		~DynLibManager ();
+ 		void addBaseDirectory(const string& dir);
+ 
+-		bool load (const string& libName, const string& libName);
++		// bool load (const string& libName, const string& libName);
++		bool load (const string& libName, const string& fullLibName);
+ 		bool loadFromDirectoryList (const string& fullLibName);
+ 		
+ 		bool unload (const string libName);
+

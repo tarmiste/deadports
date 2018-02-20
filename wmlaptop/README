@@ -1,0 +1,17 @@
+README for wmlaptop
+
+REQUIREMENTS
+
+PRE-INSTALL
+
+POST-INSTALL
+
+RESOURCES
+
+PRECAUTION
+The 'make install' (from Pkgfile) will NOT suid the binary file. To allow
+regular user to change the cpu's frequence do it manually or use sudo.
+
+This is a heavily patched version, but it works better for me.
+
+Please use with care!

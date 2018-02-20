@@ -1,0 +1,5 @@
+#!/bin/sh
+
+getent group mosquitto  || /usr/sbin/groupadd -g 88 mosquitto
+getent passwd mosquitto || /usr/sbin/useradd  -g mosquitto -u 88 -d /var/run/mosquitto -s /bin/false mosquitto
+/usr/bin/passwd -l mosquitto

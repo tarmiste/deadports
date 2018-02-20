@@ -1,0 +1,25 @@
+# Description: Nagios Remote Plugin Executor
+# URL: http://exchange.nagios.org/directory/Addons/Monitoring-Agents/NRPE--2D-Nagios-Remote-Plugin-Executor/details
+# Maintainer: Jose V Beneyto, sepen at crux dot nu
+# Depends on: nagios
+
+name=nagios-nrpe
+version=2.15
+release=1
+source=(http://downloads.sourceforge.net/sourceforge/nagios/nrpe-$version.tar.gz \
+        nrpe.rc)
+
+build () {
+  cd nrpe-$version
+
+  ./configure --prefix=/usr \
+              --bindir=/usr/bin \
+              --sysconfdir=/etc/nagios \
+              --with-nagios-user=nagios \
+              --with-nagios-group=nagios \
+              --disable-nls
+
+  make nrpe
+  make DESTDIR=$PKG install-daemon install-daemon-config
+  install -D -m 0755 $SRC/nrpe.rc $PKG/etc/rc.d/nrpe
+}

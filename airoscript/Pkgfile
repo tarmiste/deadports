@@ -1,0 +1,21 @@
+# Description: Sript to interact with aicrack-ng which allows WEP/WPA attacks
+# URL: http://airoscript.aircrack-ng.org/
+# Maintainer: Jose V Beneyto, sepen at crux dot nu
+# Packager: Jose V Beneyto, sepen at crux dot nu
+# Depends on: aircrack-ng
+
+name=airoscript
+version=2.2
+release=1
+source=(http://airoscript.googlecode.com/files/$name-$version.tar.gz)
+
+build() {
+  sed -i Makefile-Linux \
+      -e 's|bindir=.*|bindir=$(prefix)/bin|' \
+      -e 's|mandir=.*|mandir=$(prefix)/man|' \
+      -e 's|install-docs: .*|install-docs: install-manpages|'
+  sed '/install-locale \\/d' -i Makefile-Linux
+  make prefix="$PKG\/usr" aircrack_prefix="\/usr" install
+  rm -rf $PKG/usr/share/{doc,locale,$name/airosperl}
+  sed -e 's|usr/local/etc|usr/etc|g' -i $PKG/usr/bin/$name
+}

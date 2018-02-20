@@ -1,0 +1,21 @@
+# Description: Masquerade directory to use distcc with mingw32-gcc.
+# URL: http://www.mingw.org/
+# Maintainer: Danny Rawlins, monster dot romster at gmail dot com
+# Packager: Danny Rawlins, monster dot romster at gmail dot com
+# Depends on: mingw32-gcc distcc
+
+name=mingw32-gcc-distcc-bindings
+version=1
+release=1
+source=()
+
+build() {
+	install -d $PKG/usr/lib/distcc
+	ln -s ../../bin/distcc $PKG/usr/lib/distcc/mingw32-c++
+	ln -s ../../bin/distcc $PKG/usr/lib/distcc/mingw32-cpp
+	ln -s ../../bin/distcc $PKG/usr/lib/distcc/mingw32-g++
+	ln -s ../../bin/distcc $PKG/usr/lib/distcc/mingw32-gcc
+	ln -s ../../bin/distcc $PKG/usr/lib/distcc/mingw32-gccbug
+	ln -s ../../bin/distcc $PKG/usr/lib/distcc/mingw32-gcov
+}
+

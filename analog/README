@@ -1,0 +1,25 @@
+README for analog 6.xx
+
+REQUIREMENTS
+
+PRE-INSTALL
+   
+POST-INSTALL
+
+To use /var/www/htdocs/anlgform.html or the cgi-wrapper 
+/var/www/cgi-bin/anlgform.pl for producing realtime statistics, 
+you must create an alias pointing from a virtuell directory 
+analog below your document root to the image directory of analog 
+at /usr/share/analog/images.
+
+If you are using apache add something like the following to your
+/etc/apache/httpd.conf:
+
+  alias /analog/ "/usr/share/analog/images/"
+  <Directory "/usr/share/analog/images/">
+    Order deny,allow
+    Deny from all
+    Allow from 192.168.0.
+  </Directory>
+	    
+PRECAUTION

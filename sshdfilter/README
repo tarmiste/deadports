@@ -1,0 +1,20 @@
+REQUIREMENTS
+
+PRE-INSTALL
+
+	* This port depends on having netfilter enabled in the kernel
+
+POST-INSTALL
+
+	* Add the SSHD chain to your firewall setup:
+	iptables -N SSHD
+
+	* Add a jump to SSHD rule:
+	iptables -A INPUT -p tcp -m tcp --dport 22 -j SSHD
+
+	* Store your new iptables rules somewhere persistent
+
+	* To start sshd with filtering, use /etc/rc.d/sshdfilter instead of
+	  /etc/rc.d/sshd
+
+PRECAUTION

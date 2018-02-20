@@ -1,0 +1,23 @@
+#!/bin/sh
+#
+# /etc/rc.d/zabbix_server: start/stop zabbix server
+#
+
+case $1 in
+start)
+	su daemon -c /usr/sbin/zabbix_server
+	;;
+stop)
+	kill `cat /var/run/zabbix_server/zabbix_server.pid`
+	;;
+restart)
+	$0 stop
+	sleep 1
+	$0 start
+	;;
+*)
+	echo "usage: $0 [start|stop|restart]"
+	;;
+esac
+
+# End of file

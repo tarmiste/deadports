@@ -1,0 +1,25 @@
+# Description: Binary diff, differential compression tools.
+# URL: http://xdelta.org/
+# Maintainer: Danny Rawlins, monster dot romster at gmail dot com
+# Packager: Danny Rawlins, monster dot romster at gmail dot com
+# Depends on: glib1
+
+name=xdelta
+version=1.1.4
+release=2
+source=(http://xdelta.googlecode.com/files/xdelta-$version.tar.gz
+	xdelta-1.1.4_m4.patch)
+
+build() {
+	cd xdelta-$version
+
+	patch -p 1 -i $SRC/xdelta-1.1.4_m4.patch
+
+	./configure \
+		--prefix=/usr \
+		--disable-static
+
+	make
+	make DESTDIR=$PKG install
+}
+

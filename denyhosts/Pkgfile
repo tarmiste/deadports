@@ -1,0 +1,46 @@
+# Description: DenyHosts is a script intended to be run by Linux system administrators to help thwart ssh server attacks.
+# URL: http://denyhosts.sourceforge.net/
+# Maintainer: Danny Rawlins, monster dot romster at gmail dot com
+# Packager: Danny Rawlins, monster dot romster at gmail dot com
+# Depends on: python
+
+name=denyhosts
+version=2.6
+release=2
+source=(http://downloads.sourceforge.net/project/$name/$name/$version/DenyHosts-$version.tar.gz
+	denyhosts-$version-config.patch
+	denyhosts-2.6-cve-2013-6890.patch
+	denyhosts-2.6-log-injection-regex.patch
+	denyhosts-2.6-single_config_switch.patch
+	denyhosts-2.6-plugin_deny.patch)
+
+build() {
+	cd DenyHosts-$version
+
+	patch -p0 -i $SRC/$name-$version-config.patch
+	patch -p1 -i $SRC/denyhosts-2.6-log-injection-regex.patch
+	patch -p1 -i $SRC/denyhosts-2.6-single_config_switch.patch
+	patch -p1 -i $SRC/denyhosts-2.6-plugin_deny.patch
+	patch -p1 -i $SRC/denyhosts-2.6-cve-2013-6890.patch
+
+	/usr/bin/python setup.py install --root=$PKG
+	
+	rm $PKG/usr/share/denyhosts/*.txt
+	
+	install -d \
+		$PKG/etc/ \
+		$PKG/etc/{denyhosts,rc.d} \
+		$PKG/var/log
+	
+	mv $PKG/usr/share/denyhosts/denyhosts.cfg-dist \
+		$PKG/etc/denyhosts/denyhosts.conf
+	
+	mv $PKG/usr/share/denyhosts/daemon-control-dist \
+		$PKG/usr/share/denyhosts/daemon-control
+	
+	chmod 700 $PKG/usr/share/denyhosts/daemon-control
+	
+	ln -s /usr/share/denyhosts/daemon-control $PKG/etc/rc.d/denyhosts
+	rm $PKG/usr/share/denyhosts/plugins/README.contrib
+	mv $PKG/usr/bin/denyhosts.py $PKG/usr/bin/denyhosts
+}

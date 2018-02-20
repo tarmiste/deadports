@@ -1,0 +1,19 @@
+# Description: Graphical frontend to recordmydesktop
+# URL: http://recordmydesktop.sourceforge.net/
+# Maintainer: Jose V Beneyto, sepen at crux dot nu
+# Packager: Vincenzo Colosimo, vico at bicisport dot de
+# Depends on: recordmydesktop pygtk
+
+name=gtk-recordmydesktop
+version=0.3.8
+release=1
+source=(http://download.sourceforge.net/recordmydesktop/$name-$version.tar.gz)
+
+build() {
+  cd $name-$version
+  ./configure --prefix=/usr \
+              --disable-nls
+  make
+  make DESTDIR=$PKG install
+  rm -r $PKG/usr/share/locale
+}

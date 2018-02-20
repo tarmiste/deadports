@@ -1,0 +1,20 @@
+# Description:	GNU SASL Library
+# URL:	http://www.gnu.org/software/gsasl/
+# Maintainer:	Alan Mizrahi, alan at mizrahi dot com dot ve
+# Depends on:	openssl
+
+name=gsasl
+version=0.2.27
+release=1
+source=(http://josefsson.org/$name/releases/$name-$version.tar.gz)
+
+build () {
+	cd $name-$version
+	./configure --prefix=/usr \
+		    --disable-nls
+
+	make
+	make prefix=$PKG/usr install
+	mv $PKG/usr/share/man $PKG/usr
+	rm -rf $PKG/usr/share
+}

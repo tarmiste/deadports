@@ -1,0 +1,20 @@
+POST-INSTALL:
+
+	* Configure your MTA to use dovecot as your LDA
+
+	* Add cmusieve to the mail_plugins in dovecot.conf
+
+	  protocol lda {
+	  	   ...
+		   mail_plugins = cmusieve # ... other plugins
+		   ...
+	  }
+
+	* The default location of the sieve file is .dovecot.sieve in the
+	  users mail directory. You can change this in the plugin section.
+
+	  plugin {
+	  	 ...
+	 	 sieve = /var/sieve-scripts/%u/sieve
+	       	 ...
+	  }

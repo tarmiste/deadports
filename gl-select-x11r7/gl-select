@@ -1,0 +1,109 @@
+#!/bin/bash
+#
+# gl-select: select active gl/glx libraries/extensions
+#
+# Matt Housh <jaeger@morpheus.net>
+#
+
+usage() {
+	echo "Usage: $0 [xorg|nvidia]"
+	exit
+}
+
+# if other than a single argument is passed, spit out some help
+if [ $# -ne 1 ]
+then
+	usage
+	exit 1
+fi
+
+# check for the xorg port; if it's not installed, why is this script even run?
+if [ -z "`pkginfo -i | awk '{ print $1 }' | grep ^xorg$`" ]
+then
+	echo "xorg isn't installed!"
+	exit 1
+fi
+
+# perform the selection for the following supported gl/glx setups
+case "$1" in
+	"xorg")
+		echo "* xorg gl/glx selected"
+
+		# check for the existence of libglx_so, libGL_so_1_2 and friends
+		# if none, nothing is necessary or the backups have been erased
+		BACKUPS="/usr/lib/xorg/modules/extensions/libglx_so \
+			/usr/lib/xorg/modules/extensions/libGLcore_so \
+			/usr/lib/libGL_so_1_2"
+		for F in $BACKUPS
+		do
+			if [ ! -e $F ]
+			then
+				echo "One or more of the non-xorg gl/glx backup files are missing. This means"
+				echo "either you're not using a non-xorg gl/glx setup, in which case nothing"
+				echo "needs to be changed, OR your xorg backups are missing, which can be"
+				echo "solved by reinstalling the xorg package from ports."
+				exit 1
+			fi
+		done
+		# move the xorg backups back into place
+		echo -n "libglx "
+		rm -f /usr/lib/xorg/modules/extensions/libglx.so
+		mv /usr/lib/xorg/modules/extensions/libglx{_so,.so}
+		echo -n "libGLcore "
+		rm -f /usr/lib/xorg/modules/extensions/libGLcore.so
+		mv /usr/lib/xorg/modules/extensions/libGLcore{_so,.so}
+		echo -n "libGL "
+		mv /usr/lib/libGL{_so_1_2,.so.1.2}
+		;;
+	"nvidia")
+		echo "* nvidia gl/glx selected"
+
+		# is the nvidia port installed?
+		if [ -z "`pkginfo -i | awk '{ print $1 }' | grep ^nvidia-x11r7$`" ]
+		then
+			echo "nvidia-x11r7 port isn't installed!"
+			exit 1
+		fi
+
+		# get the .so version number
+		NV_VER="`pkginfo -i | grep "^nvidia-x11r7 " | awk '{ print $2 }' | cut -d- -f2`"
+
+		# check for the existence of libglx_so and libGL_so_1_2
+		# if none, move the xorg stuff out of the way for nvidia's
+		if [ ! -e /usr/lib/xorg/modules/extensions/libglx_so -a ! -e \
+			/usr/lib/libGL_so_1_2 ]
+		then
+			echo -n "libglx "
+			mv /usr/lib/xorg/modules/extensions/libglx{.so,_so}
+			ln -s libglx.so.1.0.$NV_VER \
+				/usr/lib/xorg/modules/extensions/libglx.so
+			echo -n "libGLcore "
+			mv /usr/lib/xorg/modules/extensions/libGLcore{.so,_so}
+			ln -s /usr/lib/libGLcore.so.1.0.$NV_VER \
+				/usr/lib/xorg/modules/extensions/libGLcore.so
+			echo -n "libGL "
+			mv /usr/lib/libGL{.so.1.2,_so_1_2}
+			rm /usr/lib/libGL.so.1
+			# nvidia's library versioning prevents ldconfig from creating
+         # libGL.so and libGLcore.so
+         [ ! -L /usr/lib/libGL.so ] && \
+            ln -sf libGL.so.1.0.$NV_VER /usr/lib/libGL.so
+         [ ! -L /usr/lib/libGLcore.so ] && \
+            ln -sf libGLcore.so.1.0.$NV_VER /usr/lib/libGLcore.so
+		else
+			echo "You appear to already be using a non-xorg gl/glx setup. If the"
+			echo "one selected isn't the correct one, revert to xorg and then select"
+			echo "the correct new setup using 'gl-select xorg; gl-select <new gl/glx>'."
+			exit 1
+		fi
+		;;
+	*)
+		usage
+		;;
+esac
+
+/sbin/ldconfig > /dev/null 2>&1
+
+echo "done."
+
+# End of file

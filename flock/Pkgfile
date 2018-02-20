@@ -1,0 +1,22 @@
+# Description: Flock is an amazing new web browser that makes it easier to share media and connect to other people online.
+# URL: http://www.flock.com/
+# Maintainer: Jose V Beneyto, sepen at crux dot nu
+# Packager: Jose V Beneyto, sepen at crux dot nu
+# Depends on: gtk
+
+name=flock
+version=2.6.1
+release=1
+source=(ftp://ftp.gnome.org/mirror/flock/releases/$version/$name-$version.en-US.linux-i686.tar.bz2 \
+        $name-browser $name.desktop)
+
+build() {
+  install -d $PKG/usr/{bin,lib}
+  rm -f $name/.autoreg
+  mv $name $PKG/usr/lib
+
+  install -D -m 0755 $SRC/$name-browser $PKG/usr/bin/$name-browser
+  install -D -m 0644 $SRC/$name.desktop $PKG/usr/share/applications/$name.desktop
+  install -D -m 0644 $PKG/usr/lib/flock/chrome/icons/default/default48.png \
+    $PKG/usr/share/pixmaps/$name.png
+}

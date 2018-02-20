@@ -1,0 +1,119 @@
+.Dd July 12, 2006
+.Dt BTPD 1
+.Os
+.Sh NAME
+.Nm btpd
+.Nd BitTorrent protocol daemon
+.Sh SYNOPSIS
+.Nm btpd
+.Op Fl c
+.Op Fl d Ar dir
+.Op Fl p Ar port
+.Op Ar more options ... 
+.Sh DESCRIPTION
+.Nm
+is the torrent download daemon of this package.  Most of the interaction will
+be with the
+.Nm btcli
+tool.
+.Pp
+The options are as follows:
+.Bl -tag -width Ds
+.It Fl -bw-in Ar n
+Limit incoming BitTorrent traffix to 
+.Ar n
+kB/s.  Default is 0 which means unlimited.
+.It Fl -bw-out Ar n
+Limit outgoing BitTorrent traffic to 
+.Ar n
+kB/s.  Default is 0 which means unlimited.
+.It Fl c , Fl -collective-mode
+Enables collective mode.  Collective mode allows the control socket to
+be written to by all members of the login group
+.Nm
+runs as.
+.Pp
+.Em WARNING :
+If enabled, the control socket will have permissions 0640 which mean that ANY
+user of the login group of the user
+.Nm
+is running as can send ANY command to btpd.  Use with care.
+.It Fl d Ar dir
+The directory in which to run btpd. Default is $HOME/.btpd.
+.It Fl -help
+Show the help text.
+.It Fl -logfile Ar file
+Where to put the logfile.  By default it's put in the btpd dir.
+.It Fl -max-peers Ar n
+Limit the amount of peers to
+.Ar n .
+.It Fl -max-uploads Ar n
+Control the number of simultaneous uploads.
+The possible values are:
+.Pp
+.Bl -inset -compact
+.It Ar n No \&< \-1 :
+Choose n \&>\&= 2 based on
+.Fl -bw-out
+(default).
+.It Ar n No \&= \-1 :
+Upload to every interested peer.
+.It Ar n No \&= \ 0 :
+Don't upload to anyone.
+.It Ar n No \&> \ 0 :
+Upload to at most
+.Ar n
+peers simultaneously.
+.El
+.It Fl -no-daemon
+Keep the
+.Nm
+process in the foreground and log to std{out, err}.
+This option is intended for debugging purposes.
+.It Fl p Ar n , Fl -port Ar n
+Listen at port 
+.Ar n .
+Default is 6881.
+.It Fl -prealloc Ar n
+Preallocate disk space in chunks of 
+.Ar n
+kB.  Default is 2048.  Note that
+.Ar n
+will be rounded up to he closest multiple of the torrent piece size.  If
+.Ar n
+is zero no preallocation will be done.
+.El
+.Pp
+By default, 
+.Nm btpd
+will store its information and and logfile in $HOME/.btpd.  Only one instance
+of this daemon should be running at a time.
+.\" There are no references in the code to this but there are in the
+.\" README.  I say: trust the code.
+.\" .Sh ENVIRONMENT
+.\" .Bl -tag -width BTPD_HOME
+.\" .It Ev BTPD_HOME
+.\" Sets the directory in which to store information and the logfile if
+.\" present. Overridden by the command-line option.
+.\" .El
+.Sh FILES
+.Bl -tag -width $HOME/.btpd/
+.It $HOME/.btpd/
+Default diretory to store information files, the control socket, and the
+log file.
+.\" .Sh EXAMPLES
+.Sh DIAGNOSTICS
+If the daemon exits quickly for no apparent reason, check the logfile for 
+possible causes.  If the logfile indicates something about bind and the adress
+being in use, check that no other process is using the TCP port 6881 
+(the default) or the one you specified with the -p option.
+.Sh SEE ALSO
+.Xr btcli 1 ,
+.Xr btinfo 1 .
+.Sh AUTHORS
+.An Richard Nyberg Aq rnyberg@murmeldjur.se
+.Sh CAVEATS
+When using colletive mode, be sure that you trust the members of the login
+group of the user of
+.Nm ,
+otherwise you may end up with nasty suprises.

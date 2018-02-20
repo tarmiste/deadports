@@ -1,0 +1,57 @@
+# Description: Small, efficient and fast rendering engine for Web Browsers.
+# URL: http://www.webkitgtk.org/
+# Maintainer: Danny Rawlins, monster dot romster at gmail dot com
+# Packager: Brett Goulder, predatorfreak at dcaf-security dot org
+# Depends on: enchant gst-plugins-base gtk3 icu libsoup glu ruby gperf
+# Nice to have: geoclue
+
+name=webkit
+version=1.10.2
+release=1
+source=(http://webkitgtk.org/releases/webkitgtk-$version.tar.xz
+	gtkdoc-rebase-remove.patch)
+
+build() {
+	cd webkitgtk-$version
+	mkdir build-gtk2 build-gtk3
+
+	patch -p1 -i $SRC/gtkdoc-rebase-remove.patch
+
+	if [ -z "$(pkginfo -i | grep '^geoclue ')" ]; then
+		local config='--disable-geolocation'
+	fi
+
+	cd build-gtk2
+
+	../configure $config \
+		--prefix=/usr \
+		--enable-video \
+		--with-font-backend=freetype \
+		--disable-gtk-doc \
+		--disable-silent-rules \
+		--enable-jit \
+		--with-unicode-backend=icu \
+		--libexecdir=/usr/lib/webkitgtk2 \
+		--with-gtk=2.0 \
+		--disable-webkit2
+
+	make
+	make DESTDIR=$PKG install
+
+	cd ../build-gtk3
+
+	../configure $config \
+		--prefix=/usr \
+		--enable-video \
+		--with-font-backend=freetype \
+		--disable-gtk-doc \
+		--disable-silent-rules \
+		--enable-jit \
+		--with-unicode-backend=icu \
+		--libexecdir=/usr/lib/webkitgtk3
+
+	make
+	make DESTDIR=$PKG install
+
+	rm -r $PKG/usr/share/locale
+}

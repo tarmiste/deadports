@@ -1,0 +1,16 @@
+REQUIREMENTS
+
+You need Device mapper support in your kernel (CONFIG_BLK_DEV_DM):
+
+	Device Drivers --> Multi-device support (RAID and LVM) 
+	 [*] Multiple devices driver support (RAID and LVM) 
+	 <*>   Device mapper support
+
+
+PRE-INSTALL
+
+POST-INSTALL
+
+	* Run depmod -a
+
+PRECAUTION

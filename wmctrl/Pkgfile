@@ -1,0 +1,18 @@
+# Description: A cli tool to interact with an EWMH/NetWM compatible wm
+# URL: http://tomas.styblo.name/wmctrl/
+# Maintainer: Mikhail Kolesnik, mike at openbunker dot org
+# Depends on: glib xorg-libxmu
+
+name=wmctrl
+version=1.07
+release=2
+source=(http://tomas.styblo.name/wmctrl/dist/$name-$version.tar.gz \
+		$name.diff)
+
+build() {
+	cd $name-$version
+	patch -p1 -i $SRC/$name.diff
+	./configure --prefix=/usr --disable-nls
+	make
+	make DESTDIR=$PKG install
+}

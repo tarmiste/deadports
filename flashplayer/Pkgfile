@@ -1,0 +1,18 @@
+# Description: MacroMedia Flash Player for Linux
+# URL:         http://www.adobe.com/shockwave/download/alternates/
+# Maintainer:  Thomas Penteker, tek at serverop dot de
+# Packager:    James Mills, prologic at shortcircuit dot net dot au
+#
+# Depends on:
+
+name=flashplayer
+version=9
+release=9
+source=(http://download.macromedia.com/pub/flashplayer/updaters/9/flash_player_9_linux_dev.tar.gz)
+
+build() {
+  cd flash_player_9_linux_dev/standalone/release
+  tar zxvf flashplayer.tar.gz
+  mkdir -p $PKG/usr/bin/
+  cp flashplayer $PKG/usr/bin/
+}

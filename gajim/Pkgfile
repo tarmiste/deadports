@@ -1,0 +1,23 @@
+# Description: A Jabber Instant Messenger
+# URL: http://www.gajim.org
+# Maintainer: Mikhail Kolesnik, mike at openbunker dot org
+# Packager: Artur Tulyulya, artur at idt dot org dot ua
+# Depends on: pygtk pyopenssl pycrypto libasyncns-python
+# Nice to have: gtkspell dbus-python gnome-python-extras bind docutils libxss notify-python
+# you'll want nslookup (from bind) OR libasyncns-python
+
+name=gajim
+version=0.15.2
+release=1
+source=(http://www.gajim.org/downloads/0.15/$name-$version.tar.bz2)
+
+build() {
+	cd $name-$version
+	wget http://xmpp.org/services/services.xml -O data/other/servers.xml
+	./configure --prefix=/usr \
+				--disable-nls \
+				--mandir=/usr/man
+	make
+	make DESTDIR=$PKG install
+	rm -rf $PKG/usr/share/doc
+}

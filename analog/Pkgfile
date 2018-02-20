@@ -1,0 +1,24 @@
+# Description: Very fast analyser for web server logfiles
+# Maintainer:  Juergen Daubert, juergen dot daubert at t-online dot de
+# URL:         http://www.analog.cx/
+
+name=analog
+version=6.0
+release=2
+source=(http://www.analog.cx/$name-$version.tar.gz \
+        $name-$version.patch)
+
+build(){
+   cd $name-$version
+   patch -p1 < ../$name-$version.patch
+   make
+   install -D -m 755 analog $PKG/usr/bin/analog
+   install -D -m 644 analog.man $PKG/usr/man/man1/analog.1
+   install -D -m 755 anlgform.pl $PKG/var/www/cgi-bin/anlgform.pl
+   install -D -m 644 anlgform.html $PKG/var/www/htdocs/anlgform.html
+   install -D -m 644 analog.cfg $PKG/usr/etc/analog/analog.cfg
+   mkdir -p $PKG/usr/share/analog/{images,lang}
+   cp lang/uk*.* $PKG/usr/share/analog/lang
+   cp images/*.png $PKG/usr/share/analog/images
+   chown -R root.root $PKG
+}

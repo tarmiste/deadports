@@ -1,0 +1,48 @@
+# disables nls files (throws intltool from dependencies)
+# however disables desktop files as well, so install them by hand
+# Author: Bartlomiej Palmowski, maks1k at wp dot pl 
+
+diff -pruN graveman-0.3.12-5.old/configure.in graveman-0.3.12-5/configure.in
+--- graveman-0.3.12-5.old/configure.in	2008-08-04 16:24:54.000000000 +0200
++++ graveman-0.3.12-5/configure.in	2008-08-04 16:26:21.000000000 +0200
+@@ -32,7 +32,6 @@ VERSION=0.3.12-5
+ 
+ AM_INIT_AUTOMAKE([$PACKAGE], [$VERSION])
+ 
+-AC_PROG_INTLTOOL(0.22)
+ AC_ISC_POSIX
+ AC_PROG_CC
+ AC_HEADER_STDC
+diff -pruN graveman-0.3.12-5.old/Makefile.am graveman-0.3.12-5/Makefile.am
+--- graveman-0.3.12-5.old/Makefile.am	2008-08-04 16:24:54.000000000 +0200
++++ graveman-0.3.12-5/Makefile.am	2008-08-04 16:25:48.000000000 +0200
+@@ -1,6 +1,6 @@
+ ## Process this file with automake to produce Makefile.in
+ 
+-SUBDIRS = m4 src po desktop glade pixmaps man themes
++SUBDIRS = m4 src glade pixmaps man themes
+ 
+ EXTRA_DIST = autogen.sh
+ 
+diff -pruN graveman-0.3.12-5.old/man/Makefile.am graveman-0.3.12-5/man/Makefile.am
+--- graveman-0.3.12-5.old/man/Makefile.am	2008-08-04 16:24:54.000000000 +0200
++++ graveman-0.3.12-5/man/Makefile.am	2008-08-04 16:27:24.000000000 +0200
+@@ -2,7 +2,6 @@
+ 
+ ## the subdir where the MAN pages should go ..
+ mansubdir = man1
+-LOCALES = fr nl
+ 
+ ##
+ ## and the MAN
+@@ -11,9 +10,4 @@ all:
+ 	@true
+ 
+ install:
+-	${INSTALL_DATA} -D graveman.man ${DESTDIR}${mandir}/${mansubdir}/graveman.1 ; \
+-        if test "A${USE_NLS}" = "Ayes"; then \
+-		for lang in ${LOCALES}; do \
+-			${INSTALL_DATA} -D "${srcdir}/graveman.$$lang.man" "${DESTDIR}${mandir}/$$lang/${mansubdir}/graveman.1"; \
+-		done \
+-	fi
++	${INSTALL_DATA} -D graveman.man ${DESTDIR}${mandir}/${mansubdir}/graveman.1

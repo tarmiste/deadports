@@ -1,0 +1,46 @@
+diff -Nru cdrdao-1.2.2.orig/trackdb/FormatConverter.cc cdrdao-1.2.2/trackdb/FormatConverter.cc
+--- cdrdao-1.2.2.orig/trackdb/FormatConverter.cc	2008-11-23 17:20:52.036880285 +0100
++++ cdrdao-1.2.2/trackdb/FormatConverter.cc	2008-11-23 17:25:07.840291445 +0100
+@@ -18,6 +18,7 @@
+  */
+ 
+ #include <stdlib.h>
++#include <string.h>
+ #ifdef HAVE_AO
+ #include <ao/ao.h>
+ #endif
+ 
+diff -Nru cdrdao-1.2.2.orig/trackdb/TempFileManager.cc cdrdao-1.2.2/trackdb/TempFileManager.cc
+--- cdrdao-1.2.2.orig/trackdb/TempFileManager.cc	2008-11-23 17:20:52.036880285 +0100
++++ cdrdao-1.2.2/trackdb/TempFileManager.cc	2008-11-23 17:25:23.173215341 +0100
+@@ -24,6 +24,7 @@
+ #include <sys/stat.h>
+ #include <unistd.h>
+ #include <fcntl.h>
++#include <string.h>
+ 
+ #define DEFAULT_TEMP_PATH "/tmp/"
+
+diff -Nru cdrdao-1.2.2.orig/trackdb/FormatMp3.cc cdrdao-1.2.2/trackdb/FormatMp3.cc
+--- cdrdao-1.2.2.orig/trackdb/FormatMp3.cc	2008-11-28 15:04:06.000000000 +0100
++++ cdrdao-1.2.2/trackdb/FormatMp3.cc	2008-11-28 15:05:24.000000000 +0100
+@@ -25,6 +25,7 @@
+ #include <stdlib.h>
+ #include <unistd.h>
+ #include <fcntl.h>
++#include <string.h>
+ #include <sys/types.h>
+ #include <sys/stat.h>
+ #include <sys/mman.h>
+
+diff -Nru cdrdao-1.2.2.orig/trackdb/FormatOgg.cc cdrdao-1.2.2/trackdb/FormatOgg.cc
+--- cdrdao-1.2.2.orig/trackdb/FormatOgg.cc	2008-11-28 15:04:06.000000000 +0100
++++ cdrdao-1.2.2/trackdb/FormatOgg.cc	2008-11-28 15:18:36.000000000 +0100
+@@ -18,6 +18,7 @@
+  */
+ 
+ #include <stdio.h>
++#include <string.h>
+ 
+ #include "util.h"
+ #include "FormatOgg.h"

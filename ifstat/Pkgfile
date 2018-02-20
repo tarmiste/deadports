@@ -1,0 +1,23 @@
+# Description: Tool to report network interfaces bandwith just like vmstat/iostat do for other system counters
+# URL: http://gael.roualland.free.fr/ifstat/
+# Maintainer: Jose V Beneyto, joberui at ei dot upv dot es
+# Packager: Jose V Beneyto, joberui at ei dot upv dot es
+
+name=ifstat
+version=1.1
+release=2
+source=(http://gael.roualland.free.fr/$name/$name-$version.tar.gz)
+
+build() {
+	cd $name-$version
+	./configure --prefix=/usr \
+		    --enable-library \
+		    --disable-nls
+	make
+	install -d $PKG/usr/{bin,include,lib,man/man1}
+	install -m 755 $name $PKG/usr/bin
+	install -m 644 $name.1 $PKG/usr/man/man1
+        install -m 644 $name.h $PKG/usr/include
+        install -m 644 libifstat.a $PKG/usr/lib
+}
+

@@ -1,0 +1,16 @@
+# Description: BitTorrent client daemon
+# URL:         http://wiki.github.com/btpd/btpd/
+# Maintainer:  Juergen Daubert, jue at crux dot nu
+# Depends on:  openssl
+
+name=btpd
+version=0.16
+release=1
+source=(http://cloud.github.com/downloads/$name/$name/$name-$version.tar.gz)
+
+build() {
+    cd $name-$version
+    ./configure --prefix=/usr --mandir=/usr/man
+    make
+    make DESTDIR=$PKG install
+}

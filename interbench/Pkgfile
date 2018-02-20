@@ -1,0 +1,15 @@
+# Description: interactivity benchmark
+# URL:         http://members.optusnet.com.au/ckolivas/interbench/
+# Maintainer:  Bartlomiej Palmowski, maks1k at wp dot pl
+
+
+name=interbench
+version=0.30
+release=1
+source=(http://www.kernel.org/pub/linux/kernel/people/ck/apps/$name/$name-$version.tar.bz2)
+
+build() {
+    cd $name-$version
+    make
+    install -D -m 0755 $name $PKG/usr/bin/$name
+}

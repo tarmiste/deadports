@@ -1,0 +1,17 @@
+# Description: Expanded md5sum program that has recursive and comparison options.
+# URL: http://md5deep.sourceforge.net
+# Maintainer: unmaintained, maintainer-wanted at crux dot nu
+# Packager: Brett Goulder, predatorfreak at dcaf-security dot org
+
+name=md5deep
+version=3.0
+release=1
+source=(http://dl.sourceforge.net/${name}/${name}-${version}.tar.gz)
+
+build() {
+  cd ${SRC}/$name-$version
+	./configure --prefix=/usr \
+		--mandir=/usr/man
+  make
+	make DESTDIR=$PKG install
+}

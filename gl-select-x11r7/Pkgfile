@@ -1,0 +1,11 @@
+# Description: A selector for gl/glx libraries and extensions
+# Maintainer: Matt Housh, jaeger at morpheus dot net
+
+name=gl-select-x11r7
+version=1.0
+release=2
+source=(gl-select)
+
+build() {
+	install -D -m 0755 -o root -g root $SRC/gl-select $PKG/usr/bin/gl-select
+}

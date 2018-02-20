@@ -1,0 +1,15 @@
+# Description: A CLI utility that pipes videos from online streaming services to a variety of video players.
+# URL: https://pypi.python.org/pypi/streamlink/
+# Maintainer: Danny Rawlins, crux at romster dot me
+# Depends on: python3-iso-639 python3-iso3166 python3-pycryptodome python3-requests
+
+name=python3-streamlink
+version=0.3.2
+release=1
+source=(https://files.pythonhosted.org/packages/source/${name:8:1}/${name#*-}/${name#*-}-$version.tar.gz)
+
+build() {
+	cd ${name#*-}-$version
+	/usr/bin/python3 setup.py build
+	/usr/bin/python3 setup.py install --root=$PKG --optimize=1
+}

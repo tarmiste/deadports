@@ -1,0 +1,14 @@
+# Description: A generic syntax highlighter
+# URL: http://pygments.org/
+# Maintainer: Mikhail Kolesnik, mike at openbunker dot org
+# Depends on: distribute
+
+name=pygments
+version=1.5
+release=1
+source=(http://pypi.python.org/packages/source/P/Pygments/Pygments-$version.tar.gz)
+
+build() {
+	cd Pygments-$version
+	python setup.py install --root=$PKG
+}

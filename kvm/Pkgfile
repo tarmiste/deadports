@@ -1,0 +1,19 @@
+# Description: full virtualization solution for Linux on x86 hardware
+# URL:         http://kvm.qumranet.com/kvmwiki
+# Maintainer:  Thomas Penteker, tek at serverop dot de
+# Depends on:  libsdl
+
+name=kvm
+version=88
+release=1
+source=(http://download.sourceforge.net/$name/$name-$version.tar.gz
+p1.diff p2.diff)
+
+build () {
+  cd $name-$version
+  patch -p1 -i ../p1.diff
+  patch -p1 -i ../p2.diff
+  ./configure --prefix=/usr 
+  make
+  make DESTDIR=$PKG install
+}

@@ -1,0 +1,6 @@
+README for cuetools
+
+POST-INSTALL
+
+1. The cuetag tool requires metaflac (flac), and vorbiscomment (vorbis-tools)
+   to be installed. Otherwise it will just abort with an error messagesaying.

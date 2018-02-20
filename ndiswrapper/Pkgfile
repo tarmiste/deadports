@@ -1,0 +1,23 @@
+# Description: With ndiswrapper, most miniPCI (builtin), PCI, PCMCIA (Cardbus only) or USB wireless network cards work in Linux with x86 or x86-64.
+# URL: http://ndiswrapper.sourceforge.net/joomla/
+# Maintainer: Danny Rawlins, monster dot romster at gmail dot com
+# Packager: Antonio SJ Musumeci, bile at landofbile dot com
+
+name=ndiswrapper
+version=1.53
+release=1
+source=(http://downloads.sourceforge.net/sourceforge/$name/$name-$version.tar.gz
+	ndiswrapper-1.53-linux_2.6.27.patch)
+
+build() {
+	cd $name-$version
+
+	patch -p 1 -i $SRC/ndiswrapper-1.53-linux_2.6.27.patch
+
+	sed -i -e "s|CFLAGS = -g -Wall -I\$(DRIVER_DIR)|CFLAGS = $CFLAGS -Wall -I\$(DRIVER_DIR)|" \
+		utils/Makefile
+
+	local kernel_path="/usr/src/linux-$(uname -r)"
+	make KBUILD="$kernel_path" EXTRA_CFLAGS="$CFLAGS"
+	make KBUILD="$kernel_path" DESTDIR=$PKG install
+}

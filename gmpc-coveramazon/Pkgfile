@@ -1,0 +1,17 @@
+# Description: Cover Art and Album pluign for gmpc
+# URL:         http://sarine.nl/gmpc
+# Maintainer:  Thomas Penteker, tek at serverop dot de
+# Packager:    James Mills, prologic at shortcircuit dot net dot au
+# Depends on:  gmpc
+
+name=gmpc-coveramazon
+version=0.17.0
+release=1
+source=(http://download.sarine.nl/Programs/gmpc/$version/$name-$version.tar.gz)
+
+build() {
+  cd $name-$version
+  ./configure --prefix=/usr
+  make
+  make DESTDIR=$PKG install
+}

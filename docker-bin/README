@@ -1,0 +1,54 @@
+Kernel Requirements
+===================
+
+If you want to have a full working CRUX+Docker system you will need to
+rebuild your kernel various networking, cgroups and optional lvm options
+
+You may check your kernel configuration by running:
+
+::
+    
+    ./check-config.sh /usr/src/linux/.config
+         
+
+Execution Engines
+=================
+
+As of Docker 0.9+ execution engines are pluggable and as such Docker
+no longer depends on lxc.
+
+The new default execution driver is now an internal ``libcontainer``
+driver that replaces the need for lxc.
+
+Please see the `Docker Documentation <http://docs.docker.io>`_
+if you want to use a different execution engine other then the default.
+
+
+Storage Backends
+================
+
+Docker comes with three main Storage Backends:
+
+- AUFS (*requires AUFS kernel/patches*)
+- devmapper
+- btrfs
+
+It is recommended you use the devmapper or btrfs backend (Default: devmapper).
+
+To use the ``btrfs`` backend edit ``/etc/docker.conf``
+and modify the ``DOCKER_OPTS`` with:
+
+::
+    
+    DOCKER_OPTS="-s btrfs"
+    
+.. note:: As of Docker 0.10.x the ``btrfs`` storage backend is now
+          considered stable and has been promoted to an officially
+          supported storage backend.
+
+
+Docker Client
+=============
+
+Add yourself to the ``docker`` group if you wish to access
+the Docker daemon on localhost via UNIX Socket.

@@ -1,0 +1,42 @@
+# Description: Cisco VPN Client 
+# URL: http://www.cisco.com/en/US/products/sw/secursw/ps2308/
+# Maintainer: Rene Lengwinat, rugek at dirtyhack dot net
+
+name=vpnclient
+version=4.6.00.0045-k9
+release=1
+
+source=($name-linux-$version.tar.gz \
+      vpnclient.patch)
+
+build () {
+  cd $name
+  cp $SRC/vpnclient.patch .
+  patch -p0 < vpnclient.patch
+  make
+  
+  # create directories
+  mkdir -p $PKG/etc/opt/cisco-vpnclient/Profiles
+  mkdir -p $PKG/usr/bin
+  for dir in bin lib include; do
+    mkdir -p $PKG/opt/cisco-vpnclient/$dir
+  done
+
+  # install binaries
+  for binary in vpnclient cisco_cert_mgr ipseclog cvpnd; do
+    cp $binary $PKG/opt/cisco-vpnclient/bin
+    ln -s /opt/cisco-vpnclient/bin/$binary $PKG/usr/bin/$binary
+  done
+  
+  # library
+  cp libvpnapi.so $PKG/opt/cisco-vpnclient/lib
+
+  # header
+  cp vpnapi.h $PKG/opt/cisco-vpnclient/include
+
+  # module
+  test ! -d $PKG/lib/modules/`uname -r`/extra && mkdir -p $PKG/lib/modules/`uname -r`/extra 
+  cp cisco_ipsec.ko $PKG/lib/modules/`uname -r`/extra
+  
+}
+

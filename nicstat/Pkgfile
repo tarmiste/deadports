@@ -1,0 +1,19 @@
+# Description: network statistics including packets, kilobytes per second, average packet sizes and more.
+# URL:         http://nicstat.sourceforge.net/
+# Maintainer:  Bartlomiej Palmowski, rotwang at crux dot org dot pl
+# Depends on:  
+
+name=nicstat
+version=1.92
+release=1
+source=(http://switch.dl.sourceforge.net/project/$name/$name-src-$version.tar.gz)
+
+build () {
+    cd $name-src-$version
+    # retarded buildsystem is retarded
+    make -f Makefile.Linux CFLAGS="$CFLAGS"
+    gzip -k --best $name.1
+    install -D -m0755 $(./nicstat.sh --bin-name) $PKG/usr/bin/$name
+    install -D -m0644 $name.1.gz $PKG/usr/man/man1/$name.1.gz
+}
+

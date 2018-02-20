@@ -1,0 +1,26 @@
+# Description: A port of KAME's IPsec utilities to the Linux-2.6
+# URL: http://ipsec-tools.sourceforge.net/
+# Maintainer: Mikhail Kolesnik, mike at openbunker dot org
+# Depends on:
+
+name=ipsec-tools
+version=0.8.1
+release=1
+source=(http://downloads.sourceforge.net/project/$name/$name/$version/$name-$version.tar.bz2)
+
+build() {
+	cd $name-$version
+	./configure --prefix=/usr \
+				--mandir=/usr/man \
+				--localstatedir=/var \
+				--enable-hybrid \
+				--enable-frag \
+				--enable-stats \
+				--enable-dpd \
+				--enable-natt \
+				--enable-adminport \
+				--enable-security-context=no \
+				--with-kernel-headers=/usr/include
+	make
+	make DESTDIR=$PKG install
+}

@@ -1,0 +1,23 @@
+# Description: High quality compression program, faster decompression and 15% more compression than bzip2.
+# URL: http://tukaani.org/lzma/
+# Packager: Danny Rawlins, monster dot romster at gmail dot com
+# Maintainer: Danny Rawlins, monster dot romster at gmail dot com
+# Depends on: 
+
+name=lzma
+version=4.32.7
+release=1
+source=(http://tukaani.org/lzma/lzma-$version.tar.gz)
+
+build() {
+	cd lzma-$version
+
+	./configure \
+		--prefix=/usr \
+		--mandir=$PKG/usr/man \
+		--disable-static
+
+	make
+	make prefix=$PKG/usr install
+}
+

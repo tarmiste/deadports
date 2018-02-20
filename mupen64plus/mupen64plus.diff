@@ -1,0 +1,11 @@
+diff -Nru mupen64plus-bundle-src-1.99.4-orig/source/mupen64plus-core/projects/unix/Makefile mupen64plus-bundle-src-1.99.4/source/mupen64plus-core/projects/unix/Makefile
+--- mupen64plus-bundle-src-1.99.4-orig/source/mupen64plus-core/projects/unix/Makefile	2010-12-19 16:31:49.000000000 +0200
++++ mupen64plus-bundle-src-1.99.4/source/mupen64plus-core/projects/unix/Makefile	2010-12-19 16:32:00.000000000 +0200
+@@ -368,7 +368,6 @@
+ 	$(INSTALL) -m 0644 ../../data/* "$(DESTDIR)$(SHAREDIR)"
+ 	$(INSTALL) -d -v "$(DESTDIR)$(INCDIR)"
+ 	$(INSTALL) -m 0644 ../../src/api/m64p_*.h "$(DESTDIR)$(INCDIR)"
+-	if [ `id -u` -eq 0 ]; then $(LDCONFIG); fi
+ 
+ uninstall:
+ 	$(RM) -f "$(DESTDIR)$(LIBDIR)/$(TARGET)"

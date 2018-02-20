@@ -1,0 +1,18 @@
+# Description:  Read/Sets the region code of DVD drives
+# URL:          http://linvdr.org/projects/regionset/
+# Maintainer:   James Mills, prologic at shortcircuit dot net dot au
+# Packager:     Bruno Carnazzi <bcarnazzi@gmail.com>
+
+# Depends on:
+
+name=regionset
+version=0.2
+release=2
+source=(http://linvdr.org/download/regionset/$name-$version.tar.gz)
+
+build() {
+    cd $name-$version
+
+    make
+    install -D -m 755 regionset $PKG/usr/bin/regionset
+}

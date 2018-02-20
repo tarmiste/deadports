@@ -1,0 +1,29 @@
+REQUIREMENTS
+
+PRE-INSTALL
+
+POST-INSTALL
+
+	* Run depmod -a
+
+	* You may edit your /etc/modprobe.conf, I use this settings:
+
+alias em8300-1 off
+alias char-major-121 em8300
+install em8300 /sbin/modprobe bt865 && /sbin/modprobe --ignore-install em8300
+options em8300 dicom_fix=0 dicom_control=0 dicom_other_pal=0
+
+	* Edit /etc/rc.modules to load the modules at boot time.
+
+	* You may also run em8300setup to change the default parameters.
+
+	* If you are using udev, you may want to create 
+	  /etc/udev/rules.d/xx-em8300.rules with something like:
+
+KERNEL=="em8300*", NAME="%k", OWNER="root", GROUP="em8300", MODE="660"
+
+
+PRECAUTION
+	This port builds em8300 with NTSC by default.
+	After installing this port you need to rebuild mplayer to
+	add dxr3 support.

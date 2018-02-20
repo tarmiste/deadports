@@ -1,0 +1,12 @@
+#!/bin/bash
+
+if ! /usr/bin/getent passwd nagios; then
+	/usr/sbin/useradd -m -d /var/empty -s /bin/false -c "Nagios user" -U nagios
+	/usr/bin/passwd -l nagios
+fi
+
+if ! /usr/bin/getent group nagcmd; then
+	/usr/sbin/groupadd nagcmd
+	/usr/sbin/usermod -a -G nagcmd nagios
+	/usr/sbin/usermod -a -G nagcmd www
+fi

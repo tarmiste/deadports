@@ -1,0 +1,25 @@
+
+README for nwn-diamond
+
+
+REQUIREMENTS:
+
+A 'games' group is required for NWN installation. Ideally, your user
+needs to be a member of the games group to play NWN. The 'pre-install'
+script will create it for you if run.
+
+
+PRECAUTION:
+
+Unlike the nwn port, this port installs the shared data files from the
+Diamond Edition DVD and requires you to have it and that it be mounted
+during the pkgmk process. By default, the Pkgfile looks for it to be
+mounted at /mnt/dvd. If your cdrom/dvd mount point is other than this,
+use the CDROM_LOCATION environment variable to specify the correct
+location like so:
+
+	# env CDROM_LOCATION=/media/dvd pkgmk -d -i
+
+CD keys for NWN, NWN:SoU, and NWN:HotU are still required to play the
+game. The game will ask for them the first time it's run.
+

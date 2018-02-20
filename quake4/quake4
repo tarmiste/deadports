@@ -1,0 +1,9 @@
+#!/bin/sh
+
+#
+# quake4: run quake4
+#
+
+cd /usr/share/quake4
+LD_LIBRARY_PATH=. ./quake4.x86 $@
+cd -

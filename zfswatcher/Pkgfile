@@ -1,0 +1,18 @@
+# Description:  ZFS pool monitoring and notification daemon
+# URL:          http://zfswatcher.damicon.fi/
+# Maintainer:   ames Mills, prologic at shortcircuit dot net dot au
+#
+# Depends on:   go zfs
+
+name=zfswatcher
+version=0.03
+release=2
+source=(http://shortcircuit.net.au/~prologic/distfiles/$name-$version.tar.gz)
+
+build() {
+    cd $name-$version
+
+    make GO=$(which go)
+
+    make mandir=/usr/man DESTDIR=$PKG install
+}

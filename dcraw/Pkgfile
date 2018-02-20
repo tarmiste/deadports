@@ -1,0 +1,18 @@
+# Description: C program that decodes raw images from nearly any digitall camera
+# URL: http://www.cybercom.net/~dcoffin/dcraw/
+# Maintainer: Mikhail Kolesnik, mike at openbunker dot org
+# Depends on: lcms2 jasper
+
+name=dcraw
+version=9.27.0
+release=1
+source=(http://www.cybercom.net/~dcoffin/dcraw/archive/$name-$version.tar.gz)
+
+build() {
+    cd $name
+    gcc $CFLAGS $LDFLAGS -o dcraw dcraw.c \
+        -Wall \
+        -lm -ljasper -ljpeg -llcms2
+    install -m 0644 -D dcraw.1 $PKG/usr/share/man/man1/dcraw.1
+    install -m 0755 -D dcraw $PKG/usr/bin/dcraw
+}

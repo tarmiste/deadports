@@ -1,0 +1,21 @@
+# Description: A window-matching utility
+# URL: http://www.burtonini.com/blog/computers/devilspie
+# Maintainer: Mikhail Kolesnik, mike at openbunker dot org
+# Depends on: libwnck
+
+name=devilspie
+version=0.22
+release=3
+source=(http://www.burtonini.com/computing/$name-$version.tar.gz\
+		$name-$version-gtk-2.22.1.patch)
+
+build() {
+	cd $name-$version
+	patch -p0 -i $SRC/$name-$version-gtk-2.22.1.patch
+	./configure --prefix=/usr --disable-nls \
+				--mandir=/usr/man \
+				LIBS=-lX11
+	make
+	make DESTDIR=$PKG install
+	rm -rf $PKG/usr/share
+}

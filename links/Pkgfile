@@ -1,0 +1,35 @@
+# Description:  A text WWW browser, similar to Lynx
+# URL:          http://links.twibright.com/
+# Maintainer:   James Mills, prologic at shortcircuit dot net dot au
+#
+# Depends on:   bzip2 xz openssl gpm
+# Nice to have: xorg libtiff libpng
+
+name=links
+version=2.10
+release=1
+source=(http://links.twibright.com/download/${name}-${version}.tar.bz2 links.desktop)
+
+build() {
+    cd ${name}-${version}
+    sed -i "/ac_cpp=/s/\$CPPFLAGS/\$CPPFLAGS -O2/" configure
+
+    (cd intl; ./gen-intl; ./synclang)
+    ./configure --prefix=/usr --mandir=/usr/man --enable-javascript \
+      --enable-graphics --with-x --with-fb
+    make
+    mv links xlinks
+
+    ./configure --prefix=/usr --mandir=/usr/man --enable-javascript \
+      --disable-graphics --without-x  --without-fb
+    make
+
+    make DESTDIR="${PKG}" install
+
+    install -m755 xlinks "${PKG}/usr/bin/xlinks"
+    ln -s links.1.gz "${PKG}/usr/man/man1/xlinks.1.gz"
+
+    install -D -m644 "${SRC}/links.desktop" "${PKG}/usr/share/applications/links.desktop"
+    install -d "${PKG}/usr/share/pixmaps"
+    install -m644 links_16x16_1.xpm links_16x16_2.xpm links_32x32.xpm "${PKG}/usr/share/pixmaps/"
+}

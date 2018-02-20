@@ -1,0 +1,9 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=Enemy Territory
+Comment=Wolfstein Enemy Territory
+Exec=/usr/bin/enemy-territory
+Icon=et.xpm
+Terminal=false
+Type=Application
+Categories=Application;Games;

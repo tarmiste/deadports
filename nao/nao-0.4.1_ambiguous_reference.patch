@@ -1,0 +1,123 @@
+diff -pruN nao-0.4.1.old/src/AutoConfigurator.cpp nao-0.4.1/src/AutoConfigurator.cpp
+--- nao-0.4.1.old/src/AutoConfigurator.cpp	2008-10-09 19:48:40.000000000 +0200
++++ nao-0.4.1/src/AutoConfigurator.cpp	2008-10-09 19:49:47.000000000 +0200
+@@ -189,7 +189,7 @@ void AutoConfigurator::assignProgramsToM
+ 		}
+ 	
+ 	}
+-	catch(exception e)
++	catch(std::exception e)
+ 	{
+ 				
+ 	}
+diff -pruN nao-0.4.1.old/src/Command.cpp nao-0.4.1/src/Command.cpp
+--- nao-0.4.1.old/src/Command.cpp	2008-10-09 19:48:40.000000000 +0200
++++ nao-0.4.1/src/Command.cpp	2008-10-09 19:49:51.000000000 +0200
+@@ -59,7 +59,7 @@ void CommandOpposite::init(FileList * _f
+ 	fileListOpposite=_filelist->getOpposite();
+ 	
+ 	if(!fileListOpposite)
+-	throw exception();
++	throw std::exception();
+ 	
+ 	fileListOpposite->acquire();
+ }
+diff -pruN nao-0.4.1.old/src/commands/CmdCopy.cpp nao-0.4.1/src/commands/CmdCopy.cpp
+--- nao-0.4.1.old/src/commands/CmdCopy.cpp	2008-10-09 19:48:40.000000000 +0200
++++ nao-0.4.1/src/commands/CmdCopy.cpp	2008-10-09 19:49:43.000000000 +0200
+@@ -185,7 +185,7 @@ void CmdCopy::copy(FileList *fileList1, 
+ 					}
+ 					catch(ExceptionFileIconNotFound &e){}
+ 				}
+-				catch(exception &e)
++				catch(std::exception &e)
+ 				{
+ 					if(!totalSizeCounted)
+ 					setTotalSize(fileList1->getVfs(),files,status);
+diff -pruN nao-0.4.1.old/src/commands/CmdExternal.cpp nao-0.4.1/src/commands/CmdExternal.cpp
+--- nao-0.4.1.old/src/commands/CmdExternal.cpp	2008-10-09 19:48:40.000000000 +0200
++++ nao-0.4.1/src/commands/CmdExternal.cpp	2008-10-09 19:49:00.000000000 +0200
+@@ -157,7 +157,7 @@ void CmdExternal::runExec(string cmd)
+ 		cout<<"command="<<cmd<<endl;
+ 	#endif
+ 	
+-	if(system(cmd.c_str())!=0)
++	if(::system(cmd.c_str())!=0)
+ 	{
+ 		//cout<<"EXCEPTION"<<endl;
+ 		throw ExceptionExecutingCommand(cmd);
+diff -pruN nao-0.4.1.old/src/commands/StandardCommands.cpp nao-0.4.1/src/commands/StandardCommands.cpp
+--- nao-0.4.1.old/src/commands/StandardCommands.cpp	2008-10-09 19:48:40.000000000 +0200
++++ nao-0.4.1/src/commands/StandardCommands.cpp	2008-10-09 19:49:00.000000000 +0200
+@@ -1027,7 +1027,7 @@ void CmdRunCommand::execute()
+ 	if(state=="execute")
+ 	{
+ 		string data=fileList->getTextFieldData()+" &";
+-		system(data.c_str());
++		::system(data.c_str());
+ 		
+ 	}
+ 	else if(state=="switch")
+@@ -1209,7 +1209,7 @@ void CmdAddDirToShortcuts::execute()
+ 
+ void CmdUmount::execute()
+ {
+-	if(system(string("umount " +fileList->getCurrentFileIcon().getFile().getPath().string()).c_str())!=0)
++	if(::system(string("umount " +fileList->getCurrentFileIcon().getFile().getPath().string()).c_str())!=0)
+ 	throw ExceptionFileSystem();
+ }
+ 
+@@ -1231,7 +1231,7 @@ void CmdCreateEmptyFile::execute()
+ 	
+ 	
+ 	string cmd="cd "+fileList->getCurrentDirectory().string()+" && touch "+fileName;
+-	if(system(cmd.c_str())==0)
++	if(::system(cmd.c_str())==0)
+ 	{
+ 		path newPath=fileList->getCurrentDirectory()/path(fileName);
+ 		fileList->addFile(newPath.string());
+diff -pruN nao-0.4.1.old/src/FilesEngine.cpp nao-0.4.1/src/FilesEngine.cpp
+--- nao-0.4.1.old/src/FilesEngine.cpp	2008-10-09 19:48:40.000000000 +0200
++++ nao-0.4.1/src/FilesEngine.cpp	2008-10-09 19:49:00.000000000 +0200
+@@ -121,7 +121,7 @@ return groups;	
+ void FilesEngine::runFile( path file )
+ {
+ 	string cmd=string("\"")+file.string()+string("\"")+"&";
+-	system(cmd.c_str());
++	::system(cmd.c_str());
+ }
+ 
+ 
+diff -pruN nao-0.4.1.old/src/fox/FoxFileList.cpp nao-0.4.1/src/fox/FoxFileList.cpp
+--- nao-0.4.1.old/src/fox/FoxFileList.cpp	2008-10-09 19:48:40.000000000 +0200
++++ nao-0.4.1/src/fox/FoxFileList.cpp	2008-10-09 19:49:36.000000000 +0200
+@@ -1560,7 +1560,7 @@ FileIcon FoxFileList::getFileIconSync(in
+ 	return listItem->getFileIcon();
+ 	}
+ 	else
+-	throw exception();
++	throw(std::exception());
+ }
+ 
+ int FoxFileList::loadPreviewIcon(string file, int size)
+@@ -1742,7 +1742,7 @@ FileIcon FoxFileList::getCurrentFileIcon
+ 	return listItem->getFileIcon(); 
+ 	}
+ 	else
+-	throw exception();
++	throw(std::exception());
+ }
+ 
+ long FoxFileList::onRightButtonPress(FXObject *, FXSelector , void *ptr)
+diff -pruN nao-0.4.1.old/src/VfsBase.hpp nao-0.4.1/src/VfsBase.hpp
+--- nao-0.4.1.old/src/VfsBase.hpp	2008-10-09 19:48:40.000000000 +0200
++++ nao-0.4.1/src/VfsBase.hpp	2008-10-09 19:49:47.000000000 +0200
+@@ -123,7 +123,7 @@ protected:	
+ 					goRecursive(nextFile,operation,visitChildrenFirst,cancelable);	
+ 				}
+ 			}
+-			catch(exception e)
++			catch(std::exception e)
+ 			{
+ 			}
+ 				

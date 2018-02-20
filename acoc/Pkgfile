@@ -1,0 +1,25 @@
+# Description:  Arbitrary Command Output Colourer
+# URL:          http://www.caliban.org/ruby/acoc.shtml
+# Maintainer:   Bartlomiej Palmowski, rotwang at crux dot org dot pl
+# Depends on:   ruby
+
+name=acoc
+version=0.7.1
+release=1
+source=(http://www.caliban.org/files/ruby/$name-$version.tar.gz)
+
+build() {
+    local SITELIBDIR=$(ruby -r rbconfig -e 'puts Config::CONFIG["sitelibdir"]')
+    cd $name-$version
+    # avoid potential file conflict, .footprint may differ!
+    [[ -s $SITELIBDIR/term/ansicolor.rb ]] ||
+        make SITELIBDIR=$PKG$SITELIBDIR extra
+    sed -i -e '/-install -d $(PREFIX)/s|/bin|/usr/bin|' -e \
+	'/install -m 0755 acoc $(PREFIX)/s|/bin|/usr/bin|' Makefile
+    make PREFIX=$PKG
+    #manpages
+    install -D -m 0644 $name.1 $PKG/usr/man/man1/$name.1
+    install -D -m 0644 $name.conf.5 $PKG/usr/man/man5/$name.conf.5
+    # permissions fix
+    chmod 0644 $PKG/etc/$name.conf
+}

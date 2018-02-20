@@ -1,0 +1,11 @@
+diff -pruN libfame-0.9.1.orig/src/fame_motion_pmvfast.c libfame-0.9.1/src/fame_motion_pmvfast.c
+--- libfame-0.9.1.orig/src/fame_motion_pmvfast.c	2008-08-02 22:44:06.857141618 +1000
++++ libfame-0.9.1/src/fame_motion_pmvfast.c	2008-08-02 23:00:26.842141204 +1000
+@@ -921,7 +921,6 @@ static fame_motion_coding_t pmvfast_esti
+   fame_motion_vector_t *plast;
+   fame_motion_vector_t *pvector_left, *pvector_topleft;
+   fame_motion_vector_t *pvector_top, *pvector_topright;
+-  unsigned int weight_left, weight_top, weight_topright;
+ 
+   unsigned char *shape;
+   unsigned char *current;

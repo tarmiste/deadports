@@ -1,0 +1,32 @@
+# Description:  Scriptable I/O tool for storage benchmarks and drive testing
+# URL:          http://freshmeat.net/projects/fio
+# Maintainer:   James Mills, prologic at shortcircuit dot net dot au
+#
+# Depends on:   libaio
+# Optional:     gtk gnuplot
+
+name=fio
+version=2.1.14
+release=1
+source=(http://brick.kernel.dk/snaps/$name-$version.tar.bz2)
+
+build() {
+    gui=no
+    gnuplot=no
+
+    cd $name-$version
+
+    # this is not autoconf
+    ./configure \
+        --extra-cflags="$CFLAGS" \
+        $([ "$gui" = "yes" -a -f /usr/include/gtk-2.0/gtk/gtk.h ] && echo "--enable-gfio" )
+
+    make DESTDIR="$PKG" prefix=/usr mandir=/usr/man install
+
+    if [ "$gnuplot" != "yes" ]; then
+        find "$PKG" -depth \
+            -type f \( -name \*.gpm -o -name \*plot\* \) -delete , \
+            -type d -empty -exec rmdir {} +
+    fi
+    rmdir --ignore-fail-on-non-empty "$PKG"/usr/share
+}

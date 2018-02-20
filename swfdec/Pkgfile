@@ -1,0 +1,34 @@
+# Description: Flash Rendering Library.
+# URL: http://swfdec.freedesktop.org/wiki/
+# Maintainer: Danny Rawlins, crux at romster dot me
+# Packager: Stefan Lohmaier, noneus at noneus dot de
+# Depends on: gtk libdca libmad libsoup gst-plugins-base gst-ffmpeg
+# Optional: gthread freetype libxml2 libpng gnutls
+
+name=swfdec
+version=0.8.4
+release=1
+source=(http://swfdec.freedesktop.org/download/$name/${version%.*}/$name-$version.tar.gz)
+
+build() {
+	cd $name-$version
+
+	# yet another program that --disable-gtk-doc dosn't work
+	sed -i Makefile.in -e '/^@WITH_GTK_TRUE@	doc \\/d'
+	
+	./configure \
+		--prefix=/usr \
+		--disable-static \
+		--disable-gtk-doc \
+		--disable-vivified \
+		--enable-gtk \
+		--enable-mad \
+		--enable-ffmpeg \
+		--enable-gstreamer \
+		--enable-soup \
+		--with-audio=alsa
+
+	make
+	make DESTDIR=$PKG install
+	chmod a-x $PKG/usr/lib/*.so
+}

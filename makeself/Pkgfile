@@ -1,0 +1,16 @@
+# Description: Makeself generates self-extractable tar.gz archives
+# URL: http://www.megastep.org/makeself/
+# Maintainer: Jose V Beneyto, sepen at crux dot nu
+# Packager: Stoyan Zhekov, zhware at hotpop dot com
+# Depends on:
+
+name=makeself
+version=2.2.0
+release=1
+source=(http://cdn.megastep.org/$name/$name-$version.run)
+
+build() {
+  sh $name-$version.run
+  mkdir -p $PKG/usr/bin
+  install -D -m 0755 $name-$version/$name.sh $PKG/usr/bin/$name
+}

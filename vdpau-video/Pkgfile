@@ -1,0 +1,21 @@
+# Description: VDPAU back-end for NVIDIA and VIA chipsets.
+# URL: http://www.splitted-desktop.com/~gbeauchesne/vdpau-video/
+# Maintainer: Danny Rawlins, monster dot romster at gmail dot com
+# Packager: Danny Rawlins, monster dot romster at gmail dot com
+# Depends on: libva libvdpau
+
+name=vdpau-video
+version=0.7.3
+release=1
+source=(http://www.splitted-desktop.com/~gbeauchesne/$name/$name-$version.tar.gz)
+
+build() {
+	cd $name-$version
+
+	./configure \
+		--prefix=/usr \
+		--enable-glx
+
+	make
+	make DESTDIR=$PKG install
+}

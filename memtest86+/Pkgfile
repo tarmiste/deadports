@@ -1,0 +1,15 @@
+# Description: Advanced memory diagnostic tool.
+# URL: http://www.memtest.org/
+# Maintainer: Danny Rawlins, crux at romster dot me
+# Packager: Mark Rosenstand, mark at borkware dot net
+
+name=memtest86+
+version=5.01
+release=1
+source=(http://www.memtest.org/download/$version/$name-$version.tar.gz)
+
+build() {
+	cd $name-$version
+	make memtest.bin
+	install -m 0644 -D memtest.bin $PKG/boot/memtest.bin
+}

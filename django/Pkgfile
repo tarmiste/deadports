@@ -1,0 +1,19 @@
+# Description: Web framework written in python
+# URL: http://djangoproject.com
+# Maintainer: Mikhail Kolesnik, mike at openbunker dot org
+# Packager: Lucas Hazel, lucas at die dot net dot au
+# Depends on: python
+
+name=django
+version=1.1.2
+release=1
+source=(http://media.djangoproject.com/releases/1.1/Django-$version.tar.gz
+    $name.pth)
+
+build() {
+	cd Django-$version
+	python setup.py install --root=$PKG
+	# Don't lay eggs
+	find $PKG -name '*egg-info' | xargs rm
+	install $SRC/$name.pth $PKG/usr/lib/python2.6/site-packages/$name.pth
+}

@@ -1,0 +1,26 @@
+diff -Nru Mupen64Plus-1-5-src-orig/glide64/Combine.cpp Mupen64Plus-1-5-src/glide64/Combine.cpp
+--- Mupen64Plus-1-5-src-orig/glide64/Combine.cpp	2009-12-11 14:19:27.000000000 +0200
++++ Mupen64Plus-1-5-src/glide64/Combine.cpp	2009-12-11 14:21:56.000000000 +0200
+@@ -11873,7 +11873,8 @@
+   LOG ("InitCombine() ");
+   memset(&cmb, 0, sizeof(cmb));
+   const char *extensions = grGetString (GR_EXTENSION);
+-  if (char * extstr = strstr(extensions, "COMBINE")) {
++  const char *extstr = strstr(extensions, "COMBINE");
++  if (extstr) {
+     if (!strncmp(extstr, "COMBINE", 7)) {
+       LOG ("extensions ");
+       cmb.grColorCombineExt = (GRCOLORCOMBINEEXT) grGetProcAddress("grColorCombineExt");
+diff -Nru Mupen64Plus-1-5-src-orig/glide64/Main.cpp Mupen64Plus-1-5-src/glide64/Main.cpp
+--- Mupen64Plus-1-5-src-orig/glide64/Main.cpp	2009-12-11 14:19:27.000000000 +0200
++++ Mupen64Plus-1-5-src/glide64/Main.cpp	2009-12-11 14:23:11.000000000 +0200
+@@ -784,7 +784,8 @@
+   printf("bebefore2\n");
+   if (settings.fb_hires)
+   {
+-    if (char * extstr = strstr(extensions, "TEXTUREBUFFER")) 
++    const char * extstr = strstr(extensions, "TEXTUREBUFFER");
++    if (extstr)
+     {
+       if (!strncmp(extstr, "TEXTUREBUFFER", 13)) 
+       {

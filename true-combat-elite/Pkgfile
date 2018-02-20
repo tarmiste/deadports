@@ -1,0 +1,28 @@
+# Description: TrueCombat:Elite is a team-based realism modification based on Enemy Territory.
+# URL: http://www.truecombatelite.com/
+# Maintainer: Jose V Beneyto, sepen at crux dot nu
+# Packager: Jose V Beneyto, sepen at crux dot nu
+# Depends on: enemy-territory
+
+name=true-combat-elite
+version=0.49b
+release=5
+source=(http://tce.merlin1991.at/tce/tcetest049.zip \
+	http://dragons-perch.net/tce/tce049b_all_os_fixed.zip
+        tce $name.desktop)
+
+build() {
+  install -d $PKG/usr/share/enemy-territory
+  rm -vrf $SRC/tcetest/*{.rtf,.txt,.dll,_mac*}
+
+  # 0.49
+  mv -v $SRC/tcetest $PKG/usr/share/enemy-territory
+  # 0.49b
+  cp -v $SRC/*.{pk3,so,dat} $PKG/usr/share/enemy-territory/tcetest
+
+  find $PKG/usr/share/enemy-territory/tcetest -type f -exec chmod 644 {} \;
+
+  install -D -m 0755 $SRC/tce $PKG/usr/bin/tce
+  ln -sf /usr/bin/tce $PKG/usr/bin/$name
+  install -D -m 0644 $SRC/$name.desktop $PKG/usr/share/applications/$name.desktop
+}

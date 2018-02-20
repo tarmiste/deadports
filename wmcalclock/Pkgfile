@@ -1,0 +1,22 @@
+# Description: A Calendar clock applet with antialiased text.
+# URL: http://www.dockapps.org/file.php/id/9
+# Maintainer: Mikhail Kolesnik, mike at openbunker dot org
+# Depends on: xorg-libxpm
+
+name=wmcalclock
+version=1.25
+release=2
+# author's page is gone
+source=(http://www.cs.mun.ca/~gstarkes/wmaker/dockapps/files/wmCalClock-$version.tar.gz\
+		wmCalClock-$version-makefile.patch \
+		wmCalClock-increase-delay.patch)
+
+build() {
+	cd wmCalClock-$version
+	patch -p1 -i $SRC/wmCalClock-$version-makefile.patch
+	# allows to wake up less frequently
+	patch -p1 -i $SRC/wmCalClock-increase-delay.patch
+	cd Src
+	make
+	DEST=$PKG/usr make install
+}

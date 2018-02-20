@@ -1,0 +1,20 @@
+# Description:  Machine management for a container-centric world
+# URL:          https://github.com/docker/machine/
+# Maintainer:   James Mills, prologic at shortcircuit dot net dot au
+#
+# Depends on:	docker
+
+name=docker-machine
+version=0.4.1
+release=1
+source=(http://shortcircuit.net.au/~prologic/distfiles/machine-${version}.tar.gz)
+
+build() {
+    cd machine-$version
+
+    # Build (uses Docker)
+    ./script/build -os=linux -arch=amd64
+
+    # Pacakge
+    install -Dm755 docker-machine_linux-amd64 $PKG/usr/bin/docker-machine
+}

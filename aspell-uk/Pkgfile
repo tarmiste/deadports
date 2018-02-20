@@ -1,0 +1,17 @@
+# Description: Ukrainian dictionary for aspell
+# URL: http://aspell.net
+# Maintainer: Mikhail Kolesnik, mike at openbunker dot org
+# Packager: Oleksiy V. Khilkevich, centericq at ukr dot net
+# Depends on: aspell
+
+name=aspell-uk
+version=1.4.0-0
+release=1
+source=(ftp://ftp.gnu.org/gnu/aspell/dict/uk/aspell6-uk-$version.tar.bz2)
+
+build() {
+	cd aspell6-uk-$version
+	./configure 
+	make
+	make DESTDIR=$PKG install
+}

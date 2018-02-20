@@ -1,0 +1,22 @@
+# Description: distribution of Perl 6
+# URL:         http://rakudo.org/
+# Maintainer:  Bartlomiej Palmowski, rotwang at crux dot org dot pl
+# Depends on:  icu parrot nqp
+
+name=rakudo
+version=2014.01
+release=1
+source=(http://$name.org/downloads/star/$name-star-$version.tar.gz)
+
+build() {
+    cd $name-star-$version
+    perl ./Configure.pl --prefix=/usr
+    make
+
+    make DESTDIR="$PKG" install
+
+    # remove references to $PKG
+    find "$PKG" \( -iname '*.pir' -o -name 'panda' -o -name 'ufo' -o -name 'p6doc' \) \
+        -exec env strip="$PKG" perl -pe 's/\Q$ENV{strip}//g' -i {} +
+}
+

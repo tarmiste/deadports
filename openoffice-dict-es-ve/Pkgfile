@@ -1,0 +1,15 @@
+# Description:	OpenOffice spanish dictionary and hyphenation for Venezuela
+# URL:		http://lingucomponent.openoffice.org/
+# Maintainer:	Alan Mizrahi, alan at mizrahi dot com dot ve
+# Depends on:	openoffice
+
+name=openoffice-dict-es-ve
+version=0.2
+release=1
+source=(http://ftp.services.openoffice.org/pub/OpenOffice.org/contrib/dictionaries/es_VE.zip http://ftp.services.openoffice.org/pub/OpenOffice.org/contrib/dictionaries/hyph_es_ES.zip)
+
+build () {
+	install -D -o root -g root -m 644 es_VE.aff $PKG/usr/lib/openoffice/share/dict/ooo/es_VE.aff
+	install -D -o root -g root -m 644 es_VE.dic $PKG/usr/lib/openoffice/share/dict/ooo/es_VE.dic
+	install -D -o root -g root -m 644 hyph_es_ES.dic $PKG/usr/lib/openoffice/share/dict/ooo/hyph_es_ES.dic
+}

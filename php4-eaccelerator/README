@@ -1,0 +1,74 @@
+
+README for php4-eaccelerator 0.9.5.2
+
+
+POST-INSTALL
+
+  eAccelerator can be installed both as Zend or PHP extension.
+  When you install eAccelerator as a zend_extension you need to give the 
+  full path to the eaccelerator.so library.
+
+  Edit your php.ini file (usually /etc/php.ini)
+
+  To install as Zend extension:
+
+    zend_extension = "/usr/lib/php/extensions/eaccelerator.so"
+    eaccelerator.shm_size = 0
+    eaccelerator.cache_dir = "/tmp/eaccelerator"
+    eaccelerator.enable = 1
+    eaccelerator.optimizer = 1
+    eaccelerator.check_mtime = 1
+    eaccelerator.debugi = 0
+    eaccelerator.filter = ""
+    eaccelerator.shm_max = 0
+    eaccelerator.shm_ttl = 3600
+    eaccelerator.shm_prune_period = 0
+    eaccelerator.shm_only = 0
+    eaccelerator.compress = 1
+    eaccelerator.compress_level = 9
+    eaccelerator.sessions = "shm_and_disk"
+    eaccelerator.content = "shm_and_disk"
+
+
+  If you use a thread safe build of PHP you must use 
+  "zend_extension_ts" instead of "zend_extension".
+
+  To install as PHP extension:
+  
+    extension="eaccelerator.so"
+    eaccelerator.shm_size = 0
+    eaccelerator.cache_dir = "/tmp/eaccelerator"
+    eaccelerator.enable = 1
+    eaccelerator.optimizer = 1
+    eaccelerator.check_mtime = 1
+    eaccelerator.debugi = 0
+    eaccelerator.filter = ""
+    eaccelerator.shm_max = 0
+    eaccelerator.shm_ttl = 3600
+    eaccelerator.shm_prune_period = 0
+    eaccelerator.shm_only = 0
+    eaccelerator.compress = 1
+    eaccelerator.compress_level = 9
+    eaccelerator.sessions = "shm_and_disk"
+    eaccelerator.content = "shm_and_disk"
+
+  
+  
+  One last very important step is creating the cache directory that you 
+  configured in the previous step. The default value is /tmp/eaccelerator
+  It's easy because it's writable to everyone, but it isn't very smart
+  because on a lot of systems this directory is cleaned on reboot.
+  A better place would be /var/cache/eaccelerator.
+  
+  Create the directory and make sure it's writable for the user
+  eAccelerator runs under (usually the user which you webserver runs as).
+  
+  A safe bet is making it world writable. A safer and cleaner way would be to
+  change the owner of the directory to the same user PHP runs as (most of the
+  time the same user as Apache or Lighttpd) and set 0644 permissions.
+
+  The lazy way:
+  
+    mkdir /tmp/eaccelerator
+    chmod 0777 /tmp/eaccelerator
+

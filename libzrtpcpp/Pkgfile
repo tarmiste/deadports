@@ -1,0 +1,16 @@
+# Description:	Secure RTP library
+# URL:	http://wiki.gnutelephony.org/index.php/Secure_Call
+# Maintainer:	Alan Mizrahi, alan at mizrahi dot com dot ve
+# Depends on:	ccrtp
+
+name=libzrtpcpp
+version=1.4.3
+release=1
+source=(http://ftp.gnu.org/pub/gnu/ccrtp/$name-$version.tar.gz)
+
+build () {
+	cd $name-$version
+	./configure --prefix=/usr
+	make
+	make DESTDIR=$PKG install
+}

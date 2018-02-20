@@ -1,0 +1,16 @@
+# Description: A portable file system cache diagnostics and control tool
+# URL: http://hoytech.com/vmtouch/
+# Maintainer: Mikhail Kolesnik, mike at openbunker dot org
+# Depends on: 
+
+name=vmtouch
+version=0.8.0
+release=1
+source=(http://hoytech.com/$name/$name.c \
+		http://hoytech.com/$name/$name.8)
+
+build() {
+	gcc $CFLAGS -o $name $name.c
+	install -m 644 -D $name.8 $PKG/usr/man/man8/$name.8
+	install -m 755 -D $name $PKG/usr/bin/$name
+}

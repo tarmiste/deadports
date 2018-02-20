@@ -1,0 +1,17 @@
+README for squirrelmail-translations
+
+REQUIREMENTS
+
+PRE-INSTALL
+Export variable containing locales of choice (otherwice all locales will be
+installed), and htdocs root directory (I prefer srv/www/apache/htdocs):
+
+ export SQM_LANG="ru_RU it_IT"
+ export SQM_HTDOCS_ROOT="srv/www/apache/htdocs"
+
+It will be used inside Pkgfile, so do not wonder if footprint will give you
+an error.
+
+POST-INSTALL
+
+RESOURCES

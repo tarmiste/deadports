@@ -1,0 +1,13 @@
+README for wmthrottle
+
+REQUIREMENTS
+
+PRE-INSTALL
+
+POST-INSTALL
+
+RESOURCES
+
+PRECAUTION
+The 'make install' (from Pkgfile) will NOT suid the binary file. To allow
+regular user to change throttling state do it manually or use sudo.

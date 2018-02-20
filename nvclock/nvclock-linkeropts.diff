@@ -1,0 +1,12 @@
+diff -Nru nvclock0.8b4.orig/src/gtk/Makefile.in nvclock0.8b4/src/gtk/Makefile.in
+--- nvclock0.8b4.orig/src/gtk/Makefile.in	2012-12-15 18:45:24.850837856 +0200
++++ nvclock0.8b4/src/gtk/Makefile.in	2012-12-15 18:50:14.321618647 +0200
+@@ -20,7 +20,7 @@
+ ifeq ($(HAVE_NVCONTROL), yes)
+     DEPS=$(libbackend) $(libnvcontrol)
+     INCLUDES=@X11_CFLAGS@ -I./backend -I./nvcontrol -I.. -I../..
+-    LIBS=@GTK_LIBS@ -L../backend -lbackend -L../nvcontrol -lnvcontrol
++    LIBS=@GTK_LIBS@ -L../backend -lbackend -L../nvcontrol -lnvcontrol -lXext -lX11 -ldl
+     OBJECTS=banner.o gl.o hw.o main.o settings.o
+ else
+     DEPS=$(libbackend)

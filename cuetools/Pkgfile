@@ -1,0 +1,20 @@
+# Description: Set of utilities for working with cue files and toc files.
+# URL: http://developer.berlios.de/projects/cuetools/
+# Maintainer: Jose V Beneyto, sepen at users dot sourceforge dot net
+# Packager: Han Boetes, han at mijncomputer dot nl
+# Depends on:
+# Nice to have: flac, vorbis-tools
+
+name=cuetools
+version=1.3.1
+release=2
+source=(http://download.berlios.de/$name/$name-$version.tar.gz)
+
+build() {
+  cd $name-$version
+  ./configure --prefix=/usr \
+              --disable-nls
+  make
+  make DESTDIR=$PKG install
+  install -D -m 0755 extras/cuetag.sh $PKG/usr/bin/cuetag
+}

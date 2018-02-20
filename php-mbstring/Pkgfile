@@ -1,0 +1,21 @@
+# Description: Multibyte string module for PHP
+# URL: http://www.php.net
+# Maintainer: Mikhail Kolesnik, mike at openbunker dot org
+# Depends on: 
+
+name=php-mbstring
+version=5.4.6
+release=1
+source=(http://www.php.net/distributions/php-$version.tar.bz2)
+
+build() {
+	cd php-$version
+
+	./configure --disable-all \
+				--enable-mbstring=shared,/usr
+	make build-modules
+
+	install -d $PKG/{etc/php/conf.d,usr/lib/php/extensions}
+	install -m 755 modules/mbstring.so $PKG/usr/lib/php/extensions
+	echo "extension=mbstring.so" > $PKG/etc/php/conf.d/mbstring.ini
+}

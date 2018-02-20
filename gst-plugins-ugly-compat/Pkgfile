@@ -1,0 +1,32 @@
+# Description: A set of plugins for gstreamer that may pose distribution problems.
+# URL: http://gstreamer.freedesktop.org/modules/gst-plugins-ugly.html
+# Maintainer: Danny Rawlins, crux at romster dot me
+# Packager Matt Housh, jaeger at morpheus dot net
+# Depends on: gst-plugins-base-compat lame liba52 libcdio libdvdread libmad libmpeg2 opencore-amr x264 xz
+
+name=gst-plugins-ugly-compat
+version=0.10.19
+release=2
+source=(http://gstreamer.freedesktop.org/src/gst-plugins-ugly/gst-plugins-ugly-$version.tar.xz
+	opencore-amr.patch
+	cdio-cd-text-api.patch)
+
+build() {
+	cd gst-plugins-ugly-$version
+
+	patch -p 0 -i $SRC/opencore-amr.patch
+	patch -p 1 -i $SRC/cdio-cd-text-api.patch
+
+	./configure \
+		--prefix=/usr \
+		--mandir=/usr/man \
+		--with-package-name="GStreamer Ugly Plugins (Crux)" \
+		--with-package-origin="http://crux.nu/" \
+		--enable-experimental \
+		--disable-nls \
+		--disable-dependency-tracking \
+		--disable-examples
+
+	make
+	make DESTDIR=$PKG install
+}

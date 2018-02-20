@@ -1,0 +1,14 @@
+# Description: Intrusion detection. Policy enforcement/auditing software
+# URL: http://www.geocities.com/fcheck2000/index.html
+# Maintainer: Victor Martinez, pitillo at ono dot com
+# Depends on:
+
+name=fcheck
+version=2.07.59
+release=1
+source=(http://www.geocities.com/fcheck2000/FCheck_$version.tar.gz)
+
+build () {
+  install -D -m 0500 $name/$name $PKG/usr/bin/$name
+  install -D -m 0400 $name/$name.cfg $PKG/etc/$name.cfg
+}

@@ -1,0 +1,24 @@
+diff -Nru wmCalClock-1.25-orig/Src/wmCalClock.c wmCalClock-1.25/Src/wmCalClock.c
+--- wmCalClock-1.25-orig/Src/wmCalClock.c	2008-04-14 21:42:35.238408669 +0300
++++ wmCalClock-1.25/Src/wmCalClock.c	2008-04-14 21:44:51.431407346 +0300
+@@ -104,7 +104,7 @@
+ /* 
+  *  Delay between refreshes (in microseconds) 
+  */
+-#define DELAY 10000L
++#define DELAY 200000L
+ #define WMCALCLOCK_VERSION "1.25"
+ 
+ 
+@@ -729,9 +729,9 @@
+ 	if( HasExecute == 1) {
+ 	  usleep(DELAY);
+ 	} else if( ShowSeconds == 1) {
+-	  usleep( 200000L);
+-	} else {
+ 	  usleep( 500000L);
++	} else {
++	  usleep( 1000000L);
+ 	}
+ 
+ 

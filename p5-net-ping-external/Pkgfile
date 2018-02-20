@@ -1,0 +1,24 @@
+# Description: Perl library Net::Ping::External
+# URL: http://search.cpan.org/~chorny/
+# Maintainer: Simon Glossner, viper at hometux dot de
+# Packager: Simon Glossner, viper at hometux dot de
+
+name=p5-net-ping-external
+version=0.13
+release=1
+source=(http://search.cpan.org/CPAN/authors/id/C/CH/CHORNY/Net-Ping-External-$version.zip)
+
+build() {
+    cd Net-Ping-External-$version
+
+    perl Makefile.PL
+    make OPTIMIZE="$CFLAGS"
+    make DESTDIR=$PKG install
+
+    find $PKG \
+	-name .packlist -or \
+	-name perllocal.pod -or \
+	-name '*.bs' -or \
+	-name autosplit.ix | xargs rm
+    find $PKG -depth -empty -exec rm -rf {} \;
+}

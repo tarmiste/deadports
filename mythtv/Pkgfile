@@ -1,0 +1,49 @@
+# Description: Homebrew PVR Project for Linux
+# URL:         http://www.mythtv.org/
+# Maintainer: Lucas Hazel, lucas at die dot net dot au
+# Packager:    James Mills, <prologic at shortcircuit dot net dot au>
+#
+# Depends on:  mysql, qt3, ffmpeg, lame
+
+name=mythtv
+version=0.20
+release=1
+source=(http://www.mythtv.org/mc/$name-$version.tar.bz2
+        $name-$version-settings.diff
+        mythbackend)
+
+build() {
+   cd $name-$version
+
+   patch -p0 settings.pro < $SRC/$name-$version-settings.diff
+   sed -i -e "s/#CFLAGS#/$CFLAGS/" settings.pro
+   for i in `grep -lr "usr/local" *`
+      do
+         sed -i -e 's|usr/local|usr|g' "$i"
+      done
+
+   ./configure --prefix=/usr \
+      --enable-lirc
+   qmake $name.pro
+   make qmake
+
+   find . -name "Makefile" -exec \
+      sed -i -e 's|$(QTDIR)|/usr|g' \
+         -e 's|../../../../../../../../|/usr/|g' \
+         -e 's|../../../../../../../|/usr/|g' '{}' \;
+
+   make
+   make INSTALL_ROOT=$PKG/ install
+   install -m 644 database/mc.sql $PKG/usr/share/mythtv/
+
+   rm -rf $PKG/usr/share/mythtv/i18n
+
+   mkdir -p $PKG/etc/rc.d
+   install -m 755 $SRC/mythbackend $PKG/etc/rc.d/
+
+   # set suid on mythfrontend
+   chmod a+s $PKG/usr/bin/mythfrontend
+
+   chown root:root $PKG
+}
+

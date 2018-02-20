@@ -1,0 +1,48 @@
+# Description:	PBX Software implementation
+# URL:		http://www.asterisk.org
+# Maintainer:   Alan Mizrahi, alan at mizrahi dot com dot ve
+# Depends on:	openssl, ncurses, ilbc
+
+name=asterisk14
+version=1.4.38
+release=1
+source=(
+http://downloads.digium.com/pub/$name/releases/$name-$version.tar.gz
+asterisk.rc
+asterisk-config.patch
+asterisk-ilbc.patch
+)
+
+build () {
+	cd $name-$version
+
+	# Menuselect configuration patch to remove default sounds and moh
+	patch -p1 -i $SRC/asterisk-config.patch
+
+	# Add ilbc codec
+	patch -p1 -i $SRC/asterisk-ilbc.patch
+
+	./configure --prefix=/usr --with-ncurses --with-ssl
+	make
+	make DESTDIR=$PKG install
+	make DESTDIR=$PKG samples
+
+	mv $PKG/usr/share/man $PKG/usr
+	install -m 755 -D $SRC/asterisk.rc $PKG/etc/rc.d/asterisk
+	rmdir  $PKG/usr/{share,bin}
+	rm -rf $PKG/var/spool/asterisk/voicemail/default/1234
+
+	# Remove empty directory holders
+	rmdir $PKG/var/lib/asterisk/sounds/*
+
+	# change runtime dir
+	sed -i -e 's|^astrundir => .*|astrundir => /var/run/asterisk|' $PKG/etc/asterisk/asterisk.conf
+	mkdir -p $PKG/var/run/asterisk
+
+	# create empty astdb database
+	touch $PKG/var/lib/asterisk/astdb
+
+	# fix permissions
+	chown -R root:root $PKG
+	chown -R asterisk:asterisk $PKG/var/{lib,log,run,spool}/asterisk
+}

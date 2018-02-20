@@ -1,0 +1,40 @@
+diff -ru wmlaptop-1.4-orig/Makefile wmlaptop-1.4/Makefile
+--- wmlaptop-1.4-orig/Makefile	2004-09-11 14:42:51.000000000 +0300
++++ wmlaptop-1.4/Makefile	2006-01-02 19:58:10.000000000 +0200
+@@ -1,11 +1,11 @@
+ # modify this if you want/need
+ 
+-INSTALLDIR = /usr/local/bin/
++INSTALLDIR = $(PKG)/usr/bin
+ CC = gcc
+ 
+ LIBDIR = -L/usr/X11R6/lib
+ LIBS   = -lXpm -lXext -lX11 
+-CFLAGS =  -Wall -g
++#CFLAGS =  -Wall -g
+ OBJS   =  main.o init.o event.o draw.o battery.o cpu.o autoscript.o pixmap.o
+ EXE    = wmlaptop
+ 
+@@ -13,7 +13,7 @@
+ export INSTALLDIR
+ export LIBDIR
+ export LIBS
+-export CFLAGS
++#export CFLAGS
+ export OBJS
+ export EXE
+ export CC
+diff -ru wmlaptop-1.4-orig/src/Makefile wmlaptop-1.4/src/Makefile
+--- wmlaptop-1.4-orig/src/Makefile	2004-03-08 14:05:00.000000000 +0200
++++ wmlaptop-1.4/src/Makefile	2006-01-02 20:03:47.000000000 +0200
+@@ -20,8 +20,8 @@
+ reall: clean all
+ 
+ install:
+-	/usr/bin/install -c -o 0 -g 0 -s -m 755 $(EXE) $(INSTALLDIR)/$(EXE)
+-	chmod +s $(INSTALLDIR)/$(EXE)
++	/usr/bin/install -D -o 0 -g 0 -s -m 755 $(EXE) $(INSTALLDIR)/$(EXE)
++#	chmod +s $(INSTALLDIR)/$(EXE)
+ 	
+ uninstall:
+ 	rm -f $(INSTALLDIR)/$(EXE)

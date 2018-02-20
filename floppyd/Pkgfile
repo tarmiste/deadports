@@ -1,0 +1,24 @@
+# Description: Utilities to access MS-DOS disks without mounting them
+# URL: http://mtools.linux.lu/
+# Maintainer: Jose V Beneyto, sepen at crux dot nu
+# Packager: Jose V Beneyto, sepen at crux dot nu
+# Depends on: xorg-libxt
+
+name=floppyd
+version=4.0.18
+release=1
+source=(ftp://ftp.gnu.org/gnu/mtools/mtools-$version.tar.bz2)
+
+build() {
+  cd mtools-$version
+
+  ./configure --prefix=/usr \
+              --sysconfdir=/etc \
+              --enable-floppyd
+
+  make $name ${name}_installtest
+
+  install -d $PKG/usr/{bin,man/man1}
+  install -m 0755 $name ${name}_installtest $PKG/usr/bin
+  install -m 0644 $name.1 ${name}_installtest.1 $PKG/usr/man/man1
+}

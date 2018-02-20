@@ -1,0 +1,30 @@
+--- asterisk-1.4.35/codecs/Makefile.orig	2010-11-24 01:40:53.142139098 +0900
++++ asterisk-1.4.35/codecs/Makefile	2010-11-24 01:43:10.535459241 +0900
+@@ -29,7 +29,7 @@
+   LOADABLE_MODS:=
+ endif
+ 
+-LIBILBC:=ilbc/libilbc.a
++LIBILBC:=/usr/lib/libilbc.a
+ LIBLPC10:=lpc10/liblpc10.a
+ 
+ all: _all
+@@ -56,6 +56,6 @@
+ $(if $(filter codec_lpc10,$(EMBEDDED_MODS)),modules.link,codec_lpc10.so): $(LIBLPC10)
+ 
+ $(LIBILBC):
+-	@$(MAKE) -C ilbc all _ASTCFLAGS="$(filter-out -Wmissing-prototypes -Wmissing-declarations,$(_ASTCFLAGS)) $(AST_NO_STRICT_OVERFLOW)"
++#	@$(MAKE) -C ilbc all _ASTCFLAGS="$(filter-out -Wmissing-prototypes -Wmissing-declarations,$(_ASTCFLAGS)) $(AST_NO_STRICT_OVERFLOW)"
+ 
+ $(if $(filter codec_ilbc,$(EMBEDDED_MODS)),modules.link,codec_ilbc.so): $(LIBILBC)
+--- asterisk-1.4.35/menuselect-tree.orig	2010-11-05 16:11:43.177741233 +0900
++++ asterisk-1.4.35/menuselect-tree	2010-11-05 16:11:53.904406851 +0900
+@@ -279,7 +279,7 @@
+ 	<depend>gsm</depend>
+ </member>
+ <member name="codec_ilbc" displayname="iLBC Coder/Decoder" remove_on_change="codecs/codec_ilbc.o codecs/codec_ilbc.so">
+-	<defaultenabled>no</defaultenabled>
++	<defaultenabled>yes</defaultenabled>
+ </member>
+ <member name="codec_lpc10" displayname="LPC10 2.4kbps Coder/Decoder" remove_on_change="codecs/codec_lpc10.o codecs/codec_lpc10.so">
+ </member>

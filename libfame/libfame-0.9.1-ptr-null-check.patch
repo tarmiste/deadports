@@ -1,0 +1,19 @@
+diff -pruN libfame-0.9.1.orig/src/fame_malloc.c libfame-0.9.1/src/fame_malloc.c
+--- libfame-0.9.1.orig/src/fame_malloc.c	2008-08-02 22:44:06.858140887 +1000
++++ libfame-0.9.1/src/fame_malloc.c	2008-08-02 23:05:08.693143429 +1000
+@@ -36,9 +36,13 @@ void* fame_malloc(size_t size)
+    */  
+ 
+   ptr = (unsigned char*) malloc(size+ALIGN);
+-  aligned = (unsigned char*) (((unsigned int)ptr & (~(ALIGN-1))) + ALIGN );
++  if (ptr == NULL) {
++	perror("fame_malloc");
++	exit(1);
++  }
++  aligned = (unsigned char*) (((uintptr_t)ptr & (~(ALIGN-1))) + ALIGN );
+   padding = aligned - 1;
+-  *padding = (ALIGN-1) - ((unsigned int)ptr & (ALIGN-1));
++  *padding = (ALIGN-1) - ((uintptr_t)ptr & (ALIGN-1));
+ 
+   return ((void*)aligned);
+ }

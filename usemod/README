@@ -1,0 +1,44 @@
+README for usemod 1.x
+
+REQUIREMENTS
+
+PRE-INSTALL
+
+POST-INSTALL
+
+1. Add the following directives to httpd.conf:
+
+   <Directory /var/www/usemod/>
+      Options None
+      AllowOverride None
+      Order deny,allow
+      Deny from all
+   </Directory>
+
+   Alias /pub /var/www/usemod/pub/
+   
+   <Directory /var/www/usemod/pub/>
+      Options None
+      Allow from all
+   </Directory>
+
+2. If you have mod_perl installed, which gives an huge 
+   performance boost, you should add this too:
+
+   LoadModule perl_module lib/apache/mod_perl.so
+
+   Alias /wiki /var/www/cgi-bin/wiki.pl
+
+   <Location /wiki>
+      SetHandler perl-script
+      PerlResponseHandler ModPerl::Registry
+      PerlOptions +ParseHeaders
+      Options ExecCGI
+   </Location>
+
+3. Point you browser to http://<your_host_name>/wiki
+   (mod_perl) or http://<your_host_name>cgi-bin/wiki.pl
+   and enjoy ;-)
+
+PRECAUTION
+

@@ -1,0 +1,18 @@
+# Description: Zope3 interface library.
+# URL: http://www.zope.org/Products/ZopeInterface
+# Maintainer: Lucas Hazel, lucas at die dot net dot au
+# Packager: Lucas Hazel, lucas at die dot net dot au
+# Depends on: python
+	
+name=zopeinterface
+version=3.3.0
+release=3
+source=(http://www.zope.org/Products/ZopeInterface/$version/zope.interface-$version.tar.gz)
+	
+build() {
+	cd zope.interface-$version
+	python setup.py install --root=$PKG --prefix=/usr
+	rm $PKG/usr/lib/python*/site-packages/zope/interface/README{,.ru}.txt
+	find $PKG -name '*egg-info' | xargs rm -rf
+}
+

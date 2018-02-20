@@ -1,0 +1,41 @@
+--- Makefile.old	2008-04-14 00:46:54.000000000 +0200
++++ Makefile	2008-04-14 00:47:16.000000000 +0200
+@@ -2,7 +2,7 @@ CC=         gcc
+ MAKE=       make
+ INSTALL=    install
+ LOCALEPATH= $(PREFIX)/share/locale
+-MANPATH=    $(PREFIX)/share/man
++MANPATH=    $(PREFIX)/man
+ 
+ ### Compiler/linker flags   ###
+ ### Generated via configure ###
+@@ -46,14 +46,9 @@ manpages:
+ 	cat $(MAN)/snownews.1.in | sed s#PREFIX#$(PREFIX)# | \
+ 	sed s/VERSION/$(VERSION)/ > $(MAN)/snownews.1
+ 	
+-	for L in $(LANGS); do \
+-		cat $(MAN)/$$L/snownews.1.$$L.in | sed s#PREFIX#$(PREFIX)# | \
+-		sed s/VERSION/$(VERSION)/ > $(MAN)/$$L/snownews.1; \
+-	done
+-
+ ### Install ###
+ 
+-install: install-bin install-locales install-man
++install: install-bin install-man
+ 	@echo ""
+ 
+ install-bin: snownews
+@@ -82,13 +77,6 @@ install-man: manpages
+ 	$(INSTALL) -m 0644 $(MAN)/snownews.1 $(DESTDIR)$(MANPATH)/man1
+ 	$(INSTALL) -m 0644 $(MAN)/opml2snow.1 $(DESTDIR)$(MANPATH)/man1
+ 	
+-	for L in $(LANGS); do \
+-		if [ ! -d "$(DESTDIR)$(MANPATH)/$$L/man1" ]; then \
+-			mkdir -p $(DESTDIR)$(MANPATH)/$$L/man1; \
+-		fi; \
+-		$(INSTALL) -m 0644 $(MAN)/$$L/snownews.1 $(DESTDIR)$(MANPATH)/$$L/man1; \
+-	done
+-
+ ### Cleanup ###
+ 
+ clean: clean-bin clean-locales clean-man

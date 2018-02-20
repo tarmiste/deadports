@@ -1,0 +1,18 @@
+# Description: Utility to switch to TV-Out on ATI Video Cards.
+# URL: http://0pointer.de/lennart/projects/atitvout/
+# Maintainer: Jose V Beneyto, sepen at users dot sourceforge dot net
+# Packager: James Mills, prologic at shortcircuit dot net dot au
+# Depends on:
+
+name=atitvout
+version=0.4
+release=1
+source=(http://0pointer.de/lennart/projects/$name/$name-$version.tar.gz \
+        $name-patch)
+
+build() {
+   cd $name
+   patch -p1 -i $SRC/$name-patch
+   make
+   make DESTDIR=$PKG install
+}

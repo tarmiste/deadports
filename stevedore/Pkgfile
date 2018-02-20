@@ -1,0 +1,15 @@
+# Description:  A set of enhancements to virtualenv
+# URL:          https://github.com/dreamhost/stevedore
+# Maintainer:   James Mills, prologic at shortcircuit dot net dot au
+#
+# Depends on:   pbr
+
+name=stevedore
+version=0.15
+release=2
+source=(http://pypi.python.org/packages/source/s/$name/$name-$version.tar.gz)
+
+build() {
+    cd $name-$version
+    /usr/bin/python setup.py install --root=$PKG
+}

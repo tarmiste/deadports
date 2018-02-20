@@ -1,0 +1,24 @@
+# Description:  Pack, ship and run any application as a lightweight container
+# URL:          http://www.docker.io/
+# Maintainer:   James Mills, prologic at shortcircuit dot net dot au
+#
+# Depends on:   sqlite3 cgroupfs-mount
+
+name=docker-bin
+version=1.2.0
+release=1
+source=(
+    https://get.docker.io/builds/Linux/x86_64/docker-$version
+    https://raw.githubusercontent.com/dotcloud/docker/v${version}/contrib/check-config.sh
+    docker.rc
+    docker.conf
+)
+
+build() {
+    install -D -m 755 $SRC/check-config.sh $PKG/usr/share/docker/check-config.sh
+    install -D -m 755 $SRC/docker-$version $PKG/usr/bin/docker
+    install -D -m 755 $SRC/docker.rc $PKG/etc/rc.d/docker
+    install -D -m 644 $SRC/docker.conf $PKG/etc/docker.conf
+
+    chown -R root:root $PKG
+}

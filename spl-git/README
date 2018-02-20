@@ -1,0 +1,5 @@
+
+NOTE:
+
+The spl.ko module needs CONFIG_ZLIB_DEFLATE which is selected by a number of
+other things such as CONFIG_CRYPTO_DEFLATE but not selectable by itself.

@@ -1,0 +1,1517 @@
+diff -Nru wmlaptop-1.4-orig/src/battery.c wmlaptop-1.4/src/battery.c
+--- wmlaptop-1.4-orig/src/battery.c	2008-04-18 21:55:54.497550614 +0300
++++ wmlaptop-1.4/src/battery.c	2008-04-18 21:56:45.002550126 +0300
+@@ -15,6 +15,8 @@
+  */
+ 
+ #include "battery.h"
++#include <dirent.h>
++
+ 
+ bool mallocBatteryVector( )
+ {
+@@ -96,9 +98,10 @@
+ 	}
+ 	
+ 	powerState.type = SUPPORT_ACPI;
+-	powerState.updater = ACPI_Update; 
++	powerState.updater = print_battery;
++
++	
+ 	
+-	/* counting number of batteries */
+ 	powerState.nBatt = 0;
+ 	powerState.batteryVector = NULL;
+ 	
+@@ -108,26 +111,23 @@
+ 		return ERROR;
+ 	}
+ 	
+-	/* a cicle for creating as many battery_str structures 
+-	 * as are the batteries on the laptop; everyone will be
+-	 * filled with static informations */
++
+ 	while ((batt = readdir (battdir)))
+ 	{
+ 		
+ 		name = batt->d_name;
+-		/* jump . and .. */
++
+ 		if (!strncmp (".", name, 1) || !strncmp ("..", name, 2))
+ 			continue;
+ 		
+ 		countBattery++;
+ 		
+-		/* adding a battery to powerState vector */
++
+ 		if( mallocBatteryVector( ) == ERROR )
+ 			return ERROR;
+ 		
+ 		batPtr = powerState.batteryVector[ powerState.nBatt - 1 ];
+ 		
+-		/* we can find 'status' or even 'state' */
+ 		snprintf( path, 52, "%s/%s/status", ACPI_BATTERY_DIR, name );
+ 		if (access(path, R_OK) == SUCCESS )
+ 			snprintf( batPtr -> stateFile, 52, "%s/%s/status",ACPI_BATTERY_DIR, name );
+@@ -135,20 +135,17 @@
+ 			snprintf( batPtr -> stateFile, 52, "%s/%s/state", ACPI_BATTERY_DIR, name );
+ 		
+ 		
+-		/* calculating maximum capacity of this battery
+-		 * reading file infos */
++
+ 		batPtr -> useLFC = ACPI_lfcArgs_get( countBattery );
+ 		batPtr -> counter = countBattery;
+ 		snprintf( batPtr -> infoFile, 52, "%s/%s/info", ACPI_BATTERY_DIR, name );
+ 		batPtr -> present = ACPI_maxCapacity ( batPtr );
+ 		
+-		/* THIS IS NOT A BATTERY ! set error field to true: don't use it */
+ 		if( batPtr -> capacity == ~0x00 && batPtr -> present == true )
+ 		{
+ 			batPtr -> error = true;
+ 		}
+ 		
+-		/* filler selection :P */
+ 		batPtr -> filler = ACPI_Filler;
+ 	}
+ 	
+@@ -166,8 +163,6 @@
+ 	u_int16 saltCounter = 0;
+ 	char *  errorMessage = "wmlaptop will ignore this battery. If you don't want to see\nthis message, use '-q' option as argument.\n";
+ 	
+-	/* we control 'last full capacity' tag before, if this 
+-	 * don't exists or it's value is 0, then we use 'design capacity' */
+ 	char *  lfcTagPointer = NULL;
+ 	char *  dcTagPointer  = NULL;
+ 	u_int32 lastFullCapacity = 0;
+@@ -189,7 +184,7 @@
+ 	
+ 	if( !strcmp( presentString, "present:" ) && !strcmp( yesNoString, "no" ) )
+ 	{
+-		/* to avoid division by 0 ? */
++
+ 		p -> capacity = 1;
+ 		return false;
+ 	}
+@@ -207,11 +202,11 @@
+ 	}
+ 	
+ 	
+-	/* naah.. */
++
+ 	if( saltCounter >= 492 && !dcTagPointer && !lfcTagPointer )
+ 	{
+ 		PRINTQ( stderr, "The info file (%s) has not \n'design capacity' and not event 'last full capacity' tag\n%s\n", p -> infoFile, errorMessage );
+-		/* we treat 1111.1111.1111.1111 as error here */
++
+ 		p -> capacity =  ~0x00;
+ 	}
+ 	
+@@ -340,66 +335,6 @@
+ }
+ 
+ 
+-void ACPI_Update ( )
+-{
+-	FILE * fp;
+-	char *where = NULL;
+-	char  buf[512];
+-	
+-	register int i;
+-	register u_int32 capacitySum = 0;
+-	register u_int32 actualStateSum = 0;
+-	
+-	for( i = 0; i < powerState.nBatt; i++ )
+-	{
+-		powerState.batteryVector[i] -> filler( powerState.batteryVector[i] );
+-		if (powerState.batteryVector[i] -> present) {
+-			capacitySum += powerState.batteryVector[i] -> capacity;
+-			actualStateSum += powerState.batteryVector[i] -> actualState;
+-		}
+-	}
+-
+-	if (capacitySum > 0)
+-		powerState.percentage = (actualStateSum * 100) / capacitySum;
+-	else
+-		powerState.percentage = 0;
+-	
+-	/* battery charger information reading
+-	 * thanks to wmpower */
+-	
+-	if (!(fp = fopen ("/proc/acpi/ac_adapter/0/status", "r")))
+-		if (!(fp = fopen ("/proc/acpi/ac_adapter/ACAD/state", "r")))
+-			if (!(fp = fopen ("/proc/acpi/ac_adapter/AC/state", "r")))
+-				if (!(fp = fopen ("/proc/acpi/ac_adapter/ADP1/state", "r")))
+-					return;
+-	
+-	fread_unlocked (buf, 512, 1, fp);
+-	fclose(fp);
+-	
+-	if (strncmp(buf, "state:",  6) == 0)
+-		where = buf + 26;
+-	if (strncmp(buf, "Status:", 7) == 0)
+-		where = buf + 26;
+-	
+-	if (where)
+-	{
+-		if (where[0] == 'n')
+-			powerState.isCharging = true;
+-		if (where[0] == 'f')
+-			powerState.isCharging = false;
+-	}
+-	
+-    if( args_ttyMode )
+-        return;
+-
+-
+-	setNewBatteryState();
+-	
+-	
+-	return;
+-}
+-
+-
+ /* this vector will contain in each position the number of the
+  * battery the user wants to be used with 'last full capacity' */
+ static u_int8 * lfcArgsVector = NULL;
+@@ -571,7 +506,7 @@
+ 		}
+ 		else
+ 		{
+-			estimatedTimeClock( );
++			print_battery( );
+ 		}	
+ 		draw_all();
+ 		lastChargingState = powerState.isCharging;
+@@ -580,101 +515,177 @@
+ 	}
+ }
+ 
++void read_power()
++{
++	DIR *dir;
++	struct dirent *dirent;
++	FILE *file;
++	extern double powerrate;
++	char filename[256];
+ 
+ 
+-void estimatedTimeClock ( )
+-{
+-	/* we remember last 5 percent values changes.
+-	 * for every value we record even the exact moment when this
+-	 * value was recorded (reading global variable secondsCounter) */
+-	static u_int32 values[5][2];
+-	static u_int8  valueIndex = ~0;
++	dir = opendir("/proc/acpi/battery");
++	if (!dir)
++		return;
+ 	
+-	static bool lastIsCharging = false;
++	while ((dirent = readdir(dir))) {
+ 	
+-	register u_int8  diffPercentage = 0;
+-	register u_int32 diffTime       = 0;
+-	register int i;
++		char line[1024];
++				
++		sprintf(filename, "/proc/acpi/battery/%s/state", dirent->d_name);
++		file = fopen(filename, "r");
++		if (!file)
++			continue;
++		memset(line, 0, 1024);
++		while (fgets(line, 1024, file) != NULL) {
++			char *c;
++			if (strstr(line, "present:") && strstr(line, "no"))
++				break;
+ 	
++			c = strchr(line, ':');
++			if (!c)
++				continue;
++			c++;
+ 	
+-	/* if battery charge is plugged in, values fetched before are
+-	 * reset to zero and return (draw_all() function already called
+-	 * by updater will draw TIME unlit, to indicate that we haven't
+-	 * a time estimation */
+-	if( lastIsCharging != powerState.isCharging )
+-	{
+-		lastIsCharging = powerState.isCharging;
+-		valueIndex = ~0;
+-		powerState.remainingTime = 0;
+-		return;
++			if (strstr(line, "present rate") && strstr(c, "mW"))
++				powerrate = strtoull(c, NULL, 10) / 1000.0;
+ 	}
++		fclose(file);
+ 	
++	}
++	closedir(dir);
++//	fprintf(stdout,"powerrate = %3.1f\n", powerrate);
+ 	
+-	for( i = 4; i > 0; i-- )
+-	{
+-		values[i][1] = values[i-1][1];
+-		values[i][0] = values[i-1][0];
++}
++
++
++void battery_capacity()
++{
++	DIR *dir;
++	struct dirent *dirent;
++	FILE *file;
++	extern double capacity;
++	char filename[256];
++	
++	
++	dir = opendir("/proc/acpi/battery");
++	if (!dir)
++		return;
++	
++	while ((dirent = readdir(dir))) {
++		
++		char line[1024];
++				
++		sprintf(filename, "/proc/acpi/battery/%s/info", dirent->d_name);
++		file = fopen(filename, "r");
++		if (!file)
++			continue;
++		memset(line, 0, 1024);
++		while (fgets(line, 1024, file) != NULL) {
++			char *c;
++			if (strstr(line, "present:") && strstr(line, "no"))
++				break;
++
++			c = strchr(line, ':');
++			if (!c)
++				continue;
++			c++;
++			
++			if (strstr(line, "last full capacity") && strstr(c, "mWh"))
++				capacity = strtoull(c, NULL, 10) / 1000.0;
++		}
++		fclose(file);		
+ 	}
+-	values[i][0] = powerState.percentage;
+-	values[i][1] = secondsCounter;
++	closedir(dir);
++//	fprintf(stdout,"capacity = %3.1f\n", capacity);
+ 	
++}
+ 	
+-	valueIndex += 1;
+-	if( valueIndex > 4 )
+-		valueIndex = 4;
++void print_battery(void)
++{
++	DIR *dir;
++	struct dirent *dirent;
++	FILE *file;
++	double rate = 0;
++	double cap = 0;
+ 	
+-	/* if it's the first measure, jump the comparation */
+-	if( valueIndex > 0 )
+-	{
+-		u_int32 remainingSeconds;
+-		/* we have into values[0] the most recent value,
+-		 * and in values[ valueIndex ] the less one  */
++	char filename[256];
+ 		
+-		if( powerState.isCharging )
+-			diffPercentage = values[0][0] - values[ valueIndex ][0];
+-		else
+-			diffPercentage = values[ valueIndex ][0] - values[0][0];
+ 		
+-		diffTime       = values[0][1] - values[ valueIndex ][1];
++	dir = opendir("/proc/acpi/battery");
++	if (!dir)
++		return;
++
++	while ((dirent = readdir(dir))) {
++		double voltage = 0.0;
++		double amperes_drawn = 0.0;
++		double watts_drawn = 0.0;
++		double amperes_left = 0.0;
++		double watts_left = 0.0;		
++		char line[1024];
++		powerState.isCharging = false;
++
++		if (strlen(dirent->d_name) < 3)
++			continue;
++
++		sprintf(filename, "/proc/acpi/battery/%s/state", dirent->d_name);
++		file = fopen(filename, "r");
++		if (!file)
++			continue;
++		memset(line, 0, 1024);
++		while (fgets(line, 1024, file) != NULL) {
++			char *c;
++			if (strstr(line, "present:") && strstr(line, "no"))
++				break;
+ 		
+-		/* this is the logic way: if diffTime is the number of seconds for
+-		 * losing(gaining) diffPercentage percent battery charge, how many
+-		 * seconds will it takes to lose(gain) remaining points ? in other words:
+-		 * diffTime : diffPercentage = remainingSeconds : powerState.percentage
+-		 * (or if we are charging    = remainingSeconds : (100-powerState.percentage))
+-		 * it shouldn't be possible to have diffPercentage = 0
+-		 * because this function is called everytime that percent changes */
+-		if( diffPercentage == 0 )
+-		{
+-			/* sometime it happends that 'diffPercentage == 0': i recieved some bug
+-			 * report about this. I don't know why this happends, and i didn't find
+-			 * any way to correct this conceptually, so i have to put this condition
+-			 * here and turn off the estimated remaining time */
+-			PRINTQ( stderr, "There is no difference of percentage between the first\n");
+-			PRINTQ( stderr, "relevation and the last one: i have to put remainingTime to 0\n");
+-			remainingSeconds = 0;
++			if (strstr(line, "charging state:")
++			    && !strstr(line, "discharging")){
++				powerState.isCharging = true;
+ 		}
+-		else
+-		{
+-			if( powerState.isCharging )
+-				remainingSeconds = ( diffTime * (100-powerState.percentage) ) / diffPercentage;
+-			else
+-				remainingSeconds = ( diffTime * powerState.percentage ) / diffPercentage;
++			c = strchr(line, ':');
++			if (!c)
++				continue;
++			c++;
++
++			if (strstr(line, "present voltage")) 
++				voltage = strtoull(c, NULL, 10) / 1000.0;
++		
++			if (strstr(line, "remaining capacity") && strstr(c, "mW"))
++				watts_left = strtoull(c, NULL, 10) / 1000.0;
++
++			if (strstr(line, "remaining capacity") && strstr(c, "mAh"))
++				amperes_left = strtoull(c, NULL, 10) / 1000.0; 
++
++			if (strstr(line, "present rate") && strstr(c, "mW"))
++				watts_drawn = strtoull(c, NULL, 10) / 1000.0 ;
++
++			if (strstr(line, "present rate") && strstr(c, "mA"))
++				amperes_drawn = strtoull(c, NULL, 10) / 1000.0;
++
+ 		}
++		fclose(file);
++			
+ 		
+-		/* value in minutes */
+-		powerState.remainingTime = remainingSeconds / 60;
+-	}
+-	else
+-		powerState.remainingTime = 0;
+-	
++		if (!powerState.isCharging) {
++			rate += watts_drawn + voltage * amperes_drawn;
++			cap += watts_left + voltage * amperes_left;
++			powerState.remainingTime =  60*cap/rate;
++			powerrate = rate;
++//			fprintf(stdout,"taxa = %3.1fW horas=%3.1f \n", rate, cap/rate);
++		} 
++		if (powerState.isCharging){
++			rate += watts_drawn + voltage * amperes_drawn;
++//			fprintf(stdout,"watts left = %3.1f, watts drawn=%3.1f \n", watts_left, watts_drawn);
++			/* time to charge battery at 100% */ 
++			powerState.remainingTime = 60*(capacity - watts_left)/watts_drawn;
++	}
++	
++		powerrate = rate;
++		powerState.percentage = 100*(watts_left/capacity);
++//		fprintf(stdout, "capacidade = %3.1f \n", capacity);
++//		fprintf(stdout,"porcentagem = %d \n", powerState.percentage);
+ 	
+-#ifdef DEBUG
+-	printf("TEMPO TRASCORSO: %u:%02u   (%u secondi)\n",diffTime/60,diffTime%60,diffTime);
+-	printf("PERCENTUALI: values[0] = %u,  values[%d] = %u\n", values[0][0], valueIndex, values[valueIndex][0] );
+-	printf("TEMPIVALORI: values[0] = %u,  values[%d] = %u\n", values[0][1], valueIndex, values[valueIndex][1] );
+-	printf("DIFFENREZA: %d\n", diffPercentage );
+-	printf("TEMPOSTIMATO: %d\n\n\n", powerState.remainingTime );
+-#endif
++	}
++	closedir(dir);
+ }
+ 
+diff -Nru wmlaptop-1.4-orig/src/battery.h wmlaptop-1.4/src/battery.h
+--- wmlaptop-1.4-orig/src/battery.h	2008-04-18 21:55:54.497550614 +0300
++++ wmlaptop-1.4/src/battery.h	2008-04-18 21:56:45.002550126 +0300
+@@ -109,11 +109,10 @@
+  * state is changed. */
+ void setNewBatteryState( );
+ 
++void read_power();
+ 
+-/* function invoked every time that remaining battery percentage changes
+- * and calculates estimated remaining time.
+- * (if changed from previous updates the dockapp */
+-void estimatedTimeClock ( );
++void battery_capacity();
+ 
++void print_battery();
+ 
+ #endif
+diff -Nru wmlaptop-1.4-orig/src/cpu.c wmlaptop-1.4/src/cpu.c
+--- wmlaptop-1.4-orig/src/cpu.c	2008-04-18 21:55:54.497550614 +0300
++++ wmlaptop-1.4/src/cpu.c	2008-04-18 21:56:45.002550126 +0300
+@@ -65,10 +65,9 @@
+ 	return loadline;
+ }
+ 
+-
+ void manageCpuLoad( )
+ {
+-	static u_int8 lastCpuLoad = 100;
++//	static u_int8 lastCpuLoad = 100;
+ #ifndef LONGRUN
+ 	static u_int32 lastFreqChange = 0;
+ #endif
+@@ -76,10 +75,10 @@
+ 	cpuLoad = getCpuLoad();
+ 
+ 	
+-	if( cpuLoad != lastCpuLoad || cpuLoad == 100 )
+-		draw_all();
++//	if( cpuLoad != lastCpuLoad || cpuLoad == 100 )
++//		draw_all();
+ 	
+-	lastCpuLoad = cpuLoad;
++//	lastCpuLoad = cpuLoad;
+ 	
+ 	
+         /* Longrun manages frequency automatically, so skip all this */
+@@ -120,7 +119,7 @@
+ 	
+ 	/* let's read actual frequency to avoid a two seconds wait
+ 	 * dto now it */
+-	cpuReadFreq();
++//	cpuReadFreq();
+ #endif
+ 	
+ 	return;
+@@ -130,10 +129,14 @@
+ 
+ void cpuReadFreq( )
+ {
++	
+ #ifndef LONGRUN
+ 	FILE * fp;
+ 	char red[10];
+ 	
++	if (governor != 1)
++		cpuState.setFreqFile = "/sys/devices/system/cpu/cpu0/cpufreq/scaling_cur_freq";
++	
+ 	if( (fp = fopen( cpuState.setFreqFile, "r" )) == NULL )
+ 	{
+ 		fprintf(stderr, "Error reading the info file (%s):\n%s\n", cpuState.setFreqFile, strerror(errno) );
+@@ -170,19 +173,50 @@
+ }
+ 
+ 
++void cpuReadTemp( ){
++	DIR *dir;
++	struct dirent *dirent;
++	FILE *file;
++	int cpuTemp = 0;
++	char filename[256];
+ 
+-void cpuCheckFreq()
+-{
+-	static u_int32 lastCpuFreq = 0;
++        dir = opendir("/proc/acpi/thermal_zone");
++	if (!dir){
++		return;
++	}
++	while ((dirent = readdir(dir))) {
++		char line[1024];
+ 	
+-	cpuReadFreq();
++		if (strlen(dirent->d_name) < 3)
++			continue;
+ 	
+-	if( lastCpuFreq != cpuState.actualFreq )
+-		draw_all();
+ 	
+-	lastCpuFreq = cpuState.actualFreq;
+-}
++	sprintf(filename, "/proc/acpi/thermal_zone/%s/temperature", dirent->d_name);
++	file = fopen(filename, "r");
++	if (!file)
++		continue;
++	memset(line, 0, 1024);
++	while (fgets(line, 1024, file) != NULL) {
++		char *c;
++	//	if (strstr(line, "present:") && strstr(line, "no"))
++	//		break;
++
++		c = strchr(line, ':');
++		if (!c)
++			continue;
++		c++;
++		
++		if (strstr(line, "temperature") && strstr(c, "C"))
++			cpuTemp = strtoull(c, NULL, 10);
+ 
++	}
++		fclose(file);
++		
++		cpuState.Temp = cpuTemp;
++//		fprintf(stdout,"temperatura = %d\n", cpuState.Temp);
++	}
++	closedir(dir);
++}
+ 
+ void cpuSetFreq( bool direction, bool speed )
+ {
+diff -Nru wmlaptop-1.4-orig/src/cpu.h wmlaptop-1.4/src/cpu.h
+--- wmlaptop-1.4-orig/src/cpu.h	2008-04-18 21:55:54.497550614 +0300
++++ wmlaptop-1.4/src/cpu.h	2008-04-18 21:56:45.003550530 +0300
+@@ -37,6 +37,8 @@
+  * global variable cpuState */
+ void cpuReadFreq( );
+ 
++/* read cpu temperature and puts into cpuState.Temp */
++void cpuReadTemp();
+ 
+ /* invoked by events cycle  e time every 2 seconds, it reads actual
+  * frequency (calling readCpuFreq) and it redraws the dockapp if it's
+diff -Nru wmlaptop-1.4-orig/src/draw.c wmlaptop-1.4/src/draw.c
+--- wmlaptop-1.4-orig/src/draw.c	2008-04-18 21:55:54.497550614 +0300
++++ wmlaptop-1.4/src/draw.c	2008-04-18 21:56:45.003550530 +0300
+@@ -16,6 +16,7 @@
+ 
+ #include "draw.h"
+ 
++extern double powerrate;
+ 
+ void draw_area(int sx, int sy, int w, int h, int dx, int dy)
+ {
+@@ -37,9 +38,13 @@
+ 	
+ 	draw_cpuload ( );
+ 	
++	if (governor == 1){ // 1 means userspace
+ 	draw_auto_freq ( );
+-	
+ 	draw_freq_arrows ( );
++	} else {
++		draw_cputemp();
++		draw_powerrate();
++	}
+ 	
+ 	draw_actual_freq ( );
+ 	
+@@ -59,6 +64,18 @@
+ 	/* Mhz */
+ 	draw_area( 46, 119, 15, 9, 38, 51 );
+ 	
++	// colocar graus C e Watts se ondemand
++	/* C */
++	if (governor == 2){
++		/* draw C (Celsius) */
++		draw_area( 0, 117, 4, 7, 52, 36 );
++		/* draw W (Watts) */
++		if (powerState.isCharging)
++			draw_area( 70, 130, 9, 7, 25, 37 );
++		else
++			draw_area( 81, 130, 9, 7, 25, 37 );
++	}
++	
+ 	/* two gray lines */
+ 	draw_area( 66, 118, 55, 1, 4, 24 );
+ 	draw_area( 66, 118, 55, 1, 4, 48 );
+@@ -87,10 +104,6 @@
+ 	
+ 	u_int8 numBars;
+ 	int i;
+-	int j;
+-	int battery = 0;
+-	int batterySlot;
+-	int presentBatteries = 0;
+ 	
+ 	if( powerState.percentage == 100 )
+ 		/* drawing the green <1> at first position*/
+@@ -118,30 +131,15 @@
+ 	/* drawing <%> symbol of the right color */
+ 	draw_area( 40, baseY, 7, 7, 20, 5 );
+ 
+-	
+-	/* let's see, how many batteries are present */
+-	for ( batterySlot = 0; batterySlot < powerState.nBatt; batterySlot ++ )
+-		if (powerState.batteryVector[batterySlot] -> present)
+-			presentBatteries ++;
+-
+-
+-	for( batterySlot = 0; batterySlot < powerState.nBatt; batterySlot ++ ) {
+-
+-		if (powerState.batteryVector[batterySlot] -> present) {
+-			battery ++;
+-
+ 			/* battery drawing */
+-			numBars = (22 * powerState.batteryVector[batterySlot] -> percentage) / 100;
++	numBars = (22 * powerState.percentage) / 100;
+ 
+ 			for( i = 0; i < numBars; i++ )
+-				draw_area( 49 + ( i > 10 ? i - 11 : i ), 95 + ( i > 10 ? 7 : 0), 1, (7 / presentBatteries), 15+(i*2), 15 + (battery - 1) * (7 / presentBatteries + 1 ) );
++	draw_area( 49 + ( i > 10 ? i - 11 : i ), 95 + ( i > 10 ? 7 : 0), 1, (7 / 1), 15+(i*2), 15  );
+ 
+ 			/* unlit remaining battery */
+-			for( j = i; j < 22; j++ )
+-				draw_area( 60, 95, 1, (7 / presentBatteries), 15 + (j*2), 15 + (battery - 1) * (7 / presentBatteries + 1 ) );
+-
+-		}
+-	}
++//	for( j = i; j < 22; j++ )
++//		draw_area( 60, 95, 1, (7 / 1), 15 + (j*2), 15 + (battery - 1) * (7 / 2 ) );
+ 
+ 	return;
+ }
+@@ -232,6 +230,60 @@
+ 	
+ }
+ 
++void draw_cputemp ( )
++{
++	
++	u_int8 decine = cpuState.Temp == 100 ? 0 : (cpuState.Temp / 10);
++	u_int8 unita = cpuState.Temp % 10;
++
++	
++	/* tens drawing */
++	if( decine == 0 && cpuState.Temp != 100 )
++		draw_area( 57, 75, 4, 7, 49, 27 );
++	else
++		draw_area( decine*4, 71, 4, 7, 40, 36 );
++	
++	/* units drawing  */
++	draw_area( unita*4, 71, 4, 7, 45, 36 );		       	
++	
++	
++}
++
++void draw_powerrate ( )
++{
++	
++	u_int8 decine = 0;
++	u_int8 unita = 0;
++	u_int8 decimal = 0;
++	
++	if (powerrate > 10){		
++		decine = (powerrate / 10);		
++		unita = powerrate - decine*10;
++		decimal = powerrate*10 - decine*100 - unita*10;			
++	}
++	else { 
++		decine = 0;
++		unita = powerrate;
++		decimal = powerrate*10 - unita*10;
++	}
++	 
++	/* tens drawing */
++	if( decine == 0 )
++		draw_area( 57, 75, 4, 7, 5, 37 );
++	else
++		draw_area( decine*4, 78 - powerState.isCharging*14, 4, 7, 5, 37 );
++	
++	/* units drawing  */
++	draw_area( unita*4, 78 - powerState.isCharging*14, 4, 7, 10, 37 );
++	
++	/* decimal point */
++	draw_area( 0, 83 - powerState.isCharging*14, 2, 1, 15, 43 );
++	
++	/* decimals drawing  */
++	draw_area( decimal*4, 78 - powerState.isCharging*14, 4, 7, 18, 37 );
++}
++
++
+ void draw_auto_freq ( )
+ {
+ 	if ( cpuState.auto_freq_state ){
+diff -Nru wmlaptop-1.4-orig/src/draw.h wmlaptop-1.4/src/draw.h
+--- wmlaptop-1.4-orig/src/draw.h	2008-04-18 21:55:54.497550614 +0300
++++ wmlaptop-1.4/src/draw.h	2008-04-18 21:56:45.004550097 +0300
+@@ -53,10 +53,19 @@
+ void draw_auto_freq ( );
+ 
+ /* it draws the arrows at left and right of the cpu frequency */
++
+ void draw_freq_arrows ( );
+ 
+-/* it draws actua cpu frequency */
++
++/* it draws the actual cpu frequency */
+ void draw_actual_freq ( );
+ 
++/* it draws the cpu temperature */
++void draw_cputemp();
++
++/* it draws the rate at which the battery is 
++ * discharging/charging */
++void draw_powerrate();
++
+ 
+ #endif
+diff -Nru wmlaptop-1.4-orig/src/event.c wmlaptop-1.4/src/event.c
+--- wmlaptop-1.4-orig/src/event.c	2008-04-18 21:55:54.497550614 +0300
++++ wmlaptop-1.4/src/event.c	2008-04-18 21:56:45.004550097 +0300
+@@ -16,11 +16,10 @@
+ 
+ #include "event.h"
+ 
+-
+-
+ void event_handler ( )
+ {
+-	u_int32  update_seconds;
++	u_int32  update_seconds, update_seconds2, update_seconds3;
++	u_int32	 batteryUpdate, powerUpdate, tempUpdate;
+ 	u_int8   lastPercentage;
+ 	int j;
+ 
+@@ -31,9 +30,11 @@
+ 	secondsCounter = time(NULL);
+ 	powerState.updater();
+ 	update_seconds = time(NULL);
++	update_seconds2 = update_seconds;
+ 	lastPercentage = powerState.percentage;
+ 	
+-	if( powerState.percentage == 100 && powerState.isCharging && args_paradisiac == PARADISIAC_ON )
++
++	if( powerState.percentage == 100 && powerState.isCharging && args_paradisiac == PARADISIAC_ON && governor == 1)
+     {
+         if( args_ttyMode && args_beQuiet == false
+ #ifndef LONGRUN
+@@ -78,6 +79,7 @@
+ 				
+ 					switch ( j )
+ 					{
++						if (governor == 1){
+ 						/* auto-freq */
+ 						case MREGION_AUTOFREQ:
+ 							/* toggle auto-freqency "(c)2003 LdP" scaling mode */
+@@ -112,7 +114,7 @@
+ 							cpuState.auto_freq_state = false;
+ #endif
+ 							break;
+-							
++						}
+ 					}
+ 					
+ 					/* if a cliccable region was clicked, the dockapp is redrawn */
+@@ -134,17 +136,32 @@
+ 		}
+ 		
+ 		
+-		/* update battery percentage and cpuFreq
+-		 * once every batteryUpdate milliseconds; check for autoscripts
+-		 * and cpuParadisiac too */
+-		if( update_seconds <= secondsCounter - (args_batteryUpdate/1000) )
++		/* If cpuload is less than 90% then the system is 'idle', so we 
++		 * update battery percentage, temperature and power with 
++		 * defaults values (which are confortably big as to not 
++		 * overuse the acpi system and generate to many wakeups (detected
++		 * by Intel's powertop). 
++		 * If cpuload is bigger than 90% it makes sense to check these
++		 * values more often (especially the temperature), so we set
++		 * the update times to default small values.
++		 */
++		
++		if (cpuLoad < 90) {
++			batteryUpdate = args_batteryUpdate;
++			powerUpdate = args_powerUpdate;
++			tempUpdate = args_tempUpdate;
++		}
++		else {
++			batteryUpdate = 10;
++			powerUpdate = 2;
++			tempUpdate = 2;
++		}
++		       
++		
++		if( update_seconds <= secondsCounter - batteryUpdate )
+ 		{
+ 			update_seconds = secondsCounter;
+-                        /* longrun adjusts so quickly that if you put the check
+-                           after the succeeding line it consistently reads a
+-                           higher MHz (in ACPI) */
+-			cpuCheckFreq();
+-			powerState.updater();
++			print_battery();
+ 			
+ 			if( args_autoShutdown != AUTOSHUTDOWN_OFF )
+ 				checkAutoShutdown ( );
+@@ -152,13 +169,31 @@
+ 			if( args_autoAlarm != AUTOALARM_OFF )
+ 				checkAutoAlarm ( );
+ 
+-			if( args_paradisiac == PARADISIAC_ON )
+-				cpuSetParadisiac ( );
++//			if( args_paradisiac == PARADISIAC_ON && governor == 1)
++//				cpuSetParadisiac ( );
++		}
++		
++		if( update_seconds2 <= secondsCounter - tempUpdate ){
++			update_seconds2 = secondsCounter;
++			cpuReadTemp();
++//			fprintf(stdout,"executei temperatura \n");
++		}
++		
++		if( update_seconds3 <= secondsCounter - powerUpdate ){
++			update_seconds3 = secondsCounter;
++			read_power();
++//			fprintf(stdout,"executei power \n");
+ 		}
+ 		
+ 		/* check and redraw cpu load */
++		if (governor == 1)
+ 		manageCpuLoad();
+-		usleep( 1000*args_cpuUpdate /*150000*/ );
++		if (governor == 2){
++			cpuLoad = getCpuLoad();			
++		}
++		cpuReadFreq();		
++		draw_all();
++		usleep( 1000*args_cpuUpdate  );
+ 		
+ 	}
+ }
+diff -Nru wmlaptop-1.4-orig/src/init.c wmlaptop-1.4/src/init.c
+--- wmlaptop-1.4-orig/src/init.c	2008-04-18 21:55:54.497550614 +0300
++++ wmlaptop-1.4/src/init.c	2008-04-18 21:56:45.005550432 +0300
+@@ -189,80 +189,6 @@
+ }
+ 
+ 
+-/* this chech for the string 'userspace' is in scaling_governor file under /sys/.. dir
+- * (only in case we are going to use SYS's way to set cpufreq). If 'userspace' is not set
+- * then we try to set it by ourself */
+-void scalingGovernorHelper( )
+-{
+-    char * scaling_governor_path = "/sys/devices/system/cpu/cpu0/cpufreq/scaling_governor";
+-    char * scaling_governor_av_path = "/sys/devices/system/cpu/cpu0/cpufreq/scaling_available_governors";
+-    char * error_msg = "Unable to read <%s>:\n%s\nwmlaptop cannot help you in cpu scaling governor\n";
+-    FILE * sysfp;
+-    FILE * sysavfp;
+-    char   littleBuffer[128];
+-    
+-    bool   printIt = false;
+-    int    i;
+-
+-    if( ( sysfp = fopen( scaling_governor_path, "r" ) ) == NULL ) {
+-        PRINTQ( stderr, error_msg, scaling_governor_path, strerror(errno) );
+-        return;
+-    }
+-
+-    fgets( littleBuffer, 127, sysfp );
+-    fclose( sysfp );
+-    
+-    if( !strcmp( littleBuffer, "userspace\n" ) )
+-        return;
+-
+-    if( ( sysavfp = fopen( scaling_governor_av_path, "r" ) ) == NULL ) {
+-        PRINTQ( stderr, error_msg, scaling_governor_av_path, strerror(errno) );
+-        return;
+-    }
+-    
+-    fgets( littleBuffer, 127, sysavfp );
+-    fclose( sysavfp );
+-    
+-    for( i = 0; i < strlen( littleBuffer ) - 9 ; i++ )
+-        if( !strncmp( littleBuffer, "userspace", 9 ) )
+-        {
+-            /* ok, module is loaded */
+-            printIt = true;
+-            break;
+-        }
+-
+-
+-    if( printIt == false ) {
+-        int s;
+-        PRINTQ( stderr, "It seems that you do not have 'cpufreq_userspace' module loaded in your kernel\n");
+-        PRINTQ( stderr, "I try to call \"/sbin/modprobe cpufreq_userspace\"\n");
+-
+-        /* ugly.. but very fast */
+-        s = system( "/sbin/modprobe cpufreq_userspace" );
+-
+-        if( s == 0 )
+-            PRINTQ( stderr, "..good.\n" );
+-        else
+-        {
+-            PRINTQ( stderr, "you should do it by yourself (maybe you need to recompile kernel ?)\n");
+-            return;
+-        }
+-    }
+-    
+-    /* All ok here */
+-    if( ( sysfp = fopen( scaling_governor_path, "w" )) == NULL ) 
+-        PRINTQ( stderr, error_msg, scaling_governor_path, strerror(errno));
+-    else
+-    {
+-        PRINTQ( stderr, "echoing 'userspace' > '%s'\n", scaling_governor_path );
+-        fprintf( sysfp, "userspace" );
+-        fclose( sysfp );
+-    }
+-
+-    return;
+-}
+-	
+-
+ 
+ /* riempe la struttura cpuState tenendo anche conto
+  * degli argomenti passati da linea di comando */
+@@ -293,7 +219,6 @@
+ 	/* auto_freq_state */
+ 	cpuState.auto_freq_state = ( args_autoFreq == AUTOFREQ_ON );
+ 	
+-	
+ 	/* min freq */
+ 	if( (fp = fopen( paths[0][idx[0]], "r" )) == NULL ) {
+ 		fprintf( stderr, "Error reading the info file (%s):\n%s\n", paths[0][idx[0]], strerror(errno) );
+@@ -313,21 +238,12 @@
+ 	
+ 	fgets ( red, 10, fp );
+ 	cpuState.maxFreq = atoi ( red );
+-	
+ 	fclose ( fp );
+ 	
+ 	/* set freq file */
+ 	cpuState.setFreqFile = paths[2][idx[2]];
+ 
+-        /* if we have to use the SYS's way to set cpufreq, then ensure that in
+-         * scaling_governor there has been put 'userspace'; otherwise let's try
+-         * to put it by ourself */
+-        if( idx[2] == 0 )
+-            scalingGovernorHelper( );
+-
+-	
+-        cpuReadFreq( );
+-	
++	cpuReadFreq();
+ 	
+         /* set freq */
+         cpuState.setFreq = cpuState.actualFreq;
+@@ -336,6 +252,7 @@
+         /* step freq */
+         cpuState.stepFreq = args_incrementalStep;
+ 	
++	
+ #else
+         /* init and get first actual frequency */
+         /* PENDING: get these files from config */
+@@ -377,8 +294,7 @@
+ 		free_and_exit( ERROR );
+ 	}
+ #endif
+-	switch( args_startingFreq )
+-	{
++	switch( args_startingFreq ){
+ 		case STARTINGFREQ_MIN:
+ #ifndef LONGRUN	
+ 			/* frequence at min */
+@@ -398,14 +314,16 @@
+ #endif
+ 	}
+ 	
++	
+ #ifndef LONGRUN	
+ #ifdef DEBUG
+ 	fprintf ( stderr, "min freq: %d\nmax freq: %d\nactual freq: %d\n", cpuState.minFreq, cpuState.maxFreq, cpuState.actualFreq );
+ #endif
+ #else
+ 	fprintf ( stderr, "LongRun CPU starts at %d, with autoadjust = %d\n\n", cpuState.setLevelIdx, cpuState.auto_freq_state );
+-        cpuEchoFreq();  /* set initial range */
++//        cpuEchoFreq();  /* set initial range */
+ #endif
++
+ 	return;
+ }
+ 
+diff -Nru wmlaptop-1.4-orig/src/main.c wmlaptop-1.4/src/main.c
+--- wmlaptop-1.4-orig/src/main.c	2008-04-18 21:55:54.497550614 +0300
++++ wmlaptop-1.4/src/main.c	2008-04-18 22:08:44.250548770 +0300
+@@ -29,6 +29,8 @@
+ 
+ /* command line's args */
+        u_int32 args_cpuUpdate        = ARGSDEF_LEAVE;
++       u_int32 args_powerUpdate      = ARGSDEF_LEAVE;
++       u_int32 args_tempUpdate       = ARGSDEF_LEAVE;
+        u_int32 args_batteryUpdate    = ARGSDEF_LEAVE;
+        char *  args_XDisplayName     = NULL;
+        bool    args_autoFreq         = ARGSDEF_LEAVE;
+@@ -52,6 +54,9 @@
+        bool    args_dontBlink100     = ARGSDEF_DONTBLINK100;
+        bool    args_ttyMode          = ARGSDEF_LEAVE;
+ 	   bool    args_skin             = ARGSDEF_LEAVE;
++       int     governor              = 2; // 1=userspace 2=ondemand
++       double  powerrate             = 1;
++       double  capacity;
+ 
+ /* X's stuff */
+ struct mouseRegion mouse_region[MAX_MOUSE_REGION];
+@@ -106,8 +111,13 @@
+ 		}
+ 	}
+ 	
+-	init_cpuState (  );
+-    powerState.updater();
++	if (governor == 1){
++		init_cpuState();
++	}
++	battery_capacity();
++	cpuReadTemp();
++	print_battery();
++	
+ 	
+     if( args_ttyMode ) {
+         fprintf( stdout, "\n" );
+@@ -119,6 +129,7 @@
+     }
+     else
+     {
++	    if (governor == 1){
+         /* auto-freq mouse region */
+         AddMouseRegion( MREGION_AUTOFREQ, 7, 36, 55, 46 );
+         /* cpu frequency left arrow */
+@@ -126,6 +137,9 @@
+         /* cpu frequency right arrow */
+         AddMouseRegion( MREGION_MAXFREQ, 55, 52, 58, 59 );
+     }	
++
++    }
++
+ 	event_handler (  );
+ 
+ 	
+@@ -204,9 +218,13 @@
+ 	fprintf( stderr, "                                v - victory jingle\n");
+ 	fprintf( stderr, "                                h - high-bell sounds\n");	
+ 	fprintf( stderr, "   --alarm-repeat=N           repeat the choosen alarm N times\n");
++	fprintf( stderr, "[KERNEL-related-options]:\n");
++	fprintf( stderr, "   --governor=ondemand|userspace choose cpu scaling governor\n");
+ 	fprintf( stderr, "[GENERAL-options]:\n");
+ 	fprintf( stderr, "   --cpu-update=N             how often, in milliseconds, to update CPU display\n");
+-	fprintf( stderr, "   --battery-update=N         how often, in milliseconds, update battery state\n");
++	fprintf( stderr, "   --battery-update=N         how often, in seconds, to update battery state\n");
++	fprintf( stderr, "   --power-update=N           how often, in seconds, to update power state\n");
++	fprintf( stderr, "   --temperature-update=N     how often, in seconds, to update temperature state\n");
+ 	fprintf( stderr, "   -p   --play                play alarm and exit\n");
+ 	fprintf( stderr, "   -q   --quiet               do not print messages and warnings\n");
+ 	fprintf( stderr, "   -d   --default             show the default compiled settings and exit\n");
+@@ -318,6 +336,14 @@
+ 			args_startingFreq = STARTINGFREQ_MAX;
+ 			continue;
+ 		}
++		if( !strcmp( argv[i], "--governor=ondemand" ) ) {
++			governor=2;
++			continue;
++		}
++		if( !strcmp( argv[i], "--governor=userspace" ) ) {
++			governor=1;
++			continue;
++		}
+ 		
+ 		if( !strncmp( argv[i], "--max-freq=", 11 ) ) {
+ 			EXIT_IF_ALREADY_SET( args_maxFreq, ARGSDEF_LEAVE, "maxFreq" );
+@@ -465,7 +491,7 @@
+ 			ptr = strchr( argv[i], '=' );
+ 			ptr++;
+ 			args_cpuUpdate = atoi( ptr );
+-			WARNING_IS_SET_TO_ZERO( args_maxFreq, "cpuUpdate" );
++			WARNING_IS_SET_TO_ZERO( args_cpuUpdate, "cpuUpdate" );
+ 			continue;
+ 		}
+ 		
+@@ -474,7 +500,25 @@
+ 			ptr = strchr( argv[i], '=' );
+ 			ptr++;
+ 			args_batteryUpdate = atoi( ptr );
+-			WARNING_IS_SET_TO_ZERO( args_maxFreq, "batteryUpdate" );
++			WARNING_IS_SET_TO_ZERO( args_batteryUpdate, "batteryUpdate" );
++			continue;
++		}
++		
++		if( !strncmp( argv[i], "--power-update=", 11 ) ) {
++			EXIT_IF_ALREADY_SET( args_powerUpdate, ARGSDEF_LEAVE, "powerUpdate" );
++			ptr = strchr( argv[i], '=' );
++			ptr++;
++			args_powerUpdate = atoi( ptr );
++			WARNING_IS_SET_TO_ZERO( args_powerUpdate, "powerUpdate" );
++			continue;
++		}
++		
++		if( !strncmp( argv[i], "--temperature-update=", 11 ) ) {
++			EXIT_IF_ALREADY_SET( args_tempUpdate, ARGSDEF_LEAVE, "tempUpdate" );
++			ptr = strchr( argv[i], '=' );
++			ptr++;
++			args_tempUpdate = atoi( ptr );
++			WARNING_IS_SET_TO_ZERO( args_tempUpdate, "tempUpdate" );
+ 			continue;
+ 		}
+ 		
+@@ -511,6 +555,8 @@
+ 	/* setting default values not set by command line */
+ 	SET_DEFAULT( args_cpuUpdate,       ARGSDEF_LEAVE,      ARGSDEF_CPUUPDATE );
+ 	SET_DEFAULT( args_batteryUpdate,   ARGSDEF_LEAVE,      ARGSDEF_BATTERYUPDATE );
++	SET_DEFAULT( args_powerUpdate,     ARGSDEF_LEAVE,      ARGSDEF_POWERUPDATE );
++	SET_DEFAULT( args_tempUpdate,      ARGSDEF_LEAVE,      ARGSDEF_TEMPUPDATE );
+ 	SET_DEFAULT( args_XDisplayName,    NULL,               ARGSDEF_XDISPLAYNAME );
+ 	SET_DEFAULT( args_autoFreq,        ARGSDEF_LEAVE,      ARGSDEF_AUTOFREQ );
+ 	SET_DEFAULT( args_incrementalStep, ARGSDEF_LEAVE,      ARGSDEF_INCREMENTALSTEP );
+@@ -566,6 +612,8 @@
+ 	fprintf( stdout, "   --skin=%d\n", ARGSDEF_SKIN );
+ 	fprintf( stdout, "[CPU-options]:\n");
+ 	fprintf( stdout, "   --cpu-update=%d\n", ARGSDEF_CPUUPDATE );
++	fprintf( stdout, "   --temperature-update=%d\n", ARGSDEF_TEMPUPDATE );
++	fprintf( stdout, "   --power-update=%d\n", ARGSDEF_POWERUPDATE );
+ 	fprintf( stdout, "   --auto-freq=%s\n", ARGSDEF_AUTOFREQ == AUTOFREQ_ON ? "on" : "off" );
+ 	fprintf( stdout, "   --incremental-step=%d\n", ARGSDEF_INCREMENTALSTEP );
+ 	if( ARGSDEF_STARTINGFREQ != ARGSDEF_LEAVE )
+diff -Nru wmlaptop-1.4-orig/src/main.h wmlaptop-1.4/src/main.h
+--- wmlaptop-1.4-orig/src/main.h	2008-04-18 21:55:54.497550614 +0300
++++ wmlaptop-1.4/src/main.h	2008-04-18 21:56:45.010548403 +0300
+@@ -134,7 +134,7 @@
+ 	u_int8  counter;
+ 	char    stateFile[52];
+ 	char    infoFile[52];
+-	u_int32 capacity;
++	double  capacity;
+ 	u_int32 actualState;
+ 	u_int16 percentage;
+ 	bool    useLFC;
+@@ -175,9 +175,12 @@
+ 	u_int8        percentage;
+ 	u_int16       remainingTime;
+ 	bool          isCharging;
++//	double        rate;
+ 	void(*updater)();
+ };
+ 
++extern double powerrate;
++extern double capacity;
+ 
+ /*******************
+  * CPUS' STUFF     *
+@@ -192,6 +195,7 @@
+  * events cycle.                                                 *
+  *****************************************************************/
+ extern        u_int8  cpuLoad;
++extern        int governor;
+ 
+ /*****************************************************************
+  * global variable cpuState is a structure of this type, it      *
+@@ -224,6 +228,7 @@
+ 	char *  setFreqFile;
+ 	u_int32 setFreq;
+ 	u_int32 stepFreq;
++	int     Temp;
+ #else
+         u_int16 *longRunLevels;
+         u_int16 nLongRunLevels;
+@@ -337,14 +342,22 @@
+ 
+ /* update frequencies, in milliseconds; cpu must < battery */
+ #ifndef    ARGSDEF_CPUUPDATE
+-# define    ARGSDEF_CPUUPDATE         80
++# define    ARGSDEF_CPUUPDATE         400
+ #endif
+ #ifndef    ARGSDEF_BATTERYUPDATE
+-# define    ARGSDEF_BATTERYUPDATE     5000
++# define    ARGSDEF_BATTERYUPDATE     30 // seconds
++#endif
++#ifndef    ARGSDEF_POWERUPDATE
++# define    ARGSDEF_POWERUPDATE     5 // seconds
++#endif
++#ifndef    ARGSDEF_TEMPUPDATE
++# define    ARGSDEF_TEMPUPDATE     10 // seconds
+ #endif
+ 
+ extern u_int32 args_cpuUpdate;
+ extern u_int32 args_batteryUpdate;
++extern u_int32 args_powerUpdate;
++extern u_int32 args_tempUpdate;
+ 
+ /* name of diplay to open */
+ #ifndef    ARGSDEF_XDISPLAYNAME
+@@ -363,7 +376,7 @@
+ 
+ /* incremental auto-scaling step */
+ #ifndef    ARGSDEF_INCREMENTALSTEP
+-# define    ARGSDEF_INCREMENTALSTEP   100000
++# define    ARGSDEF_INCREMENTALSTEP   200000
+ #endif
+ extern u_int32 args_incrementalStep;
+ 
+@@ -395,7 +408,7 @@
+ #define    PARADISIAC_OFF             2
+ 
+ #ifndef    ARGSDEF_PARADISIAC
+-# define    ARGSDEF_PARADISIAC        PARADISIAC_ON
++# define    ARGSDEF_PARADISIAC        PARADISIAC_OFF
+ #endif
+ extern bool    args_paradisiac;
+ 
+diff -Nru wmlaptop-1.4-orig/src/pixmap.c wmlaptop-1.4/src/pixmap.c
+--- wmlaptop-1.4-orig/src/pixmap.c	2008-04-18 21:55:54.497550614 +0300
++++ wmlaptop-1.4/src/pixmap.c	2008-04-18 21:56:45.012548584 +0300
+@@ -18,9 +18,235 @@
+ 
+ char ** wmlaptop_xpm = NULL;
+ 
++/* XPM */
++static char * wmlaptop_xpm_type0[] = {
++"123 140 81 1",
++" 	c None",
++".	c #FF0000",
++"+	c #000000",
++"@	c #00FF04",
++"#	c #968E8E",
++"$	c #FFFF00",
++"%	c #FF1700",
++"&	c #FF2F00",
++"*	c #FF4700",
++"=	c #FF5F00",
++"-	c #FF7700",
++";	c #FF8E00",
++">	c #FFA600",
++",	c #FFBE00",
++"'	c #FFD600",
++")	c #FFEE00",
++"!	c #FFF900",
++"~	c #F4FA00",
++"{	c #DFFA00",
++"]	c #C9FB00",
++"^	c #B4FB00",
++"/	c #9FFC00",
++"(	c #89FD00",
++"_	c #74FD00",
++":	c #5EFE00",
++"<	c #49FE00",
++"[	c #3FFF00",
++"}	c #050500",
++"|	c #EFEC19",
++"1	c #242303",
++"2	c #B1AF13",
++"3	c #262504",
++"4	c #ECE919",
++"5	c #060600",
++"6	c #94920F",
++"7	c #E7E418",
++"8	c #6F6D0B",
++"9	c #ABA912",
++"0	c #67660B",
++"a	c #020200",
++"b	c #F3F01A",
++"c	c #0F0F01",
++"d	c #6A690B",
++"e	c #A2A011",
++"f	c #86850E",
++"g	c #191902",
++"h	c #101001",
++"i	c #8C8B0F",
++"j	c #605F0A",
++"k	c #AAA812",
++"l	c #2A2904",
++"m	c #FBF81B",
++"n	c #383706",
++"o	c #AEAC12",
++"p	c #525108",
++"q	c #E0DD18",
++"r	c #222203",
++"s	c #161602",
++"t	c #E8E518",
++"u	c #5B5A09",
++"v	c #F5F21A",
++"w	c #63620A",
++"x	c #E5E218",
++"y	c #0B0B01",
++"z	c #F8F51A",
++"A	c #C6C415",
++"B	c #BCB914",
++"C	c #999710",
++"D	c #C1BF14",
++"E	c #AFAD12",
++"F	c #7C7A0D",
++"G	c #F7F41A",
++"H	c #272604",
++"I	c #5F5E0A",
++"J	c #181802",
++"K	c #0E0E01",
++"L	c #313005",
++"M	c #C4C215",
++"N	c #DCD917",
++"O	c #131302",
++"P	c #6D6B0B",
++"                                                                ...........................................................",
++"                                                                ...........................................................",
++"  +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++   ...........................................................",
++"  +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++   ...........................................................",
++"  +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++   ...........................................................",
++"  +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++   ...........................................................",
++"  +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++   ...........................................................",
++"  +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++   ...........................................................",
++"  +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++   ...........................................................",
++"  +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++   ...........................................................",
++"  +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++   ...............+++.........+++....+++......+++.............",
++"  +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++   ...............+++........+++++...+++......+++.............",
++"  +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++   ...............+++.......+++.+++..+++......+++.............",
++"  +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++   ...............+++.......+++.+++..+++......+++.............",
++"  +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++   ...............+++.......+++.+++...+++....+++..............",
++"  +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++   ...............+++.......+++.+++...+++....+++..............",
++"  +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++   ...............+++.......+++.+++...+++....+++..............",
++"  +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++   ...............+++.......+++.+++...+++....+++..............",
++"  +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++   ...............+++.......+++.+++...+++.++.+++..............",
++"  +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++   ...............+++.......+++.+++...+++.++.+++..............",
++"  +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++   ...............+++.......+++.+++....++.++.++...............",
++"  +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++   ...............+++.......+++.+++....++.++.++...............",
++"  +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++   ...............+++.......+++.+++....++.++.++...............",
++"  +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++   ...............+++.......+++.+++....++.++.++...............",
++"  +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++   ...............+++++++...+++.+++.....++..++................",
++"  +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++   ...............+++++++....+++++......++..++................",
++"  +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++   ...............+++++++.....+++.......++..++................",
++"  +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++   ...........................................................",
++"  +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++   ...........................................................",
++"  +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++   ...........................................................",
++"  +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++   ...........................................................",
++"  +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++   ...........................................................",
++"  +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++   ...........................................................",
++"  +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++   ...........................................................",
++"  +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++   ..+++++.....+++...+++++++.+++++++.+++++.+++++....+++.+++...",
++"  +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++   ..+++++....+++++..+++++++.+++++++.+++++.+++++++..+++.+++...",
++"  +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++   ..+++++++.+++++++.+++++++.+++++++.+++++.+++++++..+++.+++...",
++"  +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++   ..+++.+++.+++++++...+++.....+++...+++...+++.++++.+++.+++...",
++"  +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++   ..+++.+++.+++.+++...+++.....+++...+++...+++..+++.+++.+++...",
++"  +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++   ..+++.+++.+++.+++...+++.....+++...+++...+++.++++.+++.+++...",
++"  +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++   ..+++.+++.+++.+++...+++.....+++...+++...+++.+++..+++.+++...",
++"  +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++   ..+++++++.+++.+++...+++.....+++...++++..+++++++..+++.+++...",
++"  +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++   ..++++++..+++++++...+++.....+++...++++..+++++....+++++++...",
++"  +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++   ..+++++++.+++++++...+++.....+++...++++..+++++.....+++++....",
++"  +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++   ..+++.+++.+++++++...+++.....+++...+++...++++++....+++++....",
++"  +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++   ..+++.+++.+++.+++...+++.....+++...+++...++++++.....+++.....",
++"  +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++   ..+++.+++.+++.+++...+++.....+++...+++...+++++++....+++.....",
++"  +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++   ..+++.+++.+++.+++...+++.....+++...+++...+++.+++....+++.....",
++"  +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++   ..+++++++.+++.+++...+++.....+++...+++++.+++.++++...+++.....",
++"  +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++   ..+++++...+++.+++...+++.....+++...+++++.+++..+++...+++.....",
++"  +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++   ..+++++...+++.+++...+++.....+++...+++++.+++..+++...+++.....",
++"  +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++   ...........................................................",
++"  +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++   ...........................................................",
++"  +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++   ...........................................................",
++"  +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++   ...........................................................",
++"  +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++   ...........................................................",
++"  +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++   ...........................................................",
++"  +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++   ...........................................................",
++"  +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++   ...........................................................",
++"  +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++   +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++",
++"  +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++   +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++",
++"                                                                +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++",
++"                                                                +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++",
++"                                                                +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++",
++"+@@+++@++@@+@@@+@+++@@@++@@+@@@@+@@++@@++@++++@++++###+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++",
++"@++@+@@+@++@+++@@+++@+++@++++++@@++@@++@@+@++@++++#++###+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++",
++"@++@@+@+@++@+++@@+++@+++@++++++@@++@@++@+@++@++++#+++#+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++",
++"@++@++@+++@++@@+@+++@@@+@@@++++@+@@++@@@+++@++++#+#++###+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++",
++"@++@++@++@+++++@@+@++++@@++@++@+@++@+++@++@++@+#+++###+++++++++++++++++++++++++$$$+++++++++$$$++++$$$++++++$$$+++++++++++++",
++"@++@++@+@++++++@@@@@+++@@++@++@+@++@+++@+@++@+@#+++++++++++++++++++++++++++++++$$$++++++++$$$$$+++$$$++++++$$$+++++++++++++",
++"+@@+@@@@@@@@@@@+++@+@@@++@@+++@++@@++@@+@++++@+++++@@@+++......++++++++++++++++$$$+++++++$$$+$$$++$$$++++++$$$+++++++++++++",
++"+$$+++$++$$+$$$+$+++$$$++$$+$$$$+$$++$$++$++++$+++@++@@@+++++++++++++++++++++++$$$+++++++$$$+$$$++$$$++++++$$$+++++++++++++",
++"$++$+$$+$++$+++$$+++$+++$++++++$$++$$++$$+$++$+++@+++@+++++++++++++++++++++++++$$$+++++++$$$+$$$+++$$$++++$$$++++++++++++++",
++"$++$$+$+$++$+++$$+++$+++$++++++$$++$$++$+$++$+++@+@++@@@+++++++++++++++++++++++$$$+++++++$$$+$$$+++$$$++++$$$++++++++++++++",
++"$++$++$+++$++$$+$+++$$$+$$$++++$+$$++$$$+++$+++@+++@@@+++++++++++++++++++++++++$$$+++++++$$$+$$$+++$$$++++$$$++++++++++++++",
++"$++$++$++$+++++$$+$++++$$++$++$+$++$+++$++$++$+@+++++++++++++++++++++++++++++++$$$+++++++$$$+$$$+++$$$++++$$$++++++++++++++",
++"$++$++$+$++++++$$$$$+++$$++$++$+$++$+++$+$++$+$++++++++++++++++++++++++++++++++$$$+++++++$$$+$$$+++$$$+$$+$$$++++++++++++++",
++"+$$+$$$$$$$$$$$+++$+$$$++$$+++$++$$++$$+$++++$+++++$$++++++++++++++++++++++++++$$$+++++++$$$+$$$+++$$$+$$+$$$++++++++++++++",
++"+..+++.++..+...+.+++...++..+....+..++..++.++++.+++$$$$+++++++++++++++++++++++++$$$+++++++$$$+$$$++++$$+$$+$$+++++++++++++++",
++".++.+..+.++.+++..+++.+++.++++++..++..++..+.++.+++$$$$$$++++++++++++++++++++++++$$$+++++++$$$+$$$++++$$+$$+$$+++++++++++++++",
++".++..+.+.++.+++..+++.+++.++++++..++..++.+.++.+++$$$$$$$$+++++++++++++++++++++++$$$+++++++$$$+$$$++++$$+$$+$$+++++++++++++++",
++".++.++.+++.++..+.+++...+...++++.+..++...+++.+++++$$$$$$++++++++++++++++++++++++$$$+++++++$$$+$$$++++$$+$$+$$+++++++++++++++",
++".++.++.++.+++++..+.++++..++.++.+.++.+++.++.++.++++$$$$+++++++++++++++++++++++++$$$$$$$+++$$$+$$$+++++$$++$$++++++++++++++++",
++".++.++.+.++++++.....+++..++.++.+.++.+++.+.++.+.++++$$++++++++++++++++++++++++++$$$$$$$++++$$$$$++++++$$++$$++++++++++++++++",
++"+..+...........+++.+...++..+++.++..++..+.++++.+++++++++++++++++++++++++++++++++$$$$$$$+++++$$$+++++++$$++$$++++++++++++++++",
++"+@@@@++++@+++@@@@+@@@@+++++@++@@@@@++@@@@+@@@@@@+@@@@++@@@@++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++",
++"@++++@++@@++@++++@++++@++++@++@+++++@+++++@++++@@++++@@++++@+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++",
++"@++++@+@+@++@++++@+++++@++@+++@+++++@++++++++++@@++++@@++++@#.@++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++",
++"@++++@@++@+++++++@+++++@++@+++@+++++@++++++++++@@++++@@++++@#.@++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++",
++"@++++@+++@++++++@+++@@@++@++++@@@@++@@@@@+++++@++@@@@++@@@@@+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++",
++"@++++@+++@+++++@++++++@++@++++++++@+@++++@++++@+@++++@+++++@+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++",
++"@++++@+++@++++@++++++++@@++@+++++++@@++++@+++@++@++++@+++++@#.@++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++",
++"@++++@+++@+++@+++++++++@@@@@@@+++++@@++++@+++@++@++++@+++++@#.@++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++",
++"@++++@+++@++@+++++++++@++++@++++++@+@++++@+++@++@++++@+++++@++++++$$$$$+++++$$$+++$$$$$$$+$$$$$$$+$$$$$+$$$$$++++$$$+$$$+++",
++"+@@@@+@@@@@@@@@@@@@@@@+++++@++@@@@+++@@@@++++@+++@@@@++@@@@+++++++$$$$$++++$$$$$++$$$$$$$+$$$$$$$+$$$$$+$$$$$$$++$$$+$$$+++",
++"..................................................%&*=-;>,')++++++$$$$$$$+$$$$$$$+$$$$$$$+$$$$$$$+$$$$$+$$$$$$$++$$$+$$$+++",
++".+++++++++++++++++++++++++++++++++++++++++++++++..%&*=-;>,')++++++$$$+$$$+$$$$$$$+++$$$+++++$$$+++$$$+++$$$+$$$$+$$$+$$$+++",
++".+++.+++.++.+.....++..++++++....+...++....++..++..%&*=-;>,')++++++$$$+$$$+$$$+$$$+++$$$+++++$$$+++$$$+++$$$++$$$+$$$+$$$+++",
++".+++.+++.++.+++.+++.++.+++++.++++.++.+.++++.++.+..%&*=-;>,')++++++$$$+$$$+$$$+$$$+++$$$+++++$$$+++$$$+++$$$+$$$$+$$$+$$$+++",
++".++.+.++.++.+++.+++.++.+++++.++++.++.+.++++.++.+..%&*=-;>,')++++++$$$+$$$+$$$+$$$+++$$$+++++$$$+++$$$+++$$$+$$$++$$$+$$$+++",
++".++.+.++.++.+++.+++.++.+...+...++...++...++.++.+..%&*=-;>,')++++++$$$$$$$+$$$+$$$+++$$$+++++$$$+++$$$$++$$$$$$$++$$$+$$$+++",
++".+.....+.++.+++.+++.++.+++++.++++.++.+.++++..+.+..%&*=-;>,')++++++$$$$$$++$$$$$$$+++$$$+++++$$$+++$$$$++$$$$$++++$$$$$$$+++",
++".+.+++.+.++.+++.+++.++.+++++.++++.++.+.++++.+..+.!~{]^/(_:<[++++++$$$$$$$+$$$$$$$+++$$$+++++$$$+++$$$$++$$$$$+++++$$$$$++++",
++".+.+++.++..++++.++++..++++++.++++.++.+....++...+.!~{]^/(_:<[++++++$$$+$$$+$$$$$$$+++$$$+++++$$$+++$$$+++$$$$$$++++$$$$$++++",
++".+++++++++++++++++++++++++++++++++++++++++++++++.!~{]^/(_:<[++++++$$$+$$$+$$$+$$$+++$$$+++++$$$+++$$$+++$$$$$$+++++$$$+++++",
++".................................................!~{]^/(_:<[++++++$$$+$$$+$$$+$$$+++$$$+++++$$$+++$$$+++$$$$$$$++++$$$+++++",
++"#################################################!~{]^/(_:<[++++++$$$+$$$+$$$+$$$+++$$$+++++$$$+++$$$+++$$$+$$$++++$$$+++++",
++"#+++++++++++++++++++++++++++++++++++++++++++++++#!~{]^/(_:<[++++++$$$$$$$+$$$+$$$+++$$$+++++$$$+++$$$$$+$$$+$$$$+++$$$+++++",
++"#+++#+++#++#+#####++##++++++####+###++####++##++#!~{]^/(_:<[++++++$$$$$+++$$$+$$$+++$$$+++++$$$+++$$$$$+$$$++$$$+++$$$+++++",
++"#+++#+++#++#+++#+++#++#+++++#++++#++#+#++++#++#+#++++##+++++++++++$$$$$+++$$$+$$$+++$$$+++++$$$+++$$$$$+$$$++$$$+++$$$+++++",
++"#++#+#++#++#+++#+++#++#+++++#++++#++#+#++++#++#+#+++####+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++",
++"#++#+#++#++#+++#+++#++#+###+###++###++###++#++#+#++######++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++",
++"#+#####+#++#+++#+++#++#+++++#++++#++#+#++++##+#+#+########+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++",
++"#+#+++#+#++#+++#+++#++#+++++#++++#++#+#++++#+##+#++######++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++",
++"#+#+++#++##++++#++++##++++++#++++#++#+####++###+#+++####+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++",
++"#+++++++++++++++++++++++++++++++++++++++++++++++#++++##++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++",
++"#################################################++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++",
++"+$$$+$$$++$++$++$+++++$$$++++$+++$$$+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++",
++"$++++$++$+$++$++$++++$+++$+++$+++$++$++####+++++++++++++++++++++  #######################################################  ",
++"$++++$++$+$++$++$++++$+++$++$+$++$++$+#++++#++@+++@+@++@+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++",
++"$++++$$$++$++$++$++++$+++$++$+$++$++$+#++++#++@@+@@+@++@+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++",
++"$++++$++++$++$++$++++$+++$+$$$$$+$++$+#++++#++@@@@@+@++@+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++",
++"$++++$++++$++$++$++++$+++$+$+++$+$++$+#++++#++@+@+@+@@@@+@@@@++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++",
++"+$$$+$+++++$$+++$$$$++$$$++$+++$+$$$++#++++#++@+++@+@@@@++++@++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++",
++"+...+...++.++.++.+++++...++++.+++...++#++++#++@+++@+@++@+++@+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++",
++".++++.++.+.++.++.++++.+++.+++.+++.++.+#++++#++@+++@+@++@+++@+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++",
++".++++.++.+.++.++.++++.+++.++.+.++.++.+#++++#++@+++@+@++@++@++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++",
++".++++...++.++.++.++++.+++.++.+.++.++.++####+++@+++@+@++@+@@@@++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++",
++".++++.++++.++.++.++++.+++.+.....+.++.++++++++++++++++++++++++++++}+++++++++++++++++++++++++++++++++++++++++++++++++++++++++",
++".++++.++++.++.++.++++.+++.+.+++.+.++.++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++",
++"+...+.+++++..+++....++...++.+++.+...++++++++++++++++++++++++++++++++++@+++++++@++.+++++++.+++++++++++++++++++++++++++++++++",
++"#############################################                   ++++++@+++++++@++.+++++++.+++++++++++++++++++++++++++++++++",
++"#+++++++++++++++++++++++++++++++++++++++++++#                   ++++++@+++++++@++.+++++++.+++++++++++++++++++++++++++++++++",
++"#+++++++++++++++++++++++++++++++++++++++++++#                   ++++++@+++++++@++.+++++++.+++++++++++++++++++++++++++++++++",
++"#+++++++++++++++++++++++++++++++++++++++++++#                   ++++++@+++@+++@++.+++.+++.+++++++++++++++++++++++++++++++++",
++"#+++++++++++++++++++++++++++++++++++++++++++#                   ++++++@@+@@@+@@++..+...+..+++++++++++++++++++++++++++++++++",
++"#+++++++++++++++++++++++++++++++++++++++++++#                   +++++++@@+++@@++++..+++..++++++++++++++++++++++++++++++++++",
++"#+++++++++++++++++++++++++++++++++++++++++++#                   +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++",
++"#+++++++++++++++++++++++++++++++++++++++++++#                   +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++",
++"#############################################                                                                              "};
++
++
+ 
+ /* XPM */
+-char * wmlaptop_xpm_type0[] = {
++/*char * wmlaptop_xpm_type0[] = {
+ "123 140 27 1",
+ " 	c None",
+ ".	c #FF0000",
+@@ -190,7 +416,7 @@
+ "#+++++++++++++++++++++++++++++++++++++++++++#                   +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++",
+ "#############################################                                                                              "};
+ 
+-
++*/
+ 
+ 
+ /* XPM */
+diff -Nru wmlaptop-1.4-orig/src/version.h wmlaptop-1.4/src/version.h
+--- wmlaptop-1.4-orig/src/version.h	2008-04-18 21:55:54.497550614 +0300
++++ wmlaptop-1.4/src/version.h	2008-04-18 21:56:45.012548584 +0300
+@@ -1,7 +1,7 @@
+ #ifndef __VERSION_H__
+ #define __VERSION_H__
+ 
+-#define    BUILD_NR       256
++#define    BUILD_NR       495
+ #define    PROGNAME       "WmLaptop"
+ #define    VERSION        "1.4"
+ 

@@ -1,0 +1,17 @@
+# Description: Flexible container object, designed to store hierarchical data.
+# URL:         http://effbot.org/zone/element-index.htm
+# Maintainer:  James Mills, prologic at shortcircuit dot net dot au
+# Packager:    Johannes Winkelmann, jw at tks6 dot net
+#
+# Depends on:  python
+
+name=elementtree
+version=1.2.6-20050316
+release=1
+source=(http://effbot.org/downloads/$name-$version.tar.gz)
+
+build() {
+   cd $name-$version
+   python setup.py install --root=$PKG
+   chown -R root:root $PKG
+}

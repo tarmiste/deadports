@@ -1,0 +1,11 @@
+diff -pruNa memtest86+-2.10.orig/memtest_shared.lds memtest86+-2.10/memtest_shared.lds
+--- memtest86+-2.10.orig/memtest_shared.lds	2008-11-18 16:26:00.349952851 +1100
++++ memtest86+-2.10/memtest_shared.lds	2008-11-18 16:27:33.211953405 +1100
+@@ -18,6 +18,7 @@ SECTIONS {
+ 	.dynsym     : { *(.dynsym) }
+ 	.dynstr     : { *(.dynstr) }
+ 	.hash       : { *(.hash) }
++	.gnu.hash   : { *(.gnu.hash) }
+ 	.dynamic    : { *(.dynamic) }
+ 
+ 	.rel.text    : { *(.rel.text   .rel.text.*) }

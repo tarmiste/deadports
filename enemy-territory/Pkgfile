@@ -1,0 +1,37 @@
+# Description: (FPS) computer game, and a standalone sequel to Return to Castle Wolfenstein.
+# URL: http://www.enemy-territory.com/
+# Maintainer: Jose V Beneyto, sepen at crux dot nu
+# Packager: Jose V Beneyto, sepen at crux dot nu
+# Depends on: mesa3d-32
+
+name=enemy-territory
+version=2.60b
+release=6
+source=(ftp://ftp.ntua.gr/pub/vendors/idgames/idstuff/et/linux/et-linux-2.60.x86.run \
+        ftp://ftp.ntua.gr/pub/vendors/idgames/idstuff/et/ET-$version.zip \
+        http://www.etkey.org/et_linux.zip \
+        http://etkey.org/etkey.php \
+        et $name.desktop)
+
+build() {
+  chmod +x et-linux-2.60.x86.run
+
+  ./et-linux-2.60.x86.run --noexec --target tmp
+
+  install -d $PKG/usr/share/$name/{etmain/video,pb/htm}
+  install -m 0644 tmp/etmain/*.{pk3,so,cfg,dat} $PKG/usr/share/$name/etmain
+  install -m 0644 tmp/etmain/video/* $PKG/usr/share/$name/etmain/video
+  install -D -m 0644 tmp/ET.xpm $PKG/usr/share/pixmaps/et.xpm
+  install -D -m 0644 $SRC/$name.desktop $PKG/usr/share/applications/$name.desktop
+
+  # 2.60b patch
+  install -m 0755 Enemy\ Territory\ 2.60b/linux/*.x86 $PKG/usr/share/$name
+  install -D -m 0755 $SRC/et $PKG/usr/bin/et
+  ln -sf /usr/bin/et $PKG/usr/bin/$name
+
+  # pbsetup
+  cp -r $SRC/{pb*.so,dll,htm} $PKG/usr/share/$name/pb
+
+  # etkey
+  install -m 0644 $SRC/etkey.php $PKG/usr/share/$name/etmain/etkey
+}

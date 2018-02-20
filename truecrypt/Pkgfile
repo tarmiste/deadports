@@ -1,0 +1,32 @@
+# Description: Multiplatform disk encryption software
+# URL: http://www.truecrypt.org
+# Packager:	Alan Mizrahi, alan at mizrahi dot com dot ve
+# Maintainer:	Alan Mizrahi, alan at mizrahi dot com dot ve
+# Depends on: libdevmapper
+
+name=truecrypt
+version=4.3a
+release=4
+source=(http://www.mizrahi.com.ve/crux/dist/$name-$version.tar.bz2 truecrypt-4.3a-2.6.23.patch truecrypt-4.3a-2.6.24.patch truecrypt-kernel-2.6.29.patch truecrypt-kernel-2.6.34.patch truecrypt-nochecks.patch)
+
+# Note: Currently doesn't build as non-root
+
+build () {
+	cd $name-$version
+	patch -p1 -i $SRC/truecrypt-kernel-2.6.34.patch
+
+	cd Linux
+	patch -p2 -i $SRC/truecrypt-4.3a-2.6.23.patch
+	patch -p2 -i $SRC/truecrypt-4.3a-2.6.24.patch
+	patch -p2 -i $SRC/truecrypt-kernel-2.6.29.patch
+	patch -p2 -i $SRC/truecrypt-nochecks.patch
+
+	# new kernels have an hex2bin function, rename truecrypt's
+	sed -i -e 's|hex2bin|myhex2bin|g' Kernel/Dm-target.c
+
+	./build.sh
+	install -m 755 -D Cli/truecrypt $PKG/usr/bin/truecrypt
+	install -m 644 -D Cli/Man/truecrypt.1 $PKG/usr/man/man1/truecrypt.1
+	install -m 644 -D Kernel/truecrypt.ko $PKG/lib/modules/$(uname -r)/extra/truecrypt.ko
+
+}

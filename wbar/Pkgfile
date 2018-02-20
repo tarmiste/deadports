@@ -1,0 +1,24 @@
+# Description: Quick launch bar
+# URL: http://code.google.com/p/wbar/
+# Maintainer: Bartlomiej Palmowski, rotwang at crux dot org dot pl
+# Packager: Younes Hafri, ycrux at club-internet dot fr
+# Depends on: imlib2 intltool gtk libglade
+
+name=wbar
+version=2.2.2
+release=1
+source=(http://$name.googlecode.com/files/$name-$version.tbz2)
+
+build() {
+  cd $name-$version
+  sed -i configure \
+      -e 's|DEFAULT_CONFIGDIR=.*|DEFAULT_CONFIGDIR=/usr/etc/wbar|g'
+  
+  ./configure --prefix=/usr \
+              --mandir=/usr/man \
+              --disable-nls
+
+  make
+  make DESTDIR=$PKG install
+  rm -rf $PKG/usr/share/locale
+}

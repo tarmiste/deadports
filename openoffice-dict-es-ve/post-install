@@ -1,0 +1,5 @@
+#!/bin/sh
+[ -z "`grep -i '^\ *DICT\ *es\ *VE' /usr/lib/openoffice/share/dict/ooo/dictionary.lst`" ] && \
+	echo "DICT es VE es_VE" >> /usr/lib/openoffice/share/dict/ooo/dictionary.lst
+[ -z "`grep -i '^\ *HYPH\ *es\ *VE\ *hyph_es_ES' /usr/lib/openoffice/share/dict/ooo/dictionary.lst`" ] && \
+	echo "HYPH es VE hyph_es_ES" >> /usr/lib/openoffice/share/dict/ooo/dictionary.lst

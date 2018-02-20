@@ -1,0 +1,27 @@
+# Description: A utility to ping multiple hosts at once
+# URL:         http://www.fping.org/
+# Maintainer:  James Mills, prologic at shortcircuit dot net dot au
+#
+# Depends on:
+
+name=fping
+version=3.10
+release=4
+source=(http://www.fping.org/dist/${name}-${version}.tar.gz)
+
+build () {
+   cd $name-$version
+
+   # Configure
+   ./configure --prefix=/usr \
+               --sbindir=/usr/bin \
+               --mandir=/usr/man \
+               --enable-ipv4 \
+               --enable-ipv6
+
+   # Build
+   make
+
+   # Package
+   make DESTDIR=$PKG install
+}

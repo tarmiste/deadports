@@ -1,0 +1,10 @@
+<search
+   name="CRUX"
+   description="CRUX ports search"
+   method="GET"
+   action="http://crux.nu/portdb/"
+   queryCharset="utf-8"
+>
+<input name="a" value="search">
+<input name="q" user>
+</search>

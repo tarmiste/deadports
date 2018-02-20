@@ -1,0 +1,25 @@
+README for squirrelmail 1.4.x
+
+REQUIREMENTS
+
+PRE-INSTALL
+Export variable containing htdocs root directory (I prefer srv/www/apache/htdocs):
+
+  export SQM_HTDOCS_ROOT="srv/www/apache/htdocs"
+
+It will be used inside Pkgfile, so footprint will probably give you an error.
+All README and INSTALL files were deleted, look at the source tarball for them.
+
+POST-INSTALL
+(from INSTALL)
+- Select a data-dir and attachment dir, outside the webtree (e.g. in /var).
+  The data-dir (for user prefs) should be owned by the user the webserver runs
+  as (e.g. www-data). The attachment dir (for uploading files as  attachments)
+  should be file mode 0730 and in the same group as the webserver.
+- Run config/conf.pl from the command line. Use the D option to load predefined
+  options for specific IMAP servers, and edit at least the Server Settings and
+  General Options (datadir).
+- Browse to http://www.example.com/yourwebmaillocation/src/configtest.php to
+  test your configuration for common errors.
+
+RESOURCES

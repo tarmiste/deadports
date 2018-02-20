@@ -1,0 +1,15 @@
+# Description: Firmware for the Intel PRO/Wireless 2200BG
+# URL: http://ipw2200.sourceforge.net/firmware.php
+# Maintainer: Jose V Beneyto, sepen at crux dot nu
+# Packager: Jose V Beneyto, sepen at crux dot nu
+
+name=ipw2200-fw
+version=3.1
+release=1
+source=(http://pkgs.fedoraproject.org/repo/pkgs/ipw2200-firmware/ipw2200-fw-3.1.tgz/eaba788643c7cc7483dd67ace70f6e99/$name-$version.tgz)
+
+build() {
+  install -d $PKG/lib/firmware
+  find $name-$version -name "LICENSE.ipw2200-fw" -delete
+  cp $name-$version/* $PKG/lib/firmware
+}

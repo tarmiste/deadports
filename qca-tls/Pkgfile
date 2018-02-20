@@ -1,0 +1,17 @@
+# Description:	TLS plugin for the Qt Crypto API
+# URL:	http://delta.affinix.com/qca/
+# Maintainer:	Alan Mizrahi, alan at mizrahi dot com dot ve
+# Depends on:	qca, openssl
+
+name=qca-tls
+version=1.0
+release=1
+source=(http://delta.affinix.com/download/qca/$name-$version.tar.bz2 qca-fix.patch)
+
+build() {
+	cd ${name}-${version}
+	patch -p1 < $SRC/qca-fix.patch
+	./configure
+	make
+	install -m 755 -D libqca-tls.so $PKG/usr/lib/qt/crypto/libqca-tls.so
+}

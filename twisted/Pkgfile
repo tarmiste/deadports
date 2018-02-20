@@ -1,0 +1,21 @@
+# Description: Python event-driven networking framework.
+# URL: http://www.twistedmatrix.com/
+# Maintainer: Danny Rawlins, crux at romster dot me
+# Packager: Younes Hafri, ycrux at club-internet dot fr
+# Depends on: zope.interface pycrypto
+
+name=twisted
+version=13.1.0
+release=1
+source=(http://pypi.python.org/packages/source/T/Twisted/Twisted-$version.tar.bz2)
+
+build() {
+	cd Twisted-$version
+	/usr/bin/python setup.py install --root=$PKG
+
+	find $PKG \
+		-name README -o \
+		-name README.txt -o \
+		-name NEWS -o \
+		-name CREDITS | xargs rm
+}

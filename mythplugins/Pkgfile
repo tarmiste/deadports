@@ -1,0 +1,43 @@
+# Description: Myth Plugins.
+# URL:         http://www.mythtv.org/
+# Maintainer: Lucas Hazel, lucas at die dot net dot au
+# Packager:    James Mills, prologic at shortcircuit dot net dot au
+#
+# Depends on:  kdelibs, mythtv
+
+name=mythplugins
+version=0.19
+release=1
+source=(http://www.mythtv.org/mc/$name-$version.tar.bz2 \
+   $name-$version-settings.diff)
+
+build() {
+   cd $name-$version
+
+   patch -p1 -i $SRC/$name-$version-settings.diff settings.pro
+
+   sed -i -e "s/#CFLAGS#/$CFLAGS/" settings.pro
+   for i in `grep -lr "usr/local" *`
+      do
+         sed -i -e 's|usr/local|usr|g' "$i"
+      done
+
+   ./configure \
+      --prefix=/usr \
+      --enable-transcode \
+      --enable-vcd \
+      --enable-exif \
+      --enable-fftw \
+      --enable-sdl
+
+   qmake $name.pro
+   make qmake
+
+   find . -name "Makefile" -exec \
+      sed -i -e 's|$(QTDIR)|/usr|g' \
+         -e 's|../../../../../../../../|/usr/|g' \
+         -e 's|../../../../../../../|/usr/|g' '{}' \;
+
+   make && make INSTALL_ROOT=$PKG install
+   chown -R root:root $PKG
+}

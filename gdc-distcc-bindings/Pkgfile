@@ -1,0 +1,17 @@
+# Description: Masquerade directory to use distcc with gdc.
+# URL: http://dgcc.sourceforge.net/
+# Maintainer: Danny Rawlins, monster dot romster at gmail dot com
+# Packager: Danny Rawlins, monster dot romster at gmail dot com
+# Depends on: gdc distcc
+
+name=gdc-distcc-bindings
+version=1
+release=1
+source=()
+
+build() {
+	install -d $PKG/usr/lib/distcc
+	ln -s ../../bin/distcc $PKG/usr/lib/distcc/gdc
+	ln -s ../../bin/distcc $PKG/usr/lib/distcc/gdmd
+}
+

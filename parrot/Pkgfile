@@ -1,0 +1,17 @@
+# Description: virtual machine designed to efficiently compile and execute bytecode for dynamic languages
+# URL:         http://www.parrot.org
+# Maintainer:  Bartlomiej Palmowski, rotwang at crux dot org dot pl
+# Depends on:
+
+name=parrot
+version=5.9.0
+release=1
+source=(ftp://ftp.$name.org/pub/$name/releases/all/$version/$name-$version.tar.bz2)
+
+build() {
+    cd $name-$version
+    perl ./Configure.pl --prefix=/usr --optimize
+    make
+    make DESTDIR=$PKG install
+}
+

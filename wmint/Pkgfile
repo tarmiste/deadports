@@ -1,0 +1,20 @@
+# Description: A dockable app that displays flashing lights for IRQ's
+# URL: http://www.cs.mun.ca/~gstarkes/wmaker/dockapps/sys.html
+# Maintainer: Mikhail Kolesnik, mike at openbunker dot org
+# Depends on: xorg-libxpm
+
+name=wmint
+version=0.9
+release=2
+source=(http://ftp.sh.cvut.cz/MIRRORS/rock/ROCK-2.1/w/$name-$version.tar.bz2 \
+		wmint-sleep.diff)
+
+build() {
+	cd $name-$version/$name
+	
+	# adds -s switch to prevent frequent wakeups
+	patch -p2 -i $SRC/wmint-sleep.diff
+	
+	make
+	/usr/bin/install -D -m 755 wmint $PKG/usr/bin/wmint
+}

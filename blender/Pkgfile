@@ -1,0 +1,42 @@
+# Description: Fully integrated 3D graphics creation suite
+# URL: http://www.blender.org/
+# Maintainer: Jose V Beneyto, sepen at crux dot nu
+# Packager: Jose V Beneyto, sepen at crux dot nu
+# Depends on: xorg-libxi libtiff libpng ode fmod smpeg ftgl scons openexr freealut yasm
+
+name=blender
+version=2.49a
+release=1
+source=(http://download.blender.org/source/$name-$version.tar.gz \
+        10_use_systemwide_ftgl 20_fix_ftbfs_with_latest_ftgl)
+
+build() {
+  cd $name-$version
+
+  patch -p1 -i $SRC/10_use_systemwide_ftgl
+  patch -p1 -i $SRC/20_fix_ftbfs_with_latest_ftgl
+
+  sed -e "s/-O2/${CFLAGS// /\' ,\'}/g" -i SConstruct
+  sed -e '/C_WARN/ s/-Wdeclaration-after-statement//' \
+      -i config/linux2-config.py
+
+  scons \
+    WITH_BF_OPENAL=yes \
+    WITH_BF_FMOD=yes \
+    WITH_BF_OPENEXR=yes \
+    WITH_BF_FFMPEG=yes \
+    WITH_BF_JPEG=yes \
+    WITH_BF_PNG=yes \
+    WITH_BF_ZLIB=yes \
+    WITH_BF_INTERNATIONAL=yes \
+    WITH_BF_GAMEENGINE=yes \
+    WITH_BF_ODE=yes \
+    WITH_BF_FTGL=yes \
+    BF_FTGL_INC=/usr/include/FTGL \
+    BF_FTGL_LIB=$(pkg-config --libs ftgl) \
+    WITH_BF_PLAYER=yes \
+    BF_DEBUG=no
+
+  install -D -m 0755 $SRC/install/linux2/$name $PKG/usr/bin/$name
+  install -D -m 0755 $SRC/install/linux2/${name}player $PKG/usr/bin/${name}player
+}

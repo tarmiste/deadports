@@ -1,0 +1,19 @@
+# Description: Perl interface to allow reading and writing bzip2 files/buffers
+# URL: http://search.cpan.org/~pmqs/IO-Compress-Bzip2/
+# Maintainer: Mikhail Kolesnik, mike at openbunker dot org
+# Depends on: p5-compress-raw-bzip2
+
+name=p5-io-compress-bzip2
+version=2.015
+release=2
+source=(http://search.cpan.org/CPAN/authors/id/P/PM/PMQS/IO-Compress-Bzip2-$version.tar.gz)
+
+build() {
+	cd IO-Compress-Bzip2-$version
+	perl Makefile.PL
+	make OPTIMIZE="$CFLAGS"
+	make DESTDIR=$PKG install
+	find $PKG -name .packlist -exec rm {} \;
+	find $PKG -name perllocal.pod -exec rm {} \;
+	find $PKG -depth -type d -empty -exec rm -rf {} \;
+}

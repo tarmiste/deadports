@@ -1,0 +1,16 @@
+# Description:	Official linux bluetooth protocol stack - libraries
+# URL:	http://www.bluez.org/
+# Maintainer:	Alan Mizrahi, alan at mizrahi dot com dot ve
+
+name=bluez-libs
+version=2.25
+release=2
+source=(http://bluez.sourceforge.net/download/$name-$version.tar.gz bluez-libs.gcc43.patch)
+
+build() {
+	cd $name-$version
+	patch -p1 -i $SRC/bluez-libs.gcc43.patch
+	./configure --prefix=/usr
+	make
+	make DESTDIR=$PKG install
+}

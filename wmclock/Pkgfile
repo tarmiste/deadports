@@ -1,0 +1,21 @@
+# Description: A Window Maker applet which displays date and time
+# URL: http://www.jmknoble.net/WindowMaker/wmclock/
+# Maintainer: Mikhail Kolesnik, mike at openbunker dot org
+# Packager: Simone Rota, sip at crux dot nu
+# Depends on: xorg-gccmakedep, xorg-imake, xorg-libxpm
+
+name=wmclock
+version=1.0.12.2
+release=3
+source=(http://www.dockapps.org/download.php/id/328/$name-$version.tar.gz \
+		$name-nopolling.diff $name-fix_year_display.diff $name-manpage.diff)
+
+build() {
+	cd $name-$version
+	patch -p0 -i $SRC/$name-nopolling.diff
+	patch -p0 -i $SRC/$name-fix_year_display.diff
+	patch -p0 -i $SRC/$name-manpage.diff
+	./configure --lang english
+	make
+	make DESTDIR=$PKG install install.man
+}

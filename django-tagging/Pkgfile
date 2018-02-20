@@ -1,0 +1,18 @@
+# Description: Tagging framework for django
+# URL: http://code.google.com/p/django-tagging/
+# Maintainer: Lucas Hazel, lucas at die dot net dot au
+# Depends on: django
+
+name=django-tagging
+version=0.3-pre-r154
+release=1
+source=(http://crux64.die.net.au/files/$name-$version.tar.gz)
+
+build() {
+    cd $name-$version
+    python setup.py install \
+	--root=$PKG \
+	--install-purelib=/usr/share/django/apps \
+	--install-scripts=/usr/bin
+    find $PKG -name '*egg-info' | xargs rm -rf
+}

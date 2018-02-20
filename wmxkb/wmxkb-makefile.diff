@@ -1,0 +1,20 @@
+diff -Nru wmxkb-1.2.2-orig/Makefile.in wmxkb-1.2.2/Makefile.in
+--- wmxkb-1.2.2-orig/Makefile.in	2007-04-09 00:07:09.000000000 +0300
++++ wmxkb-1.2.2/Makefile.in	2007-04-09 00:10:23.000000000 +0300
+@@ -56,16 +56,12 @@
+ 	$(INSTALL) -d  ${BINDIR}
+ 	$(INSTALL) -s  ${APPNAME}  ${BINDIR}
+ ifneq ("$(WITH_RPM)", "yes")
+-	$(INSTALL) -d  ${DOCDIR}
+-	$(INSTALL)  README *.html  ${DOCDIR}
+ 	$(INSTALL) -d  ${IMAGEDIR_DEFAULT}
+ 	$(INSTALL)  pixmaps/*.xpm  ${IMAGEDIR_DEFAULT}
+ 	@echo $(SEP)
+ 	@echo "Installation of ${APPNAME} ${VERSION}  completed."
+ 	@echo "The binary is installed in '${BINDIR}' directory."
+-	@echo "The documents are installed in '${DOCDIR}' directory."
+ 	@echo "The images are installed in '${IMAGEDIR_DEFAULT}' directory."
+-	@echo "See '$(DOCDIR)/manual.html' for config. parameters."
+ 	@echo "Enjoy!"
+ 	@echo $(SEP)
+ endif	

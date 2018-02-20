@@ -1,0 +1,16 @@
+Instead of depending on tcllib/doctools for building these manpages, this has
+been worked around by not installing the manpages. They weren't installed
+before 1.4 either. If you really need the documentation, try looking on the
+web.
+
+--- Makefile.in.orig	2010-05-03 17:32:03.000000000 +0200
++++ Makefile.in	2011-06-18 22:35:10.000000000 +0200
+@@ -146,7 +146,7 @@
+ 			$$p > $$p.1 && mv -f $$p.1 $$p ; \
+ 	done
+ 
+-install: collate install-man
++install: collate
+ 	mkdir -p    $(INSTALL_ROOT)$(LIB_RUNTIME_DIR)
+ 	for p in Img/exec_prefix/lib/Img/* ; do \
+ 		$(INSTALL_PROGRAM) $$p $(INSTALL_ROOT)$(LIB_RUNTIME_DIR)/`basename $$p` ; \

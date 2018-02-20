@@ -1,0 +1,17 @@
+# Description: Masquerade directory to use ccache with gdc.
+# URL: http://dgcc.sourceforge.net/
+# Maintainer: Danny Rawlins, monster dot romster at gmail dot com
+# Packager: Danny Rawlins, monster dot romster at gmail dot com
+# Depends on: gdc ccache
+
+name=gdc-ccache-bindings
+version=1
+release=1
+source=()
+
+build() {
+	install -d $PKG/usr/lib/ccache
+	ln -s ../../bin/ccache $PKG/usr/lib/ccache/gdc
+	ln -s ../../bin/ccache $PKG/usr/lib/ccache/gdmd
+}
+

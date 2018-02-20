@@ -1,0 +1,19 @@
+diff -pruN libfame-0.9.1.orig/configure libfame-0.9.1/configure
+--- libfame-0.9.1.orig/configure	2008-08-02 22:04:18.375141589 +1000
++++ libfame-0.9.1/configure	2008-08-02 22:05:49.940140531 +1000
+@@ -4607,12 +4607,9 @@ fi
+ if test x$ac_cv_c_compiler_gnu = xyes; then
+ 	CFLAGS="$CFLAGS -Wall -fexpensive-optimizations -funroll-loops -ffast-math"
+ 
+-	gcc_major_version=`$CC --version | \
+-	   sed -e 's,[^0-9.],,g' -e 's/\([0-9]*\).\([0-9]*\).\([0-9]*\)/\1/'`
+-    	gcc_minor_version=`$CC --version | \
+-	   sed -e 's,[^0-9.],,g' -e 's/\([0-9]*\).\([0-9]*\).\([0-9]*\)/\2/'`
+-	gcc_micro_version=`$CC --version | \
+-	   sed -e 's,[^0-9.],,g' -e 's/\([0-9]*\).\([0-9]*\).\([0-9]*\)/\3/'`
++	gcc_major_version=`${CC} -dumpversion | cut -f1 -d.`
++    	gcc_minor_version=`${CC} -dumpversion | cut -f2 -d.`
++	gcc_micro_version=`${CC} -dumpversion | cut -f3 -d.`
+ 
+ 		if test $gcc_major_version -eq 2; then
+ 		if test $gcc_minor_version -gt 94; then

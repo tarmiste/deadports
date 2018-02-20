@@ -1,0 +1,10 @@
+#!/bin/sh
+
+user="jenkins"
+group="jenkins"
+home="/var/lib/$user"
+
+/usr/bin/getent group $group >/dev/null || /usr/sbin/groupadd $group
+/usr/bin/getent passwd $user >/dev/null || /usr/sbin/useradd -s /bin/sh -d $home -g $group $user
+
+# End of file

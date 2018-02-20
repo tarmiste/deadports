@@ -1,0 +1,24 @@
+# Description: Library for encoding MPEG content.
+# URL: http://fame.sourceforge.net/
+# Maintainer: Danny Rawlins, monster dot romster at gmail dot com
+# Packager: Martin Opel, mo at obbl-net dot de
+
+name=libfame
+version=0.9.1
+release=3
+source=(http://downloads.sourceforge.net/project/fame/$name/$version/$name-$version.tar.gz
+	$name-$version-gcc34-1.patch
+	$name-$version-config_update-1.patch)
+
+build() {
+	cd $name-$version
+	patch -p 1 -i $SRC/$name-$version-gcc34-1.patch
+	patch -p 1 -i $SRC/$name-$version-config_update-1.patch
+
+	sed -i 's/$CC --version/$CC -dumpversion/' configure
+	unset CC # ccache brakes at library linking stage
+
+	./configure --prefix=/usr
+	make
+	make DESTDIR=$PKG install
+}

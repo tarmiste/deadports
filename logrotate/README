@@ -1,0 +1,12 @@
+README for logrotate
+
+REQUIREMENTS
+
+PRE-INSTALL
+
+POST-INSTALL
+
+You can adjust /etc/crontab to run hourly jobs:
+17 *  * * *     /usr/sbin/runjobs /etc/cron/hourly
+
+RESOURCES

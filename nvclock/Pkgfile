@@ -1,0 +1,27 @@
+# Description: Small utility that allows users to overclock NVIDIA based video cards.
+# URL: http://www.linuxhardware.org/nvclock/
+# Maintainer: Danny Rawlins, monster dot romster at gmail dot com
+# Packager: Nathan Pardoe, lithium at poolofrandomness dot com
+# Depends on: gtk
+
+name=nvclock
+version=0.8b4
+release=2
+source=(http://www.linuxhardware.org/nvclock/nvclock$version.tar.gz
+	$name-linkeropts.diff)
+
+build() {
+	cd $name$version
+
+	patch -p 1 -i $SRC/$name-linkeropts.diff
+	./configure \
+		--prefix=/usr \
+		--disable-qt \
+		--with-x
+
+	make -j 1
+
+	# DESTDIR is currently broken
+	make prefix=$PKG/usr install
+	rm -r $PKG/usr/share/doc
+}

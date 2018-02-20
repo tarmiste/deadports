@@ -1,0 +1,34 @@
+diff -Nru ipsec-tools-0.7-orig/configure.ac ipsec-tools-0.7/configure.ac
+--- ipsec-tools-0.7-orig/configure.ac	2007-09-19 19:31:52.000000000 +0300
++++ ipsec-tools-0.7/configure.ac	2007-09-19 20:27:25.000000000 +0300
+@@ -767,6 +767,11 @@
+ esac
+ AC_MSG_RESULT($kernel_secctx)
+ 
++enable_security_context="no"
++AC_CHECK_HEADER(selinux/selinux.h,
++ [AC_CHECK_LIB(selinux, avc_init, [selinux_support=yes],
++ [selinux_support=no])], [selinux_support=no])
++
+ AC_MSG_CHECKING(whether to support Security Context)
+ AC_ARG_ENABLE(security-context,
+ 	[  --enable-security-context    enable Security Context(yes/no/kernel)],
+@@ -779,10 +784,14 @@
+ 	if test "$kernel_secctx" = "no" ; then
+ 		AC_MSG_ERROR([Security Context requested, but no kernel support! Aborting.])
+ 	else
+-		AC_DEFINE([HAVE_SECCTX], [], [Enable Security Context])
+-		SECCTX_OBJS="security.o"
+-		AC_SUBST(SECCTX_OBJS)
+-		LIBS="$LIBS -lselinux"
++		if test "$selinux_support" = "no"; then
++			AC_MSG_ERROR([Security Context requested, but no selinux support! Aborting.])
++		else
++			AC_DEFINE([HAVE_SECCTX], [], [Enable Security Context])
++			SECCTX_OBJS="security.o"
++			AC_SUBST(SECCTX_OBJS)
++			LIBS="$LIBS -lselinux"
++		fi
+ 	fi
+ fi
+ 

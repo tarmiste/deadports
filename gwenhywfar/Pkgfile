@@ -1,0 +1,22 @@
+# Description: OS abstraction layer
+# URL: http://gwenhywfar.sourceforge.net/
+# Maintainer: Simon Gloﬂner, viper at hometux dot de
+# Depends on: libgcrypt, gnutls
+
+name=gwenhywfar
+version=3.0.1
+release=1
+source=($name-$version.tar.gz)
+        
+build() {
+    cd $name-$version
+
+    ./configure \
+	--prefix=/usr \
+	--enable-ssl \
+	--disable-nls
+    make
+    make DESTDIR=$PKG install
+
+    rm -rf $PKG/usr/share/locale
+}

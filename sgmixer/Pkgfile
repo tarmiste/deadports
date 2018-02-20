@@ -1,0 +1,18 @@
+# Description: A simple GTK2 audio mixer
+# URL: http://sgmixer.openfmi.net
+# Maintainer: Jose V Beneyto, sepen at users dot sourceforge dot net
+# Packager: Jose V Beneyto, sepen at users dot sourceforge dot net
+# Depends on: gtk
+
+name=sgmixer
+version=0.3
+release=2
+source=(http://crux.ster.zone/downloads/$name/$name-$version.tar.gz)
+#source=(http://openfmi.net/frs/download.php/1/$name-$version.tar.gz)
+
+build() {
+  cd $name-$version
+  ./configure --prefix=/usr
+  make
+  install -D -m 0755 src/$name $PKG/usr/bin/$name
+}

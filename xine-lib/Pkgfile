@@ -1,0 +1,29 @@
+# Description: A free, GPL-licensed video player for UNIX-like systems.
+# URL: http://xine.sourceforge.net
+# Maintainer: Danny Rawlins, crux at romster dot me
+# Packager: sten, nick dot steeves at shaw dot ca
+# Depends on: ffmpeg flac gdk-pixbuf glu liba52 libdca libdvdnav libgmp libmad libmng libmpcdec util-linux vcdimager
+
+name=xine-lib
+version=1.2.6
+release=1
+source=(http://downloads.sourceforge.net/project/xine/$name/$version/$name-$version.tar.xz)
+
+build() {
+	cd $name-$version
+
+	./configure \
+		--prefix=/usr \
+		--mandir=/usr/man \
+		--disable-nls \
+		--enable-a52dec \
+		--enable-faad \
+		--enable-musepack \
+		--with-external-dvdnav \
+		--disable-dependency-tracking
+
+	make
+	make DESTDIR=$PKG install
+
+	rm -r $PKG/usr/share/doc
+}

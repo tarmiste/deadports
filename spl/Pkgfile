@@ -1,0 +1,27 @@
+# Description:  A Linux kernel module which provides many of the Solaris kernel APIs
+# URL:          http://zfsonlinux.org/
+# Maintainer:   James Mills, prologic at shortcircuit dot net dot au
+#
+# Depends on:
+
+name=spl
+version=0.6.4.2
+release=1
+source=(http://archive.zfsonlinux.org/downloads/zfsonlinux/$name/$name-$version.tar.gz)
+
+build() {
+    cd $name-$version
+
+    # Configure
+    ./configure --prefix=/usr \
+        --mandir=/usr/man
+
+    # dirty hacks ahoy!
+    find . -name "Makefile" -exec sed -i -e 's,/usr/src/spl-$(VERSION),/usr/include/spl,g' '{}' \;
+
+    # Build
+    make
+
+    # Package
+    make DESTDIR=$PKG install
+}

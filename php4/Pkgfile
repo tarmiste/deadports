@@ -1,0 +1,52 @@
+# Description: PHP Version 4.
+# URL: http://www.php.net
+# Maintainer: Jose V Beneyto, sepen at users dot sourceforge dot net
+# Packager: Jose V Beneyto, sepen at users dot sourceforge dot net
+# Depends on: bzip2,libpcre,libpng,libxml2,openssl 
+
+name=php4
+version=4.4.7
+release=4
+source=(http://php.net/distributions/php-${version}.tar.bz2)
+
+build() {
+  local SQL
+  local CFLAGS
+  if [ "`pkginfo -i | grep postgresql`" ];then
+    SQL="${SQL} --with-pgsql=/usr"
+    LD_LIBRARY_PATH="${LD_LIBRARY_PATH}:/usr/lib/postgresql"
+    CFLAGS="${CFLAGS} -I/usr/include/postgresql"
+  fi
+  if [ "`pkginfo -i | grep mysql`" ];then
+    SQL="${SQL} --with-mysql=/usr"
+    LD_LIBRARY_PATH="${LD_LIBRARY_PATH}:/usr/lib/mysql"
+    CFLAGS="${CFLAGS} -I/usr/include/mysql"
+  fi
+  export LD_LIBRARY_PATH
+  cd php-${version}
+  ./configure --prefix=/usr \
+              --with-bz2 \
+              --with-pic \
+              --with-openssl \
+              --with-png \
+              --with-iconv \
+              --with-pcre-regex=/usr \
+              --with-config-file-path=/etc \
+              --with-zlib-dir=/usr/lib \
+              --enable-shared=yes \
+              --enable-sockets \
+              --enable-shmop \
+              --enable-sysvsem \
+              --enable-sysvshm \
+              --enable-regex=pcre \
+              --enable-sigchild \
+              --disable-static \
+              --disable-pdo \
+              ${SQL}
+    make ${CFLAGS}
+    make INSTALL_ROOT=${PKG} install
+    rm -rf ${PKG}/usr/lib/php/{test,doc}
+    sed -e "s|extension_dir=.*|extension_dir='/usr/lib/php/extensions'|" -i ${PKG}/usr/bin/php-config
+    sed -e "/^extension_dir/s|\./|/usr/lib/php/extensions|" -i php.ini-dist
+    install -D -m 0644 php.ini-dist ${PKG}/etc/php.ini
+}

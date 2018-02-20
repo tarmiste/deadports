@@ -1,0 +1,40 @@
+diff -Nru logrotate-3.7.9-orig/config.h logrotate-3.7.9/config.h
+--- logrotate-3.7.9-orig/config.h	2010-12-23 20:21:54.000000000 +0200
++++ logrotate-3.7.9/config.h	2010-12-23 20:24:13.000000000 +0200
+@@ -20,7 +20,7 @@
+  * Default settings for Linux - leave these last.
+  */
+ #ifndef DEFAULT_MAIL_COMMAND
+-#define DEFAULT_MAIL_COMMAND "/bin/mail"
++#define DEFAULT_MAIL_COMMAND "/usr/bin/mail"
+ #endif
+ 
+ #ifndef COMPRESS_COMMAND
+@@ -36,5 +36,5 @@
+ #endif
+ 
+ #ifndef STATEFILE
+-#define STATEFILE "/var/lib/logrotate.status"
++#define STATEFILE "/var/state/logrotate/logrotate.status"
+ #endif
+diff -Nru logrotate-3.7.9-orig/logrotate.8 logrotate-3.7.9/logrotate.8
+--- logrotate-3.7.9-orig/logrotate.8	2010-12-23 20:21:54.000000000 +0200
++++ logrotate-3.7.9/logrotate.8	2010-12-23 20:23:32.000000000 +0200
+@@ -55,7 +55,7 @@
+ \fB-s, -\-state <statefile>\fR
+ Tells \fBlogrotate\fR to use an alternate state file.  This is useful
+ if logrotate is being run as a different user for various sets of
+-log files.  The default state file is \fI/var/lib/logrotate.status\fR.
++log files.  The default state file is \fI/var/state/logrotate/logrotate.status\fR.
+ 
+ .TP
+ \fB-\-usage\fR
+@@ -473,7 +473,7 @@
+ .SH FILES
+ .PD 0
+ .TP 27
+-\fI/var/lib/logrotate.status\fR
++\fI/var/state/logrotate/logrotate.status\fR
+ Default state file.
+ .TP 27
+ \fI/etc/logrotate.conf\fR

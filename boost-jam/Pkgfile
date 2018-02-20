@@ -1,0 +1,21 @@
+# Description: An alternative to make based on Jam.
+# URL: http://www.boost.org/
+# Maintainer: Danny Rawlins, monster dot romster at gmail dot com
+# Packager: Danny Rawlins, monster dot romster at gmail dot com
+# Depends on:
+
+name=boost-jam
+version=3.1.17
+release=1
+source=(http://downloads.sourceforge.net/sourceforge/boost/$name-$version.tgz
+	$name-3.1.17-misc.patch
+	$name-3.1.17-cflags.patch)
+
+build() {
+	cd $name-$version
+	patch -p 1 -i $SRC/$name-3.1.17-misc.patch
+	patch -p 1 -i $SRC/$name-3.1.17-cflags.patch
+	local bindir='bin.linuxx86'
+	./build.sh gcc
+	install -m 0755 -D $bindir/bjam $PKG/usr/bin/bjam
+}

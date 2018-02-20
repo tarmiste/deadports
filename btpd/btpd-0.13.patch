@@ -1,0 +1,115 @@
+http://lists.stargirl.org/pipermail/btpd-users/2007-June/000250.html
+
+On Wed, June 27, 2007 10:27, Richard Nyberg said:
+> On Tue, June 26, 2007 12:29, barone rosso said:
+>> the tracker is Macnbits, http://beta.macnbits.com/home.php , a BNBT
+>> tracker based. I have the same problem with all torrents relased by
+>> this tracker.
+>>
+> This tracker almost manages to talk HTTP, but not quite. As specified
+> in RFC 2616, the line endings in HTTP is encoded with CRLF. This
+> tracker only sends LF.
+>
+> Quoted from http://tools.ietf.org/html/rfc2616 section 3.7.1:
+> "a bare CR or LF MUST NOT be substituted for CRLF within any of
+>  the HTTP control structures (such as header fields and multipart
+>  boundaries)."
+>
+> You should talk to the tracker admins and try to get them to fix it.
+>
+> Nevertheless, this is probably a common error - curl deals with it -
+> so one should perhaps make btpd parse it as well.
+
+Please try the attached patch. It should tolerate both types of
+new lines.
+
+        -Richard
+
+Index: misc/http_client.c
+===================================================================
+--- misc/http_client.c	(revision 357)
++++ misc/http_client.c	(working copy)
+@@ -132,11 +132,24 @@
+     http_free(req);
+ }
+ 
++static char *
++strnl(char *str, int *nlsize)
++{
++    char *nl = strchr(str, '\n');
++    if (nl != NULL && nl > str && *(nl - 1) == '\r') {
++        *nlsize = 2;
++        return nl - 1;
++    } else {
++        *nlsize = 1;
++        return nl;
++    }
++}
++
+ static int
+ headers_parse(struct http_req *req, char *buf, char *end)
+ {
+-    int code, majv, minv;
+-    char *cur, *crlf;
++    int code, majv, minv, nlsize;
++    char *cur, *nl;
+     char name[128], value[872];
+     struct http_response res;
+ 
+@@ -151,12 +164,12 @@
+     if (req->cancel)
+         return 1;
+ 
+-    cur = strstr(buf, "\r\n") + 2;
+-    crlf = strstr(cur, "\r\n");
++    cur = strchr(buf, '\n') + 1;
++    nl = strnl(cur, &nlsize);
+     while (cur < end) {
+         int i;
+         char *colon = strchr(cur, ':');
+-        if (colon == NULL || colon > crlf)
++        if (colon == NULL || colon > nl)
+             return 0;
+         snprintf(name, sizeof(name), "%.*s", (int)(colon - cur), cur);
+ 
+@@ -165,15 +178,15 @@
+     val_loop:
+         while (isblank(*cur))
+             cur++;
+-        while (cur < crlf) {
++        while (cur < nl) {
+             if (i < sizeof(value) - 1) {
+                 value[i] = *cur;
+                 i++;
+             }
+             cur++;
+         }
+-        cur += 2;
+-        crlf = strstr(cur, "\r\n");
++        cur += nlsize;
++        nl = strnl(cur, &nlsize);
+         if (isblank(*cur)) {
+             if (i < sizeof(value) - 1) {
+                 value[i] = ' ';
+@@ -222,7 +235,11 @@
+     case PS_HEAD:
+         if (len == 0)
+             goto error;
+-        if ((end = evbuffer_find(req->buf, "\r\n\r\n", 4)) == NULL) {
++        if ((end = evbuffer_find(req->buf, "\r\n\r\n", 4)) != NULL)
++            dlen = 4;
++        else if ((end = evbuffer_find(req->buf, "\n\n", 2)) != NULL)
++            dlen = 2;
++        else {
+             if (req->buf->off < (1 << 15))
+                 return 1;
+             else
+@@ -235,7 +252,7 @@
+             goto error;
+         if (req->cancel)
+             goto cancel;
+-        evbuffer_drain(req->buf, end - (char *)req->buf->buffer + 4);
++        evbuffer_drain(req->buf, end - (char *)req->buf->buffer + dlen);
+         goto again;
+     case PS_CHUNK_SIZE:
+         assert(req->chunked);

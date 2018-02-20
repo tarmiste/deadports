@@ -1,0 +1,14 @@
+# Description:  Build and distribute virtualized development environments
+# URL:          http://vagrantup.com
+# Maintainer:   James Mills, prologic at shortcircuit dot net dot au
+#
+# Depends on:   ruby curl lzo libidn rtmpdump virtualbox
+
+name=vagrant
+version=1.7.2
+release=1
+source=(http://shortcircuit.net.au/~prologic/distfiles/${name}_${version}_x86_64.rpm)
+
+build() {
+    cp -r ${SRC}/* ${PKG}
+}

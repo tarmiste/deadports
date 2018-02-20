@@ -1,0 +1,20 @@
+# Description: Low-Level Interface to bzip2 compression library
+# URL: http://search.cpan.org/~pmqs/Compress-Raw-Bzip2/
+# Maintainer: Mikhail Kolesnik, mike at openbunker dot org
+# Depends on: 
+
+name=p5-compress-raw-bzip2
+version=2.020
+release=1
+source=(http://search.cpan.org/CPAN/authors/id/P/PM/PMQS/Compress-Raw-Bzip2-$version.tar.gz)
+
+build() {
+	cd Compress-Raw-Bzip2-$version
+	perl Makefile.PL
+	make OPTIMIZE="$CFLAGS"
+	make DESTDIR=$PKG install
+	find $PKG -name .packlist -exec rm -f {} \;
+	find $PKG -name "*.bs" -exec rm -f {} \;
+	find $PKG -name perllocal.pod -exec rm -f {} \;
+	find $PKG -depth -type d -empty -exec rm -rf {} \;
+}

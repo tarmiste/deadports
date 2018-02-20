@@ -1,0 +1,104 @@
+diff -Nru analog-6.0.orig/analog.cfg analog-6.0/analog.cfg
+--- analog-6.0.orig/analog.cfg	2004-12-21 09:41:49.000000000 +0100
++++ analog-6.0/analog.cfg	2004-12-21 10:36:54.000000000 +0100
+@@ -10,7 +10,7 @@
+ #
+ # If you need a LOGFORMAT command (most people don't -- try it without first!),
+ # it must go here, above the LOGFILE commands.
+-LOGFILE logfile.log
++LOGFILE /var/log/apache/access_log
+ # LOGFILE /old/logs/access_log.*
+ # OUTFILE Report.html
+ # HOSTNAME "[my organisation]"
+diff -Nru analog-6.0.orig/anlgform.html analog-6.0/anlgform.html
+--- analog-6.0.orig/anlgform.html	2004-12-21 09:41:49.000000000 +0100
++++ analog-6.0/anlgform.html	2004-12-21 10:41:27.000000000 +0100
+@@ -5,7 +5,7 @@
+ </head>
+ 
+ <body>
+-<h1><!-- img src="/images/analogo.gif" alt="" --> Analog form interface</h1>
++<h1><img src="/analog/analogo.png" alt=""> Analog form interface</h1>
+ 
+ <!-- This version is in British English. Forms in other languages can be -->
+ <!-- found in the "lang" folder or directory. -->
+@@ -16,11 +16,11 @@
+ 
+ <!-- Next, uncomment the following line, edited to reflect the correct -->
+ <!-- location of anlgform.pl in you server's filespace. -->
+-<!-- form action="/cgi-bin/anlgform.pl" method="POST" -->
++<form action="/cgi-bin/anlgform.pl" method="POST">
+ 
+ <!-- Many systems will want the IMAGEDIR to be different on the form -->
+ <!-- than from the command line, because it should not be within /cgi-bin/ -->
+-<!-- input type=hidden name="IMAGEDIR" value="/images/" -->
++<input type=hidden name="IMAGEDIR" value="/analog/">
+ 
+ <!-- Some users will want to set their logfile like this. -->
+ <!-- input type=hidden name="LOGFILE" value="/usr/local/etc/httpd/logs/access_log" -->
+@@ -30,11 +30,6 @@
+ <hr>
+ <h2>1. Report choices</h2>
+ 
+-<strong><font color=red>N.B. This form will not work - e.g. the buttons may
+-not even appear - until you've configured it according to the instructions.
+-When you've configured it, you should remove this paragraph.<br>
+-</font></strong>
+-
+ <i>See <a href="http://www.analog.cx/">the analog
+ home page</a> for the meanings of the various reports.</i>
+ 
+diff -Nru analog-6.0.orig/anlgform.pl analog-6.0/anlgform.pl
+--- analog-6.0.orig/anlgform.pl	2004-12-21 09:41:49.000000000 +0100
++++ analog-6.0/anlgform.pl	2004-12-21 09:57:38.000000000 +0100
+@@ -18,7 +18,9 @@
+ 
+ # 1) uncomment (remove everything before $analog) and edit one of the next two
+ #    lines to give the location (full pathname) of the analog executable.
+-#       Unix: $analog = '/usr/local/etc/httpd/analog-6.0/analog';
++
++$analog = '/usr/bin/analog';
++
+ #       Windows: $analog = 'C:\program files\analog 6.0\analog.exe';
+ # 2) If you're on Unix, edit the first line in this file to give the location
+ #    of Perl (don't remove the #! though).
+diff -Nru analog-6.0.orig/src/Makefile analog-6.0/src/Makefile
+--- analog-6.0.orig/src/Makefile	2004-12-21 09:41:49.000000000 +0100
++++ analog-6.0/src/Makefile	2004-12-21 10:49:21.543558589 +0100
+@@ -5,7 +5,7 @@
+ CC = gcc           # which compiler to use: eg cc, acc, gcc. NB Different
+ #                    compilers need different CFLAGS, e.g., -O instead of -O2.
+ MAKE = make        # which "make" to use
+-CFLAGS = -O2    # options, e.g. for optimisation or ANSI compilation.
++#CFLAGS = -O2    # options, e.g. for optimisation or ANSI compilation.
+ #                 Some OS's need -D_FILE_OFFSET_BITS=64 to support files > 2MB.
+ #                 HP/UX cc needs CFLAGS = -Aa (HP/UX 9) or -Ae (HP/UX 10)
+ #                 BeOS needs CFLAGS = -O2 -Wl,-L/boot/home/config/lib
+diff -Nru analog-6.0.orig/src/anlghead.h analog-6.0/src/anlghead.h
+--- analog-6.0.orig/src/anlghead.h	2004-12-21 09:41:49.000000000 +0100
++++ analog-6.0/src/anlghead.h	2004-12-21 10:32:15.000000000 +0100
+@@ -47,7 +47,7 @@
+ #endif
+ 
+ #ifndef IMAGEDIR
+-#define IMAGEDIR "images/"
++#define IMAGEDIR "/analog/"
+ /* URL of the directory where the images for the graphical reports live.
+    The URL can be absolute, or relative to the output page: e.g., just the
+    empty string "" for the same directory as the output page. */
+@@ -93,13 +93,13 @@
+    directory. This may or may not work, so it's better to specify a location
+    explicitly here if you know where the files will be kept. */
+ #ifndef LANGDIR
+-#define LANGDIR NULL
++#define LANGDIR "/usr/share/analog/lang/"
+ #endif
+ /* Directory where the language files live. Actually, if this one is defined
+    to be NULL, they will be looked for inside the "lang" subdirectory of the
+    directory containing the analog binary. */
+ #ifndef CONFIGDIR
+-#define CONFIGDIR NULL
++#define CONFIGDIR "/usr/etc/analog/"
+ #endif
+ /* Directory containing configuration files. */
+ #ifndef LOGSDIR

@@ -1,0 +1,29 @@
+# Description: KVM-accelerated qemu
+# URL:         http://www.linux-kvm.org
+# Maintainer:  Thomas Penteker, tek at serverop dot de
+# Depends on:  libsdl
+
+name=qemu-kvm
+version=1.2.0
+release=1
+source=(http://download.sourceforge.net/kvm/qemu-kvm/$version/qemu-kvm-$version.tar.gz)
+
+build() {
+  cd $name-$version
+
+  ./configure --prefix=/usr \
+              --sysconfdir=/etc \
+              --mandir=/usr/man  --enable-guest-agent # --cc=clang --host-cc=clang
+
+  # fix include issues with nspr
+  echo 'QEMU_CFLAGS+=-I/usr/include/nspr' >> libcacard/Makefile
+  
+  # no html docs
+  sed -i -e 's/\t$(INSTALL_DATA) qemu-doc.html/#&/g' \
+         -e 's/\t$(INSTALL_DIR) "$(DESTDIR)$(docdir)"/#&/g' \
+         -e 's/\t$(INSTALL_DATA) QMP\/qmp-commands.txt "$(DESTDIR)$(qemu_docdir)"/#&/g' Makefile
+
+  make all qemu.1 qemu-img.1 qemu-nbd.8 fsdev/virtfs-proxy-helper.1
+  make install install-doc DESTDIR=$PKG
+
+}

@@ -1,0 +1,21 @@
+# Description:  desktop panel from lxde project
+# URL:          http://lxde.org/
+# Maintainer:   James Mills, prologic at shortcircuit dot net dot au
+# Depends on: alsa-lib libwnck lxmenu-data menu-cache wireless-tools xorg-libxdamage
+
+name=lxpanel
+version=0.6.1
+release=1
+source=(http://download.sourceforge.net/sourceforge/lxde/$name-$version.tar.gz)
+
+build() {
+    cd $name-$version
+
+    CFLAGS+=' -lgmodule-2.0' ./configure \
+        --prefix=/usr \
+        --disable-nls
+
+    make
+    make DESTDIR=$PKG install
+    rm -rf $PKG/usr/share/locale
+}

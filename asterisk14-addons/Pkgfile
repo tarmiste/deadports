@@ -1,0 +1,15 @@
+# Description:	Asterisk addons
+# URL:		http://www.asterisk.org
+# Maintainer:   Alan Mizrahi, alan at mizrahi dot com dot ve
+# Depends on:	asterisk
+
+name=asterisk14-addons
+version=1.4.12
+release=1
+source=(http://downloads.digium.com/pub/asterisk/releases/$name-$version.tar.gz)
+
+build () {
+	cd $name-$version
+	./configure --prefix=/usr
+	make DESTDIR=$PKG install
+}

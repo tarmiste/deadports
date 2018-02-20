@@ -1,0 +1,17 @@
+# Description: Pager for use with NetWM-compliant window managers like OpenBox
+# URL: http://obpager.sourceforge.net/
+# Maintainer: Mikhail Kolesnik, mike at openbunker dot org
+# Depends on: xorg
+
+name=obpager
+version=1.8
+release=2
+source=(http://dl.sourceforge.net/sourceforge/obpager/$name-$version.tar.gz \
+		$name.diff)
+
+build() {
+	cd $name-$version
+	patch -p1 -i $SRC/$name.diff
+	make
+	install -D -m 755 obpager $PKG/usr/bin/obpager
+}

@@ -1,0 +1,18 @@
+# Description: Tag editor for MP3 etc.
+# URL: http://easytag.sf.net/
+# Maintainer: Antti Nykanen, aon at iki dot fi
+# Depends on: gtk, id3lib
+# Nice to have: libogg, libvorbis, flac
+
+name=easytag
+version=2.1
+release=1
+source=(http://dl.sf.net/easytag/easytag-$version.tar.bz2)
+
+build() {
+	cd easytag-$version
+	./configure --prefix=/usr --disable-nls
+	make
+	make DESTDIR=$PKG install
+	rm -rf $PKG/usr/share
+}

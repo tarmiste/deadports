@@ -1,0 +1,22 @@
+# Description: Some themes for claws-mail email client
+# URL: http://www.claws-mail.org/themes.php?section=downloads
+# Maintainer: Mikhail Kolesnik, mike at openbunker dot org
+# Depends on: claws-mail
+
+name=claws-mail-themes
+version=20140629
+release=1
+source=(http://www.claws-mail.org/themes/$name-$version.tar.gz)
+
+build() {
+	mkdir -p $PKG/usr/share/claws-mail/themes
+	cp -r $name-$version/* $PKG/usr/share/claws-mail/themes
+	find $PKG -iname INSTALL  | xargs rm -f
+	find $PKG -iname COPYING  | xargs rm -f
+	find $PKG -iname LICENSE* | xargs rm -f
+	find $PKG -iname README*  | xargs rm -f
+	find $PKG -iname ChangeLog*  | xargs rm -f
+	find $PKG -iname DISCLAIMER* | xargs rm -f
+	find $PKG -type f -print0 | xargs -0 chmod 644
+	find $PKG -type d -print0 | xargs -0 chmod 755
+}

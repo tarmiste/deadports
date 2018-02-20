@@ -1,0 +1,41 @@
+# Description: An IM client with support for ICQ and AIM/MSN networks
+# URL: http://www.licq.org
+# Maintainer: Mikhail Kolesnik, mike at openbunker dot org
+# Packager: Magnus Bohman, magbo at kbab dot net
+# Depends on: boost qt3
+
+name=licq
+version=1.3.6
+release=2
+source=(http://dl.sourceforge.net/sourceforge/$name/$name-$version.tar.bz2)
+
+build () {
+	cd $name-$version
+	./configure --prefix=/usr \
+		--disable-nls \
+		--disable-debug \
+		--disable-gpgme 
+	make 
+	make DESTDIR=$PKG install
+
+	cd plugins/qt-gui
+#	If you want KDE support, use this configure line instead
+#	./configure --prefix=/usr --with-kde --disable-nls --disable-debug
+	./configure --prefix=/usr \
+				--disable-nls \
+				--disable-debug \
+				--with-qt-moc=/usr/bin/moc-qt3
+	make
+	sed -i -e 's|SUBDIRS = src share po|SUBDIRS = src share|' Makefile
+	make DESTDIR=$PKG install
+
+	cd ../../plugins/msn
+	./configure --prefix=/usr --disable-debug
+	make 
+	make DESTDIR=$PKG install
+
+	rm -rf  $PKG/usr/share/licq/qt-gui/locale \
+                $PKG/usr/share/locale \
+                $PKG/usr/share/licq/translations
+	find $PKG/usr/share/licq/qt-gui -name "README*" -exec rm '{}' \;
+}

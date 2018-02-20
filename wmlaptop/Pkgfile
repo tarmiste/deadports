@@ -1,0 +1,19 @@
+# Description: A dockapp to control CPU frequency and monitor battery state
+# URL: http://wmlaptop.sourceforge.net/
+# Maintainer: Mikhail Kolesnik, mike at openbunker dot org
+# Depends on: xorg-libxpm
+
+name=wmlaptop
+version=1.4
+release=3
+source=(http://wmlaptop.sourceforge.net/$name-$version.tar.bz2 \
+		$name-makefile.diff \
+		$name-ondemand.diff)
+
+build() {
+	cd $name-$version
+	patch -p1 -i $SRC/$name-makefile.diff
+	patch -p1 -i $SRC/$name-ondemand.diff
+	make
+	make install
+}

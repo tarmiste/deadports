@@ -1,0 +1,20 @@
+# Description: controls magnetic tape drive operation (SCSI & QIC-02)
+# URL: ftp://ftp.ibiblio.org/pub/linux/system/backup/
+# Maintainer: Jose V Beneyto, sepen at users dot sourceforge dot net
+# Packager: Manuel Ruiz, manuel dot tienza at gmail dot com
+# Depends on:
+
+name=mt-st
+version=1.1
+release=1
+source=(http://www.ibiblio.org/pub/Linux/system/backup/$name-$version.tar.gz)
+
+build() {
+    cd $name-$version
+    sed -e 's|<linux/qic117.h>|"qic117.h"|g' -i mtio.h
+    make CFLAGS="$CFLAGS" CC=gcc
+    mkdir -p $PKG/usr/{bin,man/man1,man/man8}
+    cp mt stinit $PKG/usr/bin/
+    cp mt.1 $PKG/usr/man/man1/
+    cp stinit.8 $PKG/usr/man/man8/
+}

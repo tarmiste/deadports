@@ -1,0 +1,17 @@
+# Description: A portable console hex editor
+# URL: http://heme.sourceforge.net/
+# Maintainer: Mikhail Kolesnik, mike at openbunker dot org
+# Depends on:
+
+name=heme
+version=0.4.2
+release=1
+source=(http://dl.sourceforge.net/sourceforge/heme/$name-$version.tar.gz\
+		$name-$version-Makefile.diff)
+
+build() {
+	cd $name-$version
+	patch -i ../$name-$version-Makefile.diff
+	make
+	make DESTDIR=$PKG install
+}

@@ -1,0 +1,20 @@
+# Description: fast, low complexity waveform coder (lossless audio compressor)
+# URL: http://www.etree.org/shnutils/shorten/
+# Maintainer: Jose V Beneyto, sepen at crux dot nu
+# Packager: Ricardo Oliveira, crux at roliveira dot eu
+# Depends on:
+
+name=shorten
+version=3.6.1
+release=1
+source=(http://etree.org/shnutils/$name/dist/src/$name-$version.tar.gz)
+
+build() {
+  cd $name-$version
+  ./configure --prefix=/usr \
+              --mandir=/usr/man \
+              --disable-nls
+
+  make
+  make DESTDIR=$PKG install
+}

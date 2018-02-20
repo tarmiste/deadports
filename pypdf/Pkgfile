@@ -1,0 +1,15 @@
+# Description: Pure-Python library built as a PDF toolkit
+# URL: http://pybrary.net/pyPdf/
+# Maintainer: Jose V Beneyto, sepen at users dot sourceforge dot net
+# Packager: Jose V Beneyto, sepen at users dot sourceforge dot net
+# Depends on: python
+
+name=pypdf
+version=1.13
+release=1
+source=(http://pybrary.net/pyPdf/pyPdf-$version.tar.gz)
+
+build() {
+  cd pyPdf-$version
+  python setup.py install -f --prefix=$PKG/usr
+}

@@ -1,0 +1,24 @@
+# Description: Standalone extensions to Nagios Core
+# URL: http://www.nagios.org/project/nagiosplugins
+# Maintainer: Jose V Beneyto, sepen at crux dot nu
+# Depends on: nagios net-snmp
+
+name=nagios-plugins
+version=2.0.3
+release=1
+source=(http://nagios-plugins.org/download/$name-$version.tar.gz)
+
+build () {
+  cd $name-$version
+
+  ./configure --prefix=/usr/share/nagios \
+              --libexecdir=/usr/lib/nagios/plugins \
+              --with-nagios-user=nagios \
+              --with-nagios-group=nagios \
+              --disable-nls
+
+  make
+  make DESTDIR=$PKG install
+
+  rm -rf $PKG/usr/share
+}

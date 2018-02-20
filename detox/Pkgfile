@@ -1,0 +1,17 @@
+# Description: utility designed to clean up filenames
+# URL:         http://detox.sourceforge.net/
+# Maintainer:  Bartlomiej Palmowski, rotwang at crux dot org dot pl
+# Depends on:  
+
+name=detox
+version=1.2.0
+release=1
+source=(http://downloads.sourceforge.net/project/$name/$name/$version/$name-$version.tar.bz2)
+
+build() {
+    mkdir -p $PKG/usr/bin $PKG/etc $PKG/usr/man $PKG/usr/share/detox
+    cd $name-$version
+    ./configure --prefix=/usr --sysconfdir=/etc --mandir=/usr/man
+    make
+    make DESTDIR=$PKG install
+}

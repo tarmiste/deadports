@@ -1,0 +1,20 @@
+# Description: Perl interface to iconv() codeset conversion function
+# URL: http://search.cpan.org/~mpiotr/Text-Iconv/
+# Maintainer: Mikhail Kolesnik, mike at openbunker dot org
+# Depends on: 
+
+name=p5-text-iconv
+version=1.7
+release=6
+source=(http://search.cpan.org/CPAN/authors/id/M/MP/MPIOTR/Text-Iconv-$version.tar.gz)
+
+build() {
+	cd Text-Iconv-$version
+	perl Makefile.PL
+	make OPTIMIZE="$CFLAGS"
+	make DESTDIR=$PKG install
+	find $PKG -name .packlist -exec rm {} \;
+	find $PKG -name "*.bs" -exec rm {} \;
+	find $PKG -name perllocal.pod -exec rm {} \;
+	find $PKG -depth -type d -empty -exec rm -rf {} \;
+}

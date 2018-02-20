@@ -1,0 +1,28 @@
+diff -Nru obpager-1.8-orig/Makefile obpager-1.8/Makefile
+--- obpager-1.8-orig/Makefile	2007-04-09 11:51:23.000000000 +0300
++++ obpager-1.8/Makefile	2007-04-09 11:53:49.505809739 +0300
+@@ -15,10 +15,10 @@
+ CDEFS = -D_REENTRANT
+ CPPFLAGS = -ggdb -Wall
+ #CPPFLAGS = -ggdb -Wall -O2
+-INCLUDES = -I/usr/X11R6/include/X11 -I/usr/X11R6/include/X11/extensions -I./src
++INCLUDES = -I/usr/include/X11 -I/usr/include/X11/extensions -I./src
+ COMPILE = $(CXX) $(CDEFS) $(INCLUDES) $(CPPFLAGS)
+ LINK = $(CXX) $(LDFLAGS) $(LDLIBS)
+-LDLIBS = -L/usr/X11R6/lib  -lX11 -lXext
++LDLIBS = -L/usr/lib  -lX11 -lXext
+ 
+ 
+ 
+diff -Nru obpager-1.8-orig/src/main.cc obpager-1.8/src/main.cc
+--- obpager-1.8-orig/src/main.cc	2007-04-09 11:51:23.000000000 +0300
++++ obpager-1.8/src/main.cc	2007-04-09 11:51:44.000000000 +0300
+@@ -16,6 +16,8 @@
+ 	See the COPYING file for a copy of the GNU General Public License.
+ */
+ 
++// why it was not here?
++#include <errno.h>
+ 
+ // Include the STL header(s) we need
+ 

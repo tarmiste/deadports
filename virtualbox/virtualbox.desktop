@@ -1,0 +1,9 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=VirtualBox
+Comment=Full virtualizer for x86 hardware
+Exec=/usr/bin/virtualbox
+Icon=virtualbox.png
+Terminal=false
+Type=Application
+Categories=Emulators;

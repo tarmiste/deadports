@@ -1,0 +1,16 @@
+# Description: Python Imaging Library.
+# URL: http://www.pythonware.com/products/pil/
+# Maintainer: Danny Rawlins, monster dot romster at gmail dot com
+# Packager: Younes Hafri, ycrux at club-internet dot fr
+# Depends on: python libjpeg-turbo libpng freetype
+
+name=pil
+version=1.1.7
+release=2
+source=(http://effbot.org/media/downloads/PIL-$version.tar.gz)
+
+build() {
+	cd PIL-$version
+	/usr/bin/python setup.py install --root=$PKG
+	find $PKG -name '*egg-info' -delete
+}

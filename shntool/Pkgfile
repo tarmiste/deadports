@@ -1,0 +1,18 @@
+# Description: Multi-purpose WAVE data processing and reporting utility
+# URL: http://www.etree.org/shnutils/shntool/
+# Maintainer: Jose V Beneyto, sepen at crux dot nu
+# Packager: Han Boetes, han at mijncomputer dot nl
+# Depends on:
+
+name=shntool
+version=3.0.10
+release=1
+source=(http://www.etree.org/shnutils/shntool/dist/src/$name-$version.tar.gz)
+
+build() {
+  cd $name-$version
+  ./configure --prefix=/usr \
+              --mandir=/usr/man
+  make
+  make DESTDIR=$PKG install
+}

@@ -1,0 +1,18 @@
+# $Id:
+
+REQUIREMENTS:
+
+This version of ivtv requires the kernel >= 2.6.16
+
+PRECAUTION:
+
+PRE-INSTALL:
+
+POST-INSTALL
+
+PRE-REMOVE:
+
+POST-REMOVE:
+
+NOTES:
+

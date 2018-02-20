@@ -1,0 +1,6 @@
+#!/bin/sh
+
+if ! grep -q ^games: /etc/group
+then
+	/usr/sbin/groupadd games
+fi

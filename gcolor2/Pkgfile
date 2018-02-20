@@ -1,0 +1,26 @@
+# Description: GTK+2 color selector
+# URL: http://gcolor2.sourceforge.net/
+# Maintainer: Jose V Beneyto, sepen at users dot sourceforge dot net
+# Packager: Vincenzo Colosimo, vico at bicisport dot de
+# Depends on: gtk p5-xml-parser
+
+name=gcolor2
+version=0.4
+release=4
+source=(http://download.sourceforge.net/$name/$name-$version.tar.bz2 \
+        $name-$version-amd64.patch)
+
+build() {
+  cd $name-$version
+
+  patch -p1 -i $SRC/$name-$version-amd64.patch
+
+  sed -i configure \
+      -e 's|gentoo_ltmain_version=.*|gentoo_ltmain_version="1.5.18"|'
+
+  ./configure --prefix=/usr \
+              --disable-nls
+
+  make
+  make DESTDIR=$PKG install
+}

@@ -1,0 +1,43 @@
+#!/bin/sh
+#
+# - add $ADD_USER user, $ADD_GROUP group
+# - change files permissions
+# - reflect changes in config
+#
+# We'll assume 'passwd', 'group' and 'shadow' files are in sync.
+
+ADD_GID=70
+ADD_UID=70
+ADD_USER=zbxagent
+ADD_USER_HOME=/var/empty
+ADD_USER_SHELL=/bin/bash
+ADD_GROUP=zabbix
+
+ADD_STATUS=0
+if [ -z `getent group | gawk -F: '{ print $1 }' | grep ^$ADD_GROUP$` ]; then
+	while [ `getent group | gawk -F: '{ print $3 }' | grep ^$ADD_GID$` ]
+	do
+		let ADD_GID+=1
+	done
+	/usr/sbin/groupadd -g $ADD_GID $ADD_GROUP || exit 1
+	echo "$0: Created $ADD_GROUP group, GID=$ADD_GID"
+	else
+		echo "$0: $ADD_GROUP group already exists, trying to create user..."
+fi
+
+if [ -z `getent passwd | gawk -F: '{ print $1 }' | grep ^$ADD_USER$` ]; then
+	while [ `getent passwd | gawk -F: '{ print $3 }' | grep ^$ADD_UID$` ]
+	do
+		let ADD_UID+=1
+	done
+	/usr/sbin/useradd -d $ADD_USER_HOME -s $ADD_USER_SHELL -u $ADD_UID -g $ADD_GROUP $ADD_USER || exit 1
+	echo "$0: Created $ADD_USER user, UID=$ADD_UID"
+	else
+		echo "$0: $ADD_USER user already exists"
+		if  [[ `getent passwd | grep ^$ADD_USER: | gawk -F: '{ print $4 }'` != `getent group | grep ^$ADD_GROUP: | gawk -F: '{ print $3 }'` ]]; then
+			echo "$0: existing $ADD_USER user is not in $ADD_GROUP group (fix it by hand)."
+			ADD_STAUS=2
+		fi
+fi
+
+exit $ADD_STATUS

@@ -1,0 +1,22 @@
+# Description: Extension library for Xfce4
+# URL: http://thunar.xfce.org/
+# Maintainer: Jose V Beneyto, joberui at ei dot upv dot es
+# Packager: Jose V Beneyto, joberui at ei dot upv dot es
+# Depends on: gtk,libxfce4util,python,p5-uri
+
+name=libexo
+version=0.3.1.12rc2
+release=1
+source=(http://thunar.xfce.org/download/releases/rc2/exo-0.3.1.12rc2.tar.bz2)
+
+build() {
+	cd exo-${version}
+	./configure --prefix=/usr \
+  		    --disable-mcs-plugin \
+  		    --enable-debug=no \
+		    --libexecdir=/usr/lib \
+		    --disable-nls
+	make
+	make DESTDIR=$PKG install
+	rm -rf $PKG/usr/share
+}

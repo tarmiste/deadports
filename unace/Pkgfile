@@ -1,0 +1,13 @@
+# Description: Command-line ace unarchiver for linux
+# Maintainer: Matt Housh, jaeger at morpheus dot net
+# URL: http://www.winace.com/
+
+name=unace
+version=2.5
+release=1
+source=(http://www.winace.com/files/linunace25.tgz)
+
+build() {
+	mkdir -p $PKG/usr/bin
+	install -o root -g root -m 755 unace $PKG/usr/bin
+}

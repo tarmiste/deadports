@@ -1,0 +1,6 @@
+#!/bin/sh
+
+# check for vboxusers group or add one if not exists
+/usr/bin/getent group vboxusers || /usr/sbin/groupadd vboxusers
+
+# End of File

@@ -1,0 +1,47 @@
+diff -Nru amsn-0.96.orig/Makefile.in amsn-0.96/Makefile.in
+--- amsn-0.96.orig/Makefile.in	2007-02-27 19:06:37.000000000 +1000
++++ amsn-0.96/Makefile.in	2007-02-27 19:35:56.000000000 +1000
+@@ -142,27 +142,27 @@
+ 
+ 
+ install:: $(FILES_TO_INSTALL)
+-	rm -Rf $(dstdir)/$(PACKAGE)
+-	mkdir --parents $(dstdir)/$(PACKAGE)
+-	mkdir -p $(slnkdir)
++	rm -Rf $(DESTDIR)/$(dstdir)/$(PACKAGE)
++	mkdir --parents $(DESTDIR)/$(dstdir)/$(PACKAGE)
++	mkdir -p $(DESTDIR)/$(slnkdir)
+ 	@for p in $?; do \
+-			cp -Rf --parents $(srcdir)/$$p $(dstdir)/$(PACKAGE); \
++			cp -Rf --parents $(srcdir)/$$p $(DESTDIR)/$(dstdir)/$(PACKAGE); \
+ 		done
+-	find $(dstdir)/$(PACKAGE) -name CVS -print | xargs rm -Rf
+-	@for p in $(FILES_TO_EXCLUDE); do \
+-			rm -Rf $(dstdir)/$(PACKAGE)/$$p; \
++	find $(DESTDIR)/$(dstdir)/$(PACKAGE) -name CVS -print | xargs rm -Rf
++	@for p in $(DESTDIR)/$(FILES_TO_EXCLUDE); do \
++			rm -Rf $(DESTDIR)/$(dstdir)/$(PACKAGE)/$$p; \
+ 		done
+ 
+-	ln -sf $(dstdir)/$(PACKAGE)/amsn $(slnkdir)/amsn
+-	ln -sf $(dstdir)/$(PACKAGE)/amsn-remote $(slnkdir)/amsn-remote
+-	ln -sf $(dstdir)/$(PACKAGE)/amsn-remote-CLI $(slnkdir)/amsn-remote-CLI
+-
+-	chmod -R +rx $(dstdir)/$(PACKAGE)
+-	mkdir -p $(dstdir)/icons/hicolor
+-	cp -R $(srcdir)/icons/* $(dstdir)/icons/hicolor
++	ln -sf $(dstdir)/$(PACKAGE)/amsn $(DESTDIR)/$(slnkdir)/amsn
++	ln -sf $(dstdir)/$(PACKAGE)/amsn-remote $(DESTDIR)/$(slnkdir)/amsn-remote
++	ln -sf $(dstdir)/$(PACKAGE)/amsn-remote-CLI $(DESTDIR)/$(slnkdir)/amsn-remote-CLI
++
++	chmod -R +rx $(DESTDIR)/$(dstdir)/$(PACKAGE)
++	mkdir -p $(DESTDIR)/$(dstdir)/icons/hicolor
++	cp -R $(srcdir)/icons/* $(DESTDIR)/$(dstdir)/icons/hicolor
+ 
+-	mkdir -p $(dstdir)/applications
+-	cp $(srcdir)/amsn.desktop $(dstdir)/applications
++	mkdir -p $(DESTDIR)/$(dstdir)/applications
++	cp $(srcdir)/amsn.desktop $(DESTDIR)/$(dstdir)/applications
+ 
+ rpm-install:: $(FILES_TO_INSTALL)
+ 	rm -Rf $(INSTALL_PREFIX)/$(dstdir)/$(PACKAGE)

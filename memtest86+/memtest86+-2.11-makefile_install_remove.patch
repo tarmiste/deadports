@@ -1,0 +1,13 @@
+diff -pruN memtest86+-2.11.orig/Makefile memtest86+-2.11/Makefile
+--- memtest86+-2.11.orig/Makefile	2008-12-24 10:41:30.410800131 +0000
++++ memtest86+-2.11/Makefile	2008-12-24 10:55:52.043549975 +0000
+@@ -69,3 +69,9 @@ install-precomp:
+ dos: all
+ 	cat mt86+_loader memtest.bin > memtest.exe
+ 
++install-memtest.bin:
++	install -m 0644 -D memtest.bin $(DESTDIR)/boot/memtest.bin
++
++remove-memtest.bin:
++	rm $(DESTDIR)/boot/memtest.bin
++

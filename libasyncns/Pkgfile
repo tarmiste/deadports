@@ -1,0 +1,17 @@
+# Description: A C library for executing name service queries asynchronously
+# URL: http://0pointer.de/lennart/projects/libasyncns/
+# Maintainer: Mikhail Kolesnik, mike at openbunker dot org
+# Depends on: 
+
+name=libasyncns
+version=0.8
+release=1
+source=(http://0pointer.de/lennart/projects/libasyncns/$name-$version.tar.gz)
+
+build() {
+	cd $name-$version
+	./configure --prefix=/usr --disable-nls
+	make
+	make DESTDIR=$PKG install
+	rm -rf $PKG/usr/share
+}

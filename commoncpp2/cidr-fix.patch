@@ -1,0 +1,20 @@
+--- commoncpp2-1.7.3/src/cidr.cpp.orig	2010-11-05 15:16:34.745000077 +0900
++++ commoncpp2-1.7.3/src/cidr.cpp	2010-11-05 15:17:37.565000070 +0900
+@@ -202,7 +202,7 @@
+ #if defined(_MSC_VER) && _MSC_VER >= 1500
+ 	ep = (char *)strchr(cp, '/');
+ #else
+- 	ep = strchr(cp, '/');
++ 	ep = (char *)strchr(cp, '/');
+ #endif
+ 
+ 	if(ep)
+@@ -332,7 +332,7 @@
+ 	memset(&netmask, 0, sizeof(netmask));
+ 	bitset((bit_t *)&netmask, getMask(cp));
+ 	setString(cbuf, sizeof(cbuf), cp);
+-	ep = strchr(cp, '/');
++	ep = (char *)strchr(cp, '/');
+ 	if(ep)
+ 		*ep = 0;
+ 

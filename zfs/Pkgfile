@@ -1,0 +1,31 @@
+# Description:  Combined filesystem and logical volume manager from Sun Microsystems/Oracle
+# URL:          http://zfsonlinux.org/
+# Maintainer:   James Mills, prologic at shortcircuit dot net dot au
+
+# Depends on:   spl
+
+name=zfs
+version=0.6.4.2
+release=1
+source=(http://archive.zfsonlinux.org/downloads/zfsonlinux/$name/$name-$version.tar.gz)
+
+build() {
+    cd $name-$version
+
+    # Configure
+    ./configure --prefix=/usr \
+        --libexecdir=/usr/lib/$name \
+        --mandir=/usr/man \
+        --with-spl=/usr/include/spl
+
+    # ugly hacks ahoy!
+    find . -name "Makefile" -exec sed -i -e 's,/usr/src/zfs-$(VERSION),/usr/include/zfs,g' '{}' \;
+
+    # Build
+    make
+
+    # Package
+    make DESTDIR=$PKG install
+
+    install -d -D -m 755 $PKG/etc/zfs
+}

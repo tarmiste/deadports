@@ -1,0 +1,17 @@
+# Description: A simple template language for XML based vocabularies.
+# URL:         http://kid.lesscode.org/
+# Maintainer:  James Mills, prologic at shortcircuit dot net dot au
+# Packager:    James Mills, prologic at shortcircuit dot net dot au
+#
+# Depends on:  elementtree
+
+name=kid
+version=0.9.5
+release=1
+source=(http://www.kid-templating.org/dist/$version/$name-$version.tar.gz)
+
+build() {
+   cd $name-$version
+   python setup.py install --root=$PKG
+   chown -R root:root $PKG
+}

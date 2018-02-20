@@ -1,0 +1,20 @@
+#!/bin/sh
+#
+# /etc/rc.d/postgrey: start/stop postgrey service
+#
+
+case $1 in
+	start)
+		/usr/sbin/postgrey -d --user=postgrey --group=postgrey \
+			--inet=127.0.0.1:60000 \
+			--pidfile=/var/run/postgrey.pid
+		;;
+	stop)
+		kill `cat /var/run/postgrey.pid`
+		;;
+	*)
+		echo "usage: $0 [start|stop]"
+		;;
+esac
+
+# End of file

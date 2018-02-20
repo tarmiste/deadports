@@ -1,0 +1,32 @@
+# Description: zabbix agent daemon
+# URL: http://www.zabbix.com
+# Maintainer: Mikhail Kolesnik, mike at openbunker dot org
+# Depends on:
+
+name=zabbix_agentd
+version=1.8.6
+release=1
+source=(http://download.sourceforge.net/zabbix/ZABBIX%20Latest%20Stable/$version/zabbix-$version.tar.gz \
+		$name.conf $name)
+
+build() {
+	cd zabbix-$version
+	./configure --prefix=/usr \
+				--enable-agent
+	make
+	mkdir -p $PKG/{var/log/$name,var/run/$name,usr/bin}
+	
+	touch $PKG/var/log/$name/{zabbix_agentd.log,zabbix_agentd.log.old}
+	chown -R daemon:daemon $PKG/var/log/$name
+	find $PKG/var/log/$name -type f | xargs chmod 600
+	find $PKG/var/log/$name -type d | xargs chmod 700
+	
+	touch $PKG/var/run/$name/$name.pid
+	chown -R daemon:daemon $PKG/var/run/$name
+	find $PKG/var/run/$name -type f | xargs chmod 600
+	find $PKG/var/run/$name -type d | xargs chmod 700
+
+	install -m 755 src/zabbix_agent/$name $PKG/usr/bin
+	install -D -m 640 -o daemon -g daemon $SRC/$name.conf $PKG/etc/zabbix/$name.conf
+	install -D -m 755 $SRC/$name $PKG/etc/rc.d/$name
+}

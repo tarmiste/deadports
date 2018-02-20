@@ -1,0 +1,20 @@
+# Description: IO:: style interface to Compress::Zlib
+# URL: http://search.cpan.org/~tomhughes/IO-Zlib/
+# Maintainer: Mikhail Kolesnik, mike at openbunker dot org
+# Packager: Younes Hafri, ycrux at club-internet dot fr
+# Depends on: p5-compress-zlib
+
+name=p5-io-zlib
+version=1.09
+release=1
+source=(http://search.cpan.org/CPAN/authors/id/T/TO/TOMHUGHES/IO-Zlib-$version.tar.gz)
+
+build() {
+	cd IO-Zlib-$version
+	perl Makefile.PL
+	make OPTIMIZE="$CFLAGS"
+	make DESTDIR=$PKG install
+	find $PKG -name .packlist -exec rm {} \;
+	find $PKG -name perllocal.pod -exec rm {} \;
+	find $PKG -depth -type d -empty -exec rm -rf {} \;
+}

@@ -1,0 +1,16 @@
+# Description:  A simple media player written in Python.
+# URL: http://jaydolan.com/pymp.html
+# Packager: Jay Dolan, jdolan at jdolan dot dyndns dot org
+# Maintainer: Victor Martinez, pitillo at ono dot com
+# Depends on: pygtk mplayer
+
+name=pymp
+version=1.0
+release=1
+source=(http://jdolan.dyndns.org/jaydolan/files/$name-$version.tar.bz2)
+
+build(){
+	cd $name-$version
+	make 
+  make DESTDIR=$PKG PREFIX=/usr install
+}

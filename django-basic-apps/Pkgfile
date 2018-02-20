@@ -1,0 +1,16 @@
+# Description: A suite of basic django applications
+# URL: http://code.google.com/p/django-basic-apps/
+# Maintainer: Lucas Hazel, lucas at die dot net dot au
+# Depends on: django-tagging python-markdown beautifulsoup
+
+name=django-basic-apps
+version=r102
+release=1
+source=(http://crux64.die.net.au/files/$name-$version.tar.gz)
+
+build() {
+    mkdir -p $PKG/usr/share/django/apps
+    cp -r $name-$version $PKG/usr/share/django/apps/basic
+    python -c "import compileall; compileall.compile_dir('$PKG/usr/share/django/apps/basic')"
+    find $PKG -name 'README*' -o -name 'CHANGELOG*' | xargs rm -rf
+}

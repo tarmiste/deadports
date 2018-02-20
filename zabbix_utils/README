@@ -1,0 +1,18 @@
+README for zabbix utils
+
+REQUIREMENTS
+
+PRE-INSTALL
+
+POST-INSTALL
+1. Change Hostname, ListenIP and Server in /etc/zabbix_agent.conf to
+something useful.
+
+2. On the client (monitored) machines, you may add the following lines to
+ /etc/services:
+  zabbix_agent 10050/tcp
+  zabbix_trap 10051/tcp
+
+3. Run post-install to create dedicated user for the agent instead of 'daemon'.
+
+RESOURCES

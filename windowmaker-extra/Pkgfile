@@ -1,0 +1,20 @@
+# Description: Few extra themes and icons for Window Maker
+# URL: http://www.windowmaker.info
+# Maintainer: Mikhail Kolesnik, mike at openbunker dot org
+# Packager: Vincenzo Colosimo, vico at bicisport dot de
+# Depends on: windowmaker
+
+name=windowmaker-extra
+version=0.1
+release=2
+source=(http://www.windowmaker.info/pub/source/release/WindowMaker-extra-$version.tar.gz)
+
+build() {
+	cd WindowMaker-extra-$version
+	
+	./configure --prefix=/usr \
+				--disable-nls
+	make
+	make DESTDIR=$PKG install
+	rm -f $PKG/usr/share/WindowMaker/Icons/xv.xpm
+}

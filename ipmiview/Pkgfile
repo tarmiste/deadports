@@ -1,0 +1,33 @@
+# Description:  a management software program based on the IPMI specification
+# URL:          ftp://ftp.supermicro.com/utility/IPMIView/Jar/"
+# Maintainer:   James Mills, prologic at shortcircuit dot net dot au
+#
+# Depends on:
+
+name=ipmiview
+version=2.10.2
+_buildnr=20150203
+release=1
+_bits=64
+source=(ftp://supermicro.com/utility/IPMIView/Linux/IPMIView_V${version}_bundleJRE_Linux_x64_${_buildnr}.tar.gz)
+
+build() {
+  mkdir -p ${PKG}/opt/IPMIView
+  mkdir -p ${PKG}/usr/bin
+
+  cp -r "${SRC}/IPMIView_V${version}_bundleJRE_Linux_x${_bits}_${_buildnr}/"* "${PKG}/opt/IPMIView"
+
+  chmod 644 "${PKG}/opt/IPMIView/"*
+  chmod 755 "${PKG}/opt/IPMIView/IPMIView20"
+
+  chmod 755 "${PKG}/opt/IPMIView/jre"
+
+  touch "${PKG}/opt/IPMIView/account.properties"
+  touch "${PKG}/opt/IPMIView/email.properties"
+  touch "${PKG}/opt/IPMIView/IPMIView.properties"
+  echo "5\n2" > "${PKG}/opt/IPMIView/timeout.properties"
+
+  chmod 666 "${PKG}/opt/IPMIView/"*.properties
+  
+  ln -s /opt/IPMIView/IPMIView20 "${PKG}/usr/bin/IPMIView"
+}

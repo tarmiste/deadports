@@ -1,0 +1,9 @@
+
+
+README for cedega
+
+Since Cedega is subscription-based downloadable software
+when not using CVS, you'll need to download the current
+release tarball from http://www.transgaming.com/ and place
+it in your $PKGMK_SOURCE_DIR before you can build this port.
+

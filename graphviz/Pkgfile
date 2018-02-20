@@ -1,0 +1,39 @@
+# Description: An Open Source Graph Visualization Software
+# URL:         http://www.graphviz.org/
+# Maintainer:  James Mills, prologic at shortcircuit dot net dot au
+# Packager:    Logan Ingalls log at plutor dot org
+#
+# Depends on:  x11, libpng, libjpeg, zlib, freetype, tcl, libgd, libiconv, python
+
+name=graphviz
+version=2.12
+release=1
+source=(http://www.graphviz.org/pub/graphviz/ARCHIVE/$name-$version.tar.gz
+        config)
+
+build () {
+   cd $name-$version
+
+   export TCLSH_EXEC_PREFIX=/usr
+   export WISH_EXEC_PREFIX=/usr
+   export LIBPOSTFIX=
+
+   ./configure --prefix=/usr \
+      --enable-dynagrap             \
+      --with-x                      \
+      --with-tclsh=/usr/bin/tclsh   \
+      --with-wish=/usr/bin/wish     \
+      --enable-ltdl            \
+      --enable-codegens \
+      --without-java
+
+   make
+   make DESTDIR=$PKG install
+
+   install -D -m 644 $SRC/config $PKG/usr/lib/graphviz/config
+
+   rm -rf $PKG/usr/share/graphviz/demo \
+      $PKG/usr/man/mann/ $PKG/usr/share/graphviz/doc
+
+   chown -R root:root $PKG
+} 

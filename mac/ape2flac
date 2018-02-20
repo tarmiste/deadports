@@ -1,0 +1,97 @@
+#!/bin/sh -e
+
+#	$Id$
+# Copyright 2005 by Han Boetes <han@mijncomputer.nl>
+#
+# Permission is hereby granted, free of charge, to any person
+# obtaining a copy of this software and associated documentation
+# files (the "Software"), to deal in the Software without
+# restriction, including without limitation the rights to use,
+# copy, modify, merge, publish, distribute, sublicense, and/or
+# sell copies of the Software, and to permit persons to whom the
+# Software is furnished to do so, subject to the following
+# conditions:
+#
+# The above copyright notice and this permission notice shall be
+# included in all copies or substantial portions of the Software.
+#
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+# EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
+# OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+# NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
+# HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+# WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+# FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+# OTHER DEALINGS IN THE SOFTWARE.
+
+n=${0##*/}
+
+usage()
+{
+    cat << EOF
+Usage: ${0##*/} [-wkm] <files>
+     -w only convert to wav files.
+     -k keep temporary wav files.
+EOF
+}
+
+while [ $# -ne 0 ]; do
+    case "$1" in
+	-k)
+	    keep=true
+	    ;;
+	-w)
+	    wav=true
+	    ;;
+	-h)
+	    usage
+	    exit 0
+	    ;;
+	-[a-z][a-z]*)
+	    # split concatenated single-letter options apart
+	    FIRST="$1"
+	    shift
+	    set -- $(echo $FIRST | sed 's/-\(.\)\(.*\)/-\1 -\2/') "$@"
+	    continue
+	    ;;
+	-*)
+	    echo "$n: unrecognized option "\`"$1'" >&2
+	    usage
+	    exit 1
+	    ;;
+	*)
+	    break
+	    ;;
+    esac
+    shift
+done
+
+if [ $# -eq 0 ]; then
+    usage
+    exit 1
+fi
+
+# Drop nice level
+renice 19 $$
+
+for i in "$@"; do
+    file="${i%.ape}"
+    herefile="$PWD/${file##*/}"
+
+    if [ "$file" = "$i" ]; then
+	echo "$n: Unknown filetype for $i" >&2
+	continue
+    fi
+
+    mac "$file.ape" "$herefile.wav" -d
+
+    if [ "$wav" = true ]; then
+        continue
+    fi
+
+    flac -f "$herefile.wav"
+
+    if [ "$keep" != true ]; then
+	rm "$herefile.wav"
+    fi
+done

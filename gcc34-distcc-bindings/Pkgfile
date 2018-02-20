@@ -1,0 +1,19 @@
+# Description: Masquerade directory to use distcc with gcc34.
+# URL: http://gcc.gnu.org/
+# Maintainer: Danny Rawlins, monster dot romster at gmail dot com
+# Packager: Danny Rawlins, monster dot romster at gmail dot com
+# Depends on: gcc34 distcc
+
+name=gcc34-distcc-bindings
+version=1
+release=1
+source=()
+
+build() {
+	install -d $PKG/usr/lib/distcc
+	ln -s ../../bin/distcc $PKG/usr/lib/distcc/cc-3.4
+	ln -s ../../bin/distcc $PKG/usr/lib/distcc/c++-3.4
+	ln -s ../../bin/distcc $PKG/usr/lib/distcc/gcc-3.4
+	ln -s ../../bin/distcc $PKG/usr/lib/distcc/g++-3.4
+}
+

@@ -1,0 +1,5 @@
+#!/bin/sh
+
+/usr/sbin/groupadd icecast
+/usr/sbin/useradd -g icecast -d /usr/share/icecast/ -s /bin/bash -c "IceCast User" -m icecast
+chown -R icecast.icecast /var/log/icecast

@@ -1,0 +1,13 @@
+README for zabbix server
+
+Contents of this file were wikified, see current version at:
+http://crux.nu/Wiki/InstallingZabbix
+
+PRECAUTION
+For detailed upgrade instructions please refer to
+http://www.zabbix.com/documentation/1.8/manual/about/installation_and_upgrade
+
+After upgrading from version 1.6.4 default log file location was changed,
+adjust /etc/zabbix/zabbix_server.conf:
+ LogFile=/var/log/zabbix_server/zabbix_server.log
+and change it's permissions, and possibly delete old log dir.

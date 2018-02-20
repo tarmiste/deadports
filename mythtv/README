@@ -1,0 +1,25 @@
+# $Id:
+
+REQUIREMENTS:
+
+qt3 with mysql support. prt-get edit qt3
+
+PRECAUTION:
+
+PRE-INSTALL:
+
+POST-INSTALL
+
+   1. Create a mysql account
+	   # mysql -p
+		Enter password:
+	   mysql> GRANT ALL on mythconverg.* to mythtv@"localhost" IDENTIFIED BY "mythtv";
+		mysql> FLUSH PRIVILEGES;
+
+	2. Run mythtv-setup
+
+PRE-REMOVE:
+
+POST-REMOVE:
+
+NOTES:

@@ -1,0 +1,24 @@
+diff -pruN pygame-1.9.1release.orig/config_msys.py pygame-1.9.1release/config_msys.py
+--- pygame-1.9.1release.orig/config_msys.py	2012-04-06 07:54:22.787229875 +0000
++++ pygame-1.9.1release/config_msys.py	2012-04-06 07:54:57.340496880 +0000
+@@ -283,7 +283,7 @@ def main():
+     
+     for d in DEPS[1:]:
+         if not d.found:
+-            if not confirm("""
++            if "-auto" not in sys.argv and not confirm("""
+ Warning, some of the pygame dependencies were not found. Pygame can still
+ compile and install, but games that depend on those missing dependencies
+ will not run. Would you like to continue the configuration?"""):
+diff -pruN pygame-1.9.1release.orig/config_unix.py pygame-1.9.1release/config_unix.py
+--- pygame-1.9.1release.orig/config_unix.py	2012-04-06 07:54:22.787229875 +0000
++++ pygame-1.9.1release/config_unix.py	2012-04-06 07:54:57.340496880 +0000
+@@ -174,7 +174,7 @@ def main():
+ 
+     for d in DEPS[1:]:
+         if not d.found:
+-            if not confirm("""
++            if "-auto" not in sys.argv and not confirm("""
+ Warning, some of the pygame dependencies were not found. Pygame can still
+ compile and install, but games that depend on those missing dependencies
+ will not run. Would you like to continue the configuration?"""):

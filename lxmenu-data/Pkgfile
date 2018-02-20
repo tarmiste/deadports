@@ -1,0 +1,17 @@
+# Description:  freedesktop.org desktop menus for LXDE
+# URL:          http://lxde.org/
+# Maintainer:   James Mills, prologic at shortcircuit dot net dot au
+#
+# Depends on:	intltool
+
+name=lxmenu-data
+version=0.1.2
+release=2
+source=(http://downloads.sourceforge.net/lxde/$name-$version.tar.gz)
+
+build() {
+    cd $name-$version
+    ./configure --prefix=/usr --sysconfdir=/etc
+    make
+    make DESTDIR=$PKG install
+}

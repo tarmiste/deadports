@@ -1,0 +1,20 @@
+# Description: Polish dictionary for aspell
+# URL:         http://aspell.net
+# Maintainer:  Bartlomiej Palmowski, rotwang at crux dot org dot pl
+# Depends on:  aspell
+
+a_ver=6.0
+a_date=20061121
+a_release=0
+
+name=aspell-pl
+version=$a_ver.$a_date.$a_release
+release=1
+source=(ftp://ftp.gnu.org/gnu/aspell/dict/pl/aspell6-pl-${a_ver}_${a_date}-${a_release}.tar.bz2)
+
+build () {
+    cd aspell6-pl-${a_ver}_${a_date}-${a_release}
+    ./configure
+    make
+    make DESTDIR=$PKG install
+}

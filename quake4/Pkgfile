@@ -1,0 +1,30 @@
+# Description: Linux client for ID Software's Quake 4
+# URL: http://www.quake4game.com/
+# Maintainer: Matt Housh, jaeger at morpheus dot net
+# Depends on: xorg-libx11, xorg-libxau, xorg-libxcb, xorg-libxdmcp, xorg-libxext, libsdl
+
+name=quake4
+version=1.4.2
+release=1
+source=(ftp://ftp.idsoftware.com/idstuff/$name/linux/$name-linux-$version.x86.run \
+	$name \
+	http://jaeger.morpheus.net/linux/files/q4icon.png)
+
+build() {
+	chmod +x $name-linux-$version.x86.run
+	./$name-linux-$version.x86.run --noexec --target tmp
+	mkdir -p $PKG/usr/share/$name \
+		$PKG/usr/share/$name/q4base \
+		$PKG/usr/share/$name/pb/htm \
+		$PKG/usr/bin \
+		$PKG/usr/share/pixmaps
+	install -m 755 tmp/bin/Linux/x86/*.x86 $PKG/usr/share/$name/
+	install -m 755 tmp/bin/Linux/x86/libstdc++.so.6 $PKG/usr/share/$name/
+	ln -s x86 $PKG/usr/share/$name/x86_64
+	install -m 644 tmp/q4base/*{.pk4,cfg} $PKG/usr/share/$name/q4base/
+	install -m 644 tmp/us/q4base/* $PKG/usr/share/$name/q4base/
+	install -m 644 tmp/pb/*.so $PKG/usr/share/$name/pb/
+	install -m 644 tmp/pb/htm/*.htm $PKG/usr/share/$name/pb/htm/
+	install -m 755 $name $PKG/usr/bin/
+	install -m 644 q4icon.png $PKG/usr/share/pixmaps/
+}

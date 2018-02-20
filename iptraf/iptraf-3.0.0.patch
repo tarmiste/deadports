@@ -1,0 +1,165 @@
+diff -Nru iptraf-3.0.0.orig/Documentation/iptraf.8 iptraf-3.0.0/Documentation/iptraf.8
+--- iptraf-3.0.0.orig/Documentation/iptraf.8	2006-04-13 18:37:54.000000000 +0200
++++ iptraf-3.0.0/Documentation/iptraf.8	2006-04-13 18:38:08.000000000 +0200
+@@ -85,8 +85,8 @@
+  SIGUSR2 - terminates an IPTraf process running in the background.
+ 
+ .SH FILES
+- /var/log/iptraf/*.log - log file
+- /var/local/iptraf/* - important IPTraf data files
++ /var/lib/iptraf/*.log - log file
++ /var/lib/iptraf/* - important IPTraf data files
+ 
+ .SH SEE ALSO
+  Documentation/* - complete documentation written by the author
+diff -Nru iptraf-3.0.0.orig/Documentation/rvnamed.8 iptraf-3.0.0/Documentation/rvnamed.8
+--- iptraf-3.0.0.orig/Documentation/rvnamed.8	2006-04-13 18:37:54.000000000 +0200
++++ iptraf-3.0.0/Documentation/rvnamed.8	2006-04-13 18:38:08.000000000 +0200
+@@ -11,7 +11,7 @@
+ This program is only used by iptraf and, therefore, is useless alone.
+ 
+ .SH FILES
+- /var/local/iptraf/rvnamed.log - log file
++ /var/lib/iptraf/rvnamed.log - log file
+ 
+ .SH SEE ALSO
+ README.rvnamed - documentation from the author
+diff -Nru iptraf-3.0.0.orig/src/Makefile iptraf-3.0.0/src/Makefile
+--- iptraf-3.0.0.orig/src/Makefile	2006-04-13 18:37:54.000000000 +0200
++++ iptraf-3.0.0/src/Makefile	2006-04-13 18:38:08.000000000 +0200
+@@ -5,8 +5,7 @@
+ #
+ # Architecture determination string borrowed from the kernel makefile.
+ #
+-ARCH 		:= $(shell uname -m | sed -e s/i.86/i386/ -e s/sun4u/sparc64/ \
+-			-e s/arm.*/arm/ -e s/sa110/arm/)
++ARCH 		:= $(shell uname -m)
+ PLATFORM 	= -DPLATFORM=\"$(shell uname -s)/$(ARCH)\"
+ VERNUMBER	:= $(shell cat version)
+ VERSION 	= -DVERSION=\"$(VERNUMBER)\"
+@@ -31,7 +30,7 @@
+ # options to be passed to the compiler.  I don't believe they need to be
+ # modified (except for -m486 on non-Intel x86 platforms).
+ 
+-CFLAGS		= -Wall #-O2 #-m486
++CFLAGS		+= -Wall #-O2 #-m486
+ DIRS		= -DWORKDIR=\"$(WORKDIR)\" \
+ 		  -DLOGDIR=\"$(LOGDIR)\" -DEXECDIR=\"$(TARGET)\"
+ LDOPTS		= #-static
+@@ -68,17 +67,17 @@
+ # installation target directory.  The iptraf and rvnamed programs get
+ # stored here.  iptraf also exec's rvnamed from this directory.
+ 
+-TARGET		= /usr/local/bin
++TARGET		= /usr/sbin
+ 
+ # The IPTraf working directory; if you change this.  Starting with this
+ # version, this definition overrides dirs.h.
+ 
+-WORKDIR		= /var/local/iptraf
++WORKDIR		= /var/lib/iptraf
+ 
+ # The IPTraf log file directory.  IPTraf log files are placed here.
+ # This definition overrides dirs.h
+ 
+-LOGDIR		= /var/log/iptraf
++LOGDIR		= /var/lib/iptraf
+ 
+ #
+ # IPTraf lock file directory.  This is /var/run/iptraf/ and will not
+@@ -145,7 +144,7 @@
+ # installation rule
+ 
+ install:
+-	@./install.sh $(TARGET) $(WORKDIR) $(LOGDIR) $(LOCKDIR)
++	@./install.sh $(DESTDIR)$(TARGET) $(DESTDIR)$(WORKDIR) $(DESTDIR)$(LOGDIR) $(DESTDIR)$(LOCKDIR)
+ 
+ # Upgrade rule
+ #
+diff -Nru iptraf-3.0.0.orig/src/dirs.h iptraf-3.0.0/src/dirs.h
+--- iptraf-3.0.0.orig/src/dirs.h	2006-04-13 18:37:54.000000000 +0200
++++ iptraf-3.0.0/src/dirs.h	2006-04-13 18:38:08.000000000 +0200
+@@ -46,7 +46,7 @@
+  */
+ 
+ #ifndef LOCKDIR
+-#define LOCKDIR		"/var/run/iptraf"
++#define LOCKDIR		"/var/lib/iptraf"
+ #endif
+ 
+ /***
+diff -Nru iptraf-3.0.0.orig/src/othptab.c iptraf-3.0.0/src/othptab.c
+--- iptraf-3.0.0.orig/src/othptab.c	2006-04-13 18:37:54.000000000 +0200
++++ iptraf-3.0.0/src/othptab.c	2006-04-13 18:38:08.000000000 +0200
+@@ -17,13 +17,10 @@
+ ***/
+ 
+ #include <asm/types.h>
+-#include <linux/if_ether.h>
+-#include <linux/if_tr.h>
+-#include <linux/if_fddi.h>
+ #include <winops.h>
++#include "tcptable.h"
+ #include "arphdr.h"
+ #include "options.h"
+-#include "tcptable.h"
+ #include "othptab.h"
+ #include "deskman.h"
+ #include "attrs.h"
+diff -Nru iptraf-3.0.0.orig/src/packet.c iptraf-3.0.0/src/packet.c
+--- iptraf-3.0.0.orig/src/packet.c	2006-04-13 18:37:54.000000000 +0200
++++ iptraf-3.0.0/src/packet.c	2006-04-13 18:38:08.000000000 +0200
+@@ -32,6 +32,9 @@
+ #include <sys/time.h>
+ #include <net/if_arp.h>
+ #include <net/if.h>
++#ifdef _NET_IF_H
++#define _LINUX_IF_H
++#endif
+ #include <sys/ioctl.h>
+ #include <linux/if_packet.h>
+ #include <linux/if_ether.h>
+diff -Nru iptraf-3.0.0.orig/src/tcptable.h iptraf-3.0.0/src/tcptable.h
+--- iptraf-3.0.0.orig/src/tcptable.h	2006-04-13 18:37:54.000000000 +0200
++++ iptraf-3.0.0/src/tcptable.h	2006-04-13 18:38:08.000000000 +0200
+@@ -20,11 +20,14 @@
+ #include <arpa/inet.h>
+ #include <net/if_arp.h>
+ #include <asm/types.h>
++#include <net/if.h>
++#ifdef _NET_IF_H
++#define _LINUX_IF_H
++#endif
+ #include <linux/if_packet.h>
+ #include <linux/if_ether.h>
+ #include <linux/if_fddi.h>
+ #include <linux/if_tr.h>
+-#include <net/if.h>
+ #include <netinet/ip.h>
+ #include <netinet/udp.h>
+ #include "servname.h"
+diff -Nru iptraf-3.0.0.orig/src/tr.c iptraf-3.0.0/src/tr.c
+--- iptraf-3.0.0.orig/src/tr.c	2006-04-13 18:37:54.000000000 +0200
++++ iptraf-3.0.0/src/tr.c	2006-04-13 18:38:33.000000000 +0200
+@@ -6,8 +6,7 @@
+  * Copyright (c) Gerard Paul Java 2002
+  */
+ 
+-#include <asm/types.h>
+-#include <linux/if_tr.h>
++#include <netinet/if_tr.h>
+ #include <netinet/in.h>
+ 
+ unsigned int get_tr_ip_offset(unsigned char *pkt)
+diff -Nru iptraf-3.0.0.orig/support/Makefile iptraf-3.0.0/support/Makefile
+--- iptraf-3.0.0.orig/support/Makefile	2006-04-13 18:37:54.000000000 +0200
++++ iptraf-3.0.0/support/Makefile	2006-04-13 18:38:08.000000000 +0200
+@@ -12,7 +12,7 @@
+ #	gcc -shared -o libtextbox.so $(OBJS)
+ 
+ %.o: %.c *.h
+-	gcc -O2 -g -Wall -fPIC $(INCLUDEDIR) -c -o $*.o $<
++	gcc $(CFLAGS) -Wall -fPIC $(INCLUDEDIR) -c -o $*.o $<
+ 
+ clean:
+ 	rm -rf *.o *~ libtextbox.a libtextbox.so

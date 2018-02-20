@@ -1,0 +1,23 @@
+#!/bin/sh
+#
+# /etc/rc.d/nrpe: start/stop nagios nrpe daemon
+#
+
+case $1 in
+start)
+	/usr/bin/nrpe -c /etc/nagios/nrpe.cfg -d
+	;;
+stop)
+	killall -q /usr/bin/nrpe
+	;;
+restart)
+	$0 stop
+	sleep 2
+	$0 start
+	;;
+*)
+	echo "usage: $0 [start|stop|restart]"
+	;;
+esac
+
+# End of file

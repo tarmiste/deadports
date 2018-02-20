@@ -1,0 +1,21 @@
+diff -ru wmCalClock-1.25-orig/Src/Makefile wmCalClock-1.25/Src/Makefile
+--- wmCalClock-1.25-orig/Src/Makefile	1999-03-27 08:46:38.000000000 +0200
++++ wmCalClock-1.25/Src/Makefile	2006-01-05 01:23:25.000000000 +0200
+@@ -1,7 +1,7 @@
+ CC     = gcc
+ CFLAGS = -O2 -Wall
+ INCDIR = -I/usr/X11R6/include/X11 -I/usr/X11R6/include
+-DESTDIR= /usr/X11R6
++DESTDIR= ${DEST}
+ LIBDIR = -L/usr/X11R6/lib
+ 
+ # for Linux
+@@ -31,6 +31,6 @@
+ 	rm -f wmCalClock
+ 
+ install:: wmCalClock
+-	install -c -s -m 0755 wmCalClock $(DESTDIR)/bin
+-	install -c -m 0644 wmCalClock.1 $(DESTDIR)/man/man1 
++	install -c -s -m 0755 -D wmCalClock $(DESTDIR)/bin/wmCalClock
++	install -c -m 0644 -D wmCalClock.1 $(DESTDIR)/man/man1/wmCalClock.1
+ 

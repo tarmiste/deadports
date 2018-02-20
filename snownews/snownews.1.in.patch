@@ -1,0 +1,27 @@
+--- doc/man/snownews.1.in.old	2008-04-14 01:01:47.000000000 +0200
++++ doc/man/snownews.1.in	2008-04-14 01:02:26.000000000 +0200
+@@ -224,24 +224,6 @@ in the main menu.
+ For further documentation about this feature, please visit the website
+ .B http://snownews.kcore.de/snowscripts/.
+ .P
+-.B Syncing
+-.P
+-Snownews comes with an extension program called "snowsync" that allows
+-syncing of subscriptions lists between different installations. This little
+-helper script is written in Perl and requires the modules XML::LibXML,
+-XML::LibXSLT and libwww-perl to be installed. Additionally you will need an
+-account on a storage server where the data will be uploaded. The default
+-storage server is provided by me, if you want to use it, just mail me and
+-I'll give you an account. The uploaded data will be encrypted with GnuPG so
+-there are no worries about having sensitive data in your subscription list.
+-.P
+-Snowsync is invoked with "snowsync remote" to upload data, "local" to download
+-it to your local installation and "delete" to remove any information published
+-on the storage. See "snowsync --help".
+-.P
+-If you want to run your own storage server, see the webpage at
+-http://kiza.kcore.de/software/nwstorage/.
+-.P
+ .B Snownews is released under the GNU General Public License version 2.
+ .SH OPTIONS
+ .B \-\-update or \-u,

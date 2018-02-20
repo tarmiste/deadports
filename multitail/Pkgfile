@@ -1,0 +1,20 @@
+# Description: Lets you view one or multiple files like the original tail program
+# URL: http://www.vanheusden.com/multitail/
+# Maintainer: Jose V Beneyto, sepen at crux dot nu
+# Packager: Jose V Beneyto, sepen at crux dot nu
+# Depends on: ncurses
+
+name=multitail
+version=5.2.12
+release=1
+source=(http://www.vanheusden.com/$name/$name-$version.tgz \
+        Makefile.diff)
+
+build () {
+  cd $name-$version
+
+  patch -p0 -i $SRC/Makefile.diff
+
+  make
+  make DESTDIR=$PKG install
+}

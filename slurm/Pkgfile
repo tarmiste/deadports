@@ -1,0 +1,17 @@
+# Description: A network load monitor
+# URL: http://www.wormulon.net/projects/slurm
+# Maintainer: Rene Lengwinat, rugek at dirtyhack dot net
+# Depends on: ncurses
+
+name=slurm
+version=0.3.3
+release=1
+source=(http://www.wormulon.net/files/slurm/slurm-$version.tar.gz)
+
+build () {
+  cd $name-$version
+  ./configure --prefix=/usr
+  make
+  make DESTDIR=$PKG install
+}
+

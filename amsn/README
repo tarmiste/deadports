@@ -1,0 +1,23 @@
+
+README for amsn
+
+
+In order to make an Audio Call in aMSN, you will need to have the following
+dependencies installed on your system :
+
+ - glib (>= 2.16)
+ - gstreamer (>= 0.10.23)
+ - gst-plugins-base (>= 0.10.23)
+ - gst-plugins-good (>= 0.10.15)
+ - gst-plugins-bad (>= 0.10.13)
+ - libnice (>= 0.0.9)
+ - farsight2 (>= 0.0.13)
+
+
+Libnice and farsight2 can be obtained from:
+
+  http://nice.freedesktop.org/releases/
+  http://farsight.freedesktop.org/releases/farsight2/
+
+
+To get more information, just read http://www.amsn-project.net/wiki/Farsight

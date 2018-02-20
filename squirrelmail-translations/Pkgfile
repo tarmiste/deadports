@@ -1,0 +1,31 @@
+# Description: Translations for squirrelmail
+# URL: http://www.squirrelmail.org
+# Maintainer: Mikhail Kolesnik, mike at openbunker dot org
+# Depends on: squirrelmail
+
+name=squirrelmail-translations
+version=1.4.9-20070106
+release=2
+source=(http://dl.sourceforge.net/sourceforge/squirrelmail/all_locales-$version.tar.bz2)
+
+build() {
+	if [[ -z $SQM_HTDOCS_ROOT ]]; then
+		SQM_HTDOCS_ROOT="var/www/htdocs"
+	fi
+	mkdir -p $PKG/$SQM_HTDOCS_ROOT/squirrelmail/{help,locale,images}
+	if [[ $SQM_LANG ]]; then
+		for sqml in ${SQM_LANG[@]}
+		do
+		
+			cp -r help/$sqml $PKG/$SQM_HTDOCS_ROOT/squirrelmail/help
+			cp -r locale/$sqml $PKG/$SQM_HTDOCS_ROOT/squirrelmail/locale
+			cp images/sec_remove_$sqml.png $PKG/$SQM_HTDOCS_ROOT/squirrelmail/images
+		done
+	else
+		for dir in help locale images
+		do
+			cp -r $dir $PKG/$SQM_HTDOCS_ROOT/squirrelmail
+		done
+	fi
+	rm -rf $PKG/$SQM_HTDOCS_ROOT/squirrelmail/help/en_US
+}

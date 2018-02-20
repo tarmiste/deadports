@@ -1,0 +1,18 @@
+# Description: Python extension module to speed up Python code.
+# URL:         http://psyco.sourceforge.net
+# Packager:    James Mills, prologic at shortcircuit dot net dot au
+# Maintainer: Lucas Hazel, lucas at die dot net dot au
+#
+# Depends on:  python
+
+name=psyco
+version=1.6
+release=1
+source=(http://download.sourceforge.net/$name/$name-$version-src.tar.gz)
+
+build () {
+   cd $name-$version
+   python setup.py install --root=$PKG
+   chown root:root $PKG
+	find $PKG -name '*egg-info' | xargs rm
+}

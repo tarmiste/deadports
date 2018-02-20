@@ -1,0 +1,9 @@
+CC       = @CC@
+CPPFLAGS = -D _XOPEN_SOURCE=600
+CFLAGS   = @CFLAGS@
+LDFLAGS  = -s @LDFLAGS@
+
+DESTDIR =
+PREFIX  = /usr
+BIN     = $(PREFIX)/bin
+SHARE   = $(PREFIX)/share/deco

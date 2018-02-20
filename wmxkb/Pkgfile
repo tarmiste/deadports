@@ -1,0 +1,18 @@
+# Description: Shows and controls XKB groups
+# URL: http://wmalms.tripod.com/#WMXKB
+# Maintainer: Mikhail Kolesnik, mike at openbunker dot org
+# Depends on: xorg-libxpm
+
+name=wmxkb
+version=1.2.2
+release=1
+source=(http://wmalms.tripod.com/$name-$version.tar.gz \
+		wmxkb-makefile.diff)
+
+build() {
+	cd $name-$version
+	patch -p1 -i $SRC/wmxkb-makefile.diff
+	./configure --prefix=/usr
+	make
+	make prefix=$PKG/usr install
+}

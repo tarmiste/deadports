@@ -1,0 +1,22 @@
+# Description: BC Math module for PHP
+# URL:         http://www.php.net
+# Maintainer:  Juergen Daubert, jue at crux dot nu
+# Packager:    Mikhail Kolesnik, mike at openbunker dot org
+# Depends on: 
+
+name=php-bcmath
+version=5.6.28
+release=1
+source=(http://www.php.net/distributions/php-$version.tar.xz)
+
+build() {
+	cd php-$version
+
+	./configure --disable-all \
+		--enable-bcmath=shared,/usr
+	make build-modules
+
+	install -d $PKG/{etc/php/conf.d,usr/lib/php/extensions}
+	install -m 755 modules/bcmath.so $PKG/usr/lib/php/extensions
+	echo "extension=bcmath.so" > $PKG/etc/php/conf.d/bcmath.ini
+}

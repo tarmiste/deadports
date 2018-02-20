@@ -1,0 +1,33 @@
+# Description:  Combined filesystem and logical volume manager from Sun Microsystems/Oracle
+# URL:          http://zfsonlinux.org/
+# Maintainer:   James Mills, prologic at shortcircuit dot net dot au
+
+# Depends on:   spl-git
+
+name=zfs-git
+version=0f7d2a4b3d
+release=1
+source=(http://shortcircuit.net.au/~prologic/distfiles/${name}-${version}.tar.gz)
+
+build() {
+    cd $name-$version
+
+    ./autogen.sh
+
+    # Configure
+    ./configure --prefix=/usr \
+        --libexecdir=/usr/lib/zfs \
+        --mandir=/usr/man \
+        --with-spl=/usr/include/spl
+
+    # ugly hacks ahoy!
+    find . -name "Makefile" -exec sed -i -e 's,/usr/src/zfs-$(VERSION),/usr/include/zfs,g' '{}' \;
+
+    # Build
+    make
+
+    # Package
+    make DESTDIR=$PKG install
+
+    install -d -D -m 755 $PKG/etc/zfs
+}

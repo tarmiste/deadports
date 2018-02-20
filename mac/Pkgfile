@@ -1,0 +1,22 @@
+# Description: Monkeys Audio Lossless compressor for CD audio
+# URL: http://supermmx.org/linux/mac
+# Maintainer: Jose V Beneyto, sepen at crux dot nu
+# Packager: Han Boetes, han at mijncomputer dot nl
+# Depends on: lame shorten shntool cuetools
+
+name=mac
+version=3.99-u4-b5-s7
+release=1
+source=(http://etree.org/shnutils/shntool/support/formats/ape/unix/$version/$name-$version.tar.gz \
+        ape2flac ape2mp3 ape123)
+
+build() {
+  cd $name-$version
+  sed -i 's|-O3||' configure
+  CXXFLAGS+=" -DSHNTOOL" ./configure
+  make
+  make DESTDIR=$PKG install
+  install -D -m 0755 $SRC/ape2flac $PKG/usr/bin/ape2flac
+  install -D -m 0755 $SRC/ape2mp3 $PKG/usr/bin/ape2mp3
+  install -D -m 0755 $SRC/ape123 $PKG/usr/bin/ape123
+}

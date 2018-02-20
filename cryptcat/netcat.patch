@@ -1,0 +1,12 @@
+1504c1504
+< 	bail ("nc -h for help");
+---
+> 	bail ("cryptcat -h for help");
+1667,1669c1667,1669
+<   holler ("[v1.10]\n\
+< connect to somewhere:	nc [-options] hostname port[s] [ports] ... \n\
+< listen for inbound:	nc -l -p port [-options] [hostname] [port]\n\
+---
+>   holler ("cryptcat v1.2.1\n\
+> connect to somewhere:	cryptcat [-options] hostname port[s] [ports] ... \n\
+> listen for inbound:	cryptcat -l -p port [-options] [hostname] [port]\n\

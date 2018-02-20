@@ -1,0 +1,16 @@
+# Description: Cross-platform calendar application built upon Mozilla Toolkit.
+# URL: http://www.mozilla.org/projects/calendar/sunbird/
+# Maintainer: Jose V Beneyto, sepen at users dot sourceforge dot net
+# Depends on: gtk
+
+name=sunbird
+version=0.9
+release=1
+source=(http://ftp.twaren.net/Unix/Mozilla/calendar/sunbird/releases/$version/linux-i686/en-US/$name-$version.en-US.linux-i686.tar.gz)
+
+build() {
+  install -d $PKG/usr/{lib,bin}
+  rm $SRC/$name/{README.txt,LICENSE}
+  mv $SRC/$name $PKG/usr/lib
+  ln -s /usr/lib/$name/$name $PKG/usr/bin/$name
+}

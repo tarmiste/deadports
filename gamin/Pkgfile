@@ -1,0 +1,20 @@
+# Description: file and directory monitoring system
+# URL:         http://www.gnome.org/~veillard/gamin/
+# Packager:    Matt Housh, jaeger at morpheus dot net
+# Maintainer:  Bartlomiej Palmowski, rotwang at crux dot org dot pl
+# Depends on:  glib python
+
+name=gamin
+version=0.1.10
+release=2
+source=(http://www.gnome.org/~veillard/$name/sources/$name-$version.tar.gz)
+
+build() {
+    cd $name-$version
+    ./configure \
+        --prefix=/usr \
+        --disable-static \
+        --libexecdir=/usr/sbin
+        make
+        make DESTDIR=$PKG install
+}

@@ -1,0 +1,16 @@
+# Description: simple GTK+ disc burner
+# URL:         http://code.google.com/p/recorder/
+# Maintainer:  Bartlomiej Palmowski, rotwang at crux dot org dot pl
+# Depends on:  pygtk
+# Nice2Have:   stuff for burning discs (cdrkit, dvd+rw-tools, etc.)
+
+name=recorder
+version=1.4.5
+release=1
+source=(http://$name.googlecode.com/files/$name-$version.tar.bz2)
+
+build() {
+    cd $name-$version
+    make DESTDIR=$PKG install
+    rm -rf $PKG/usr/share/locale 
+}

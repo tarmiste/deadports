@@ -1,0 +1,9 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=Pando
+Comment=Pando P2P Downloader
+Exec=/usr/bin/pando
+Icon=pando.png
+Terminal=false
+Type=Application
+Categories=Application;Network;

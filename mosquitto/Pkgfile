@@ -1,0 +1,30 @@
+# Description:  MQTT compatible server and client libraries
+# URL:          http://www.mosquitto.org
+# Maintainer:   James Mills, prologic at shortcircuit dot net dot au
+#
+# Depends on:   cmake c-ares
+
+name=mosquitto
+version=1.4.2
+release=4
+source=(http://mosquitto.org/files/source/$name-$version.tar.gz
+        https://raw.github.com/binarybucks/mqttitude/master/tools/TLS/generate-CA.sh)
+
+build() {
+    cd $name-$version
+
+    # Build
+    mkdir build && cd build
+    cmake .. -DCMAKE_INSTALL_PREFIX=/usr
+    make
+
+    # Package
+    make DESTDIR=$PKG install
+    mkdir $PKG/etc/mosquitto/TLS/
+    install -m755 $SRC/generate-CA.sh $PKG/etc/mosquitto/TLS/generate-CA.sh
+
+    # Cleanup
+    mkdir -p $PKG/usr/man
+    mv $PKG/usr/share/man/* $PKG/usr/man
+    rm -rf $PKG/etc/mosquitto/*.example
+}

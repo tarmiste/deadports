@@ -1,0 +1,17 @@
+# Description: C implementation of the ElementTree API.
+# URL:         http://effbot.org/zone/celementtree.htm
+# Maintainer:  James Mills, prologic at shortcircuit dot net dot au
+# Packager:    Johannes Winkelmann, jw at tks6 dot net
+#
+# Depends on:  elementtree
+
+name=celementtree
+version=1.0.5-20051216
+release=1
+source=(http://effbot.org/downloads/cElementTree-$version.tar.gz)
+
+build() {
+   cd cElementTree-$version
+   python setup.py install --root=$PKG 
+   chown root:root $PKG
+}

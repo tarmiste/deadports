@@ -1,0 +1,48 @@
+# Description: Nagios is an open source host, service and network monitoring program.
+# URL: http://www.nagios.org/projects/nagioscore
+# Maintainer: Jose V Beneyto, sepen at crux dot nu
+# Depends on: libgd fontconfig apache
+
+name=nagios
+version=4.0.8
+release=1
+source=(http://downloads.sourceforge.net/sourceforge/$name/$name-$version.tar.gz)
+
+build () {
+  cd $name-$version
+
+  ./configure --prefix=/usr/share/$name \
+              --datadir=/usr/share/$name \
+              --libexecdir=/usr/lib/$name/plugins \
+              --localstatedir=/var/spool/$name \
+              --bindir=/usr/bin \
+              --sbindir=/usr/lib/$name/cgi-bin \
+              --sysconfdir=/etc/$name \
+              --with-checkresult-dir=/var/spool/$name/checkresults \
+              --with-httpd-conf=/etc/apache/extra \
+              --with-nagios-user=nagios \
+              --with-nagios-group=nagios \
+              --with-command-group=nagcmd \
+              --enable-event-broker \
+              --enable-embedded-perl \
+              --with-perlcache \
+              STRIP=/bin/true
+
+  make all
+
+  install -d $PKG/etc/{$name,apache/extra,rc.d}
+  install -d $PKG/usr/{lib,share}/$name
+  install -d $PKG/var/spool/$name
+
+  make DESTDIR=$PKG \
+    install install-init install-config install-commandmode install-webconf
+
+  chown -R root:root $PKG/usr/bin
+  chown -R nagios:nagios $PKG/usr/share/$name
+  chmod 2755 $PKG/var/spool/$name/rw
+  chown nagios:nagcmd $PKG/var/spool/$name/rw
+
+  find $PKG/usr/bin -type f -exec chmod 0775 {} \;
+  find $PKG/etc/$name -type f -name '*.cfg' -exec chmod 0664 {} \;
+  find $PKG/usr/share/$name -type f -exec chmod 0644 {} \;
+}

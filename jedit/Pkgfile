@@ -1,0 +1,31 @@
+# Description: Java programmer's text editor
+# URL: http://www.jedit.org
+# Maintainer: Mikhail Kolesnik, mike at openbunker dot org
+# Packager: Simone Rota, sip at crux dot nu
+# Depends on: jre, unzip
+
+name=jedit
+version=5.0.0
+release=1
+source=(http://downloads.sourceforge.net/project/$name/$name/$version/${name}${version}install.jar)
+
+build() {
+	mkdir -p $PKG/usr/lib/jedit
+	mkdir -p $PKG/usr/bin
+	unzip jedit${version}install.jar
+	cd installer
+	tar xvfj jedit-program.tar.bz2 -C $PKG/usr/lib/jedit
+	tar xvfj jedit-macros.tar.bz2 -C $PKG/usr/lib/jedit
+	tar xvfj jedit-api.tar.bz2 -C $PKG/usr/lib/jedit
+	rm -r $PKG/usr/lib/jedit/doc
+	rm $PKG/usr/lib/jedit/properties/README.txt
+	rm $PKG/usr/lib/jedit/startup/README.txt
+	find $PKG/usr/lib/jedit -type f -exec chmod 644 {} \;
+
+cat << "EOF" > $PKG/usr/bin/jedit
+#!/bin/bash
+JAVA_HEAP_SIZE=32
+exec /usr/lib/java/bin/java -mx${JAVA_HEAP_SIZE}m ${JEDIT} -jar /usr/lib/jedit/jedit.jar $@
+EOF
+	chmod 0755 $PKG/usr/bin/jedit
+}

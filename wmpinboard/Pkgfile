@@ -1,0 +1,16 @@
+# Description: A mini-pinboard dockapp
+# URL: http://www.dockapps.org/file.php/id/93
+# Maintainer: Mikhail Kolesnik, mike at openbunker dot org
+# Depends on: x11
+
+name=wmpinboard
+version=1.0
+release=3
+source=(http://www.dockapps.org/download.php/id/131/$name-$version.tar.gz)
+
+build () {
+	cd $name-$version
+	./configure --prefix=/usr
+	make
+	make prefix=$PKG/usr install
+}

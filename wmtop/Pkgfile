@@ -1,0 +1,17 @@
+# Description: A dockapp that is a mini graphical version of the cpu monitoring utility top
+# URL: http://wmtop.sourceforge.net/
+# Maintainer: Mikhail Kolesnik, mike at openbunker dot org
+# Depends on: xorg-libxpm
+
+name=wmtop
+version=0.84
+release=2
+source=(http://downloads.sourceforge.net/$name/$name-$version.tar.bz2 \
+		$name-$version-makefile.patch)
+
+build() {
+	cd $name-$version
+	patch -p1 -i $SRC/$name-$version-makefile.patch
+	make linux
+	make DESTDIR=$PKG install
+}

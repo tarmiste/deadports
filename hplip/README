@@ -1,0 +1,9 @@
+There is no daemon to start anymore.
+
+POST-INSTALL
+
+To setup, do hp-setup as root.
+
+The HP Device Manager program is called hp-toolbox when you want to start 
+it from the command line.
+

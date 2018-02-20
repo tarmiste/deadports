@@ -1,0 +1,23 @@
+# Description: Simple, but fast and widely used WikiWiki clone written in Perl
+# URL:         http://www.usemod.com/cgi-bin/wiki.pl
+# Maintainer:  Juergen Daubert, juergen dot daubert at t-online dot de
+# Depends on:  perl, apache
+
+name=usemod
+version=1.0.6
+release=1
+source=(http://www.usemod.com/wikicode/$name-$version.tar.gz)
+
+build () {
+    cd $name-$version
+    install -d $PKG/var/www/{cgi-bin,$name/pub}
+    install -d -o www $PKG/var/www/$name
+    chmod 0700 $PKG/var/www/$name
+    install -m 755 wiki.pl $PKG/var/www/cgi-bin
+    install -g www -m 640 config $PKG/var/www/$name
+    cp wiki.{gif,css} $PKG/var/www/$name/pub
+    sed -i '/^\$LogoUrl/s|\"[^;]*\"|\"/pub/wiki.gif\"|' \
+           $PKG/var/www/$name/config
+    sed -i '/^\$DataDir/s|\"[^;]*\"|\"/var/www/usemod\"|' \
+           $PKG/var/www/cgi-bin/wiki.pl
+}

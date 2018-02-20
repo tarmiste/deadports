@@ -1,0 +1,18 @@
+# Description: A Suite of Portable Game Libraries.
+# URL: http://plib.sourceforge.net/
+# Maintainer: Jose V Beneyto, sepen at users dot sourceforge dot net
+# Packager: Jose V Beneyto, sepen at users dot sourceforge dot net
+# Depends on: freeglut xorg-libxmu
+
+name=plib
+version=1.8.5
+release=1
+source=(http://plib.sourceforge.net/dist/$name-$version.tar.gz)
+
+build() {
+  cd $name-$version
+  ./configure --prefix=/usr \
+              --with-x
+  make  
+  make DESTDIR=$PKG install
+}

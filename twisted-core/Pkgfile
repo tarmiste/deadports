@@ -1,0 +1,16 @@
+# Description: An event-driven networking framework written in Python
+# URL: http://twistedmatrix.com/trac/
+# Maintainer: Matt Housh, jaeger at crux dot nu
+# Depends on: python, zopeinterface
+
+name=twisted-core
+version=2.4.0
+release=1
+source=(http://tmrc.mit.edu/mirror/twisted/Twisted/2.4/Twisted-$version.tar.bz2)
+
+build() {
+	cd Twisted-$version/TwistedCore-$version
+	python setup.py build
+	python setup.py install --root=$PKG
+	find $PKG -name "README" -exec rm -f '{}' \;
+}

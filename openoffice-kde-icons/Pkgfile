@@ -1,0 +1,18 @@
+# Description:	OpenOffice icons & menu entries for KDE
+# URL:		http://www.openoffice.org/
+# Maintainer:	Alan Mizrahi, alan at mizrahi dot com dot ve
+# Depends on:	openoffice, kdebase
+
+name=openoffice-kde-icons
+version=2.0.2
+release=1
+source=(http://www.mizrahi.com.ve/crux/dist/ooo_applnk.tar.gz http://www.mizrahi.com.ve/crux/dist/ooo_icons.tar.gz)
+
+build () {
+	mv $SRC/usr $PKG
+	ICONDIR="`readlink -e /usr/share/icons/default.kde`"
+	[ -z "$ICONDIR" ] && ICONDIR=/usr/share/icons/default.kde
+	mkdir -p ${PKG}${ICONDIR}
+	mv $SRC/* ${PKG}${ICONDIR}
+	chown -R root:root $PKG
+}

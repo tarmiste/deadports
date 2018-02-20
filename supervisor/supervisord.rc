@@ -1,0 +1,28 @@
+#!/bin/sh
+#
+# /etc/rc.d/supervisord: start/stop supervisor daemon
+#
+
+case $1 in
+start)
+	/usr/bin/supervisord -c /etc/supervisord.conf
+	;;
+stop)
+	if [ -f /var/run/supervisord.pid ]; then
+		kill $(< /var/run/supervisord.pid)
+		rm -f /var/run/supervisord.pid
+	else
+		killall -q /usr/bin/supervisord
+	fi
+	;;
+restart)
+	$0 stop
+	sleep 2
+	$0 start
+	;;
+*)
+	echo "usage: $0 [start|stop|restart]"
+	;;
+esac
+
+# End of file

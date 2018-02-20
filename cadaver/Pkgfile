@@ -1,0 +1,23 @@
+# Description:  Command-line WebDAV client for Unix
+# URL:          http://www.webdav.org/cadaver
+# Maintainer:   James Mills, prologic at shortcircuit dot net dot au
+
+# Depends on:   neon
+
+name=cadaver
+version=0.23.3
+release=2
+source=(http://www.webdav.org/cadaver/cadaver-$version.tar.gz)
+
+build() {
+    cd cadaver-$version
+
+    # Configure
+    ./configure --prefix=/usr --with-ssl
+
+    # Build
+    make
+
+    # Package
+    make prefix=$PKG/usr install
+}

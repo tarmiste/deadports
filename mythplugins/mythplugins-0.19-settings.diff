@@ -1,0 +1,10 @@
+--- settings.pro.orig	2006-03-24 14:36:47.000000000 +1000
++++ settings.pro	2006-03-24 14:37:19.000000000 +1000
+@@ -3,6 +3,7 @@
+ LIBVERSION = 0.19
+ 
+ INCLUDEPATH += $${PREFIX}/include
++INCLUDEPATH += /usr/include/qt
+ #INCLUDEPATH += /usr/include/cdda
+ #INCLUDEPATH += /usr/include/FLAC
+ INCLUDEPATH += /usr/kde/3.3/include

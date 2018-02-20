@@ -1,0 +1,53 @@
+diff -Nru wmint-0.9-orig/wmint/wmint.c wmint-0.9/wmint/wmint.c
+--- wmint-0.9-orig/wmint/wmint.c	2008-03-22 22:57:17.771804010 +0200
++++ wmint-0.9/wmint/wmint.c	2008-03-22 23:24:15.174803493 +0200
+@@ -34,8 +34,10 @@
+ #define MY_EMAIL "slix@gcu-squad.org"
+ #define GCU_HOME "http://www.gcu-squad.org/"
+ #define WMINT_VERSION "0.9"
++#define SLEEP_USECS 10000
+ 
+ char	*ProgName;
++unsigned int usecs = SLEEP_USECS;
+ 
+ typedef struct {
+       unsigned short bit;
+@@ -110,6 +112,19 @@
+ 				    exit(1);
+ 				  };
+ 				break;
++			case 's' :
++				if (++i == argc)
++				{ 
++					usage();
++					exit(1);
++				};
++				usecs = (unsigned int) strtol(argv[i], &endp, 10);
++				if (*endp || usecs<0 || usecs>1000000) 
++				  {
++				    usage();
++				    exit(1);
++				  };
++				break;
+ 			case 'v' :
+ 				printVersion();
+ 				exit(0);
+@@ -269,7 +284,7 @@
+ 	                break;
+ 	        }
+         }
+-	usleep(10000L);
++	usleep(usecs);
+       }
+ 
+ }
+@@ -526,7 +541,8 @@
+     fprintf(stderr, "\nwmint - Sébastien Liénard <%s>, GCU (%s)\n\n",MY_EMAIL,GCU_HOME);
+ 	fprintf(stderr, "usage:\n");
+ 	fprintf(stderr, "\t-d <display name>\n");
+-        fprintf(stderr, "\t-i <interrupt number>\n");
++	fprintf(stderr, "\t-i <interrupt number>\n");
++	fprintf(stderr, "\t-s <sleep between refresh (in microseconds), default %u>\n", SLEEP_USECS);
+ 	fprintf(stderr, "\t-h\tthis help screen\n");
+ 	fprintf(stderr, "\t-v\tprint the version number\n");
+ 	fprintf(stderr, "\n");

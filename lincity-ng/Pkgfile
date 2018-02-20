@@ -1,0 +1,27 @@
+# Description: Polished and improved version of the classic LinCity game.
+# URL: http://www.libregamewiki.org/LinCity-NG
+# Maintainer: Danny Rawlins, crux at romster dot me
+# Packager: Mark Rosenstand, mark at borkware dot net
+# Depends on: jam physfs sdl_gfx sdl_image sdl_mixer sdl_ttf glu
+
+name=lincity-ng
+version=2.0
+release=1
+source=(http://crux.ster.zone/downloads/$name/$name-$version.tar.bz2)
+
+build() {
+	cd $name-$version
+	local JOBS="$(sed -e 's/.*\(\-j[ 0-9]\+\) \{0,1\}.*/\1/' <<< $MAKEFLAGS)"
+
+	./configure \
+		--prefix=/usr \
+		--disable-nls
+
+	jam $JOBS
+	jam -sprefix=$PKG/usr install
+
+	rm -r \
+		$PKG/usr/share/doc \
+		$PKG/usr/share/lincity-ng/locale \
+		$PKG/usr/share/lincity-ng/help/{ca,cs,de,es,fr,gl,nl,pt_BR,ru,sv,tr}
+}

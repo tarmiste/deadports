@@ -1,0 +1,19 @@
+# Description: simple GTK+1/2 painting program
+# URL: http://mtpaint.sourceforge.net/
+# Maintainer: Bartlomiej Palmowski, rotwang at crux dot org dot pl
+# Packager: Ricardo Oliveira, crux at roliveira dot eu
+# Depends on: gtk xorg-libxdamage
+# Nice to have: libungif
+
+name=mtpaint
+version=3.40
+release=1
+source=(http://downloads.sourceforge.net/project/$name/$name/$version/$name-$version.tar.bz2)
+
+build() {
+    cd $name-$version
+    ./configure --prefix=/usr gtk2 cflags man
+
+    make
+    make DESTDIR=$PKG install
+}

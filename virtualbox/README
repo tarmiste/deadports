@@ -1,0 +1,64 @@
+
+README for virtualbox
+
+
+REQUIREMENTS
+
+  Kernel headers needed to build virtualbox's modules.
+
+
+PRE-INSTALL
+
+  -- IMPORTANT --
+  Run the post-install script in order to add a vboxusers group to your system.
+  After that, add your user to the vboxusers group:
+  # usermod -a -G vboxusers <your_user> 
+  ---------------
+
+
+POST-INSTALL
+
+  During installation 'vboxdrv.ko' has been installed to your modules directory
+  and you can load it using modprobe vboxdrv (needed before run VirtualBox).
+  Also make sure you give yourself read and write access to /dev/vboxdrv.
+  For this, virtualbox port has their own udev rules.
+
+  Also is a good idea to fine tune your udev rules as you want.
+  For getting some info from your system run udevinfo:
+  # udevadm info -a -p /sys/class/misc/vboxdrv
+
+  Udevadm info starts with the device specified by the devpath and then
+  walks up the chain of parent devices. It prints for every device
+  found, all possible attributes in the udev rules key format.
+  A rule to match, can be composed by the attributes of the device
+  and the attributes from one single parent device.
+
+    looking at device '/devices/virtual/misc/vboxdrv':
+    KERNEL=="vboxdrv"
+    SUBSYSTEM=="misc"
+    DRIVER==""
+
+
+PRECAUTION
+
+  Virtualbox by default uses /usr/src/linux as the source directory of your
+  Linux kernel. To use an alternative kernel directory you should type
+  something like:
+  # env KERN_DIR=/not-default-path/src/linux pkgmk
+
+
+NOTES
+
+  Upgrading a kernel should not affect external modules. Modules which are
+  included in the kernel are installed in: /lib/modules/$(KERNELRELEASE)/kernel
+  And external modules are installed in: /lib/modules/$(KERNELRELEASE)/extra
+
+  Anyway if you want to compile and install virtualbox modules again you have
+  some alternatives:
+  # make -C /usr/share/virtualbox/bin/src \
+    MODULE_DIR=/lib/modules/$(uname -r)/extra install
+
+  Or if you want to an specific kernel version (for example: 4.1.8)
+  # make -C /usr/share/virtualbox/bin/src \
+    KERN_DIR=/usr/src/linux-4.1.8 \
+    MODULE_DIR=/lib/modules/4.1.8/extra install

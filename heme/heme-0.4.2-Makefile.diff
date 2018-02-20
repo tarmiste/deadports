@@ -1,0 +1,22 @@
+diff -Nru heme-0.4.2-orig/Makefile heme-0.4.2/Makefile
+--- heme-0.4.2-orig/Makefile	2006-11-23 00:24:17.000000000 +0200
++++ heme-0.4.2/Makefile	2007-01-02 17:27:49.000000000 +0200
+@@ -1,5 +1,5 @@
+-INSTALL_PREFIX = /usr/local
+-CFLAGS = -Wall -DHAVE_MMAP	# remove -DHAVE_MMAP if you don't have mmap
++INSTALL_PREFIX = /usr
++CFLAGS += -Wall -DHAVE_MMAP
+ LDFLAGS = -lcurses
+ OBJECTS = heme.o xmalloc.o error.o pconfig.o pgetopt.o
+ TARGET = heme
+@@ -11,8 +11,8 @@
+ 	$(CC) $(CFLAGS) -c $< -o $@
+ 
+ install: $(TARGET)
+-	install -s -m 0755 $(TARGET) $(INSTALL_PREFIX)/bin
+-	install -m 0644 heme.1 $(INSTALL_PREFIX)/man/man1
++	install -D -m 0755 $(TARGET) $(DESTDIR)$(INSTALL_PREFIX)/bin/$(TARGET)
++	install -D -m 0644 heme.1 $(DESTDIR)$(INSTALL_PREFIX)/man/man1/heme.1
+ 
+ uninstall:
+ 	rm -f $(INSTALL_PREFIX)/bin/$(TARGET)

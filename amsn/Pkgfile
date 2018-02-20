@@ -1,0 +1,21 @@
+# Description: MSN Messenger Client for Linux.
+# URL: http://amsn.sourceforge.net
+# Maintainer: Jose V Beneyto, sepen at crux dot nu
+# Packager: James Mills, prologic at shortcircuit dot net dot au
+# Depends on: tk libjpeg-turbo libpng
+
+name=amsn
+version=0.98.9
+release=1
+source=(http://download.sourceforge.net/$name/$name/$version/$name-$version-src.tar.bz2)
+
+build() {
+  cd $name-$version
+  ./configure --prefix=/usr \
+              --with-x
+  make
+  make DESTDIR=$PKG install
+  rm -rf $PKG/usr/share/amsn/{AGREEMENT,CREDITS,FAQ,GNUGPL,HELP,INSTALL} \
+         $PKG/usr/share/amsn/{TODO,docs,README,plugins/*/READM{E,E.txt}} \
+         $PKG/usr/share/amsn/utils/*/{LICENSE.txt,license.terms}
+}

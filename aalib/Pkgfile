@@ -1,0 +1,18 @@
+# Description: Library for converting images/movies to ascii art
+# URL: http://aa-project.sourceforge.net/aalib/ 
+# Maintainer: Mikhail Kolesnik, mike at openbunker dot org
+# Depends on: xorg-libx11 ncurses
+
+name=aalib
+version=1.4rc5
+release=1
+source=(http://dl.sourceforge.net/sourceforge/aa-project/$name-$version.tar.gz)
+
+build () {
+	cd $name-1.4.0
+	./configure --prefix=/usr
+	make
+	make prefix=$PKG/usr install
+	rm -rf "$PKG/usr/info"
+	chown -R root:root $PKG
+}

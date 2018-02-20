@@ -1,0 +1,20 @@
+# Description: NVIDIA Dock is a tray icon for easy management of the settings for NVIDIA video cards.
+# URL: http://www.opsat.net/user/bob/projects/nvdock
+# Maintainer: Danny Rawlins, monster dot romster at gmail dot com
+# Packager: Danny Rawlins, monster dot romster at gmail dot com
+# Depends on: nvclock
+
+name=nvdock
+version=1.02
+release=2
+source=(http://bobmajdakjr.googlecode.com/files/$name-$version.tar.bz2)
+
+build() {
+	cd $name-$version
+	make CFLAGS="$(pkg-config --cflags gtk+-2.0 glib-2.0) $CFLAGS"
+
+	install -D -m 0755 build/nvdock $PKG/usr/bin/nvdock
+	install -D -m 0644 data/nvdock.png $PKG/usr/share/pixmaps/nvdock.png
+	install -D -m 0644 data/nvdock.desktop $PKG/usr/share/applications/nvdock.desktop
+}
+

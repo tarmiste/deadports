@@ -1,0 +1,50 @@
+--- truecrypt-4.3a/Linux/Kernel/Dm-target.c.orig	2010-05-17 23:21:41.550280774 +0900
++++ truecrypt-4.3a/Linux/Kernel/Dm-target.c	2010-05-17 23:22:15.086944158 +0900
+@@ -210,7 +210,7 @@
+ 	}
+ 	tc->start = sector;
+ 
+-	if (dm_get_device (ti, argv[TC_ARG_DEV], tc->start, ti->len, dm_table_get_mode (ti->table), &tc->dev))
++	if (dm_get_device (ti, argv[TC_ARG_DEV], dm_table_get_mode (ti->table), &tc->dev))
+ 	{
+ 		ti->error = "truecrypt: Device lookup failed";
+ 		goto err;
+--- truecrypt-4.3a/Common/GfMul.c.orig	2010-05-18 00:15:32.303291101 +0900
++++ truecrypt-4.3a/Common/GfMul.c	2010-05-18 00:17:18.773280384 +0900
+@@ -53,6 +53,7 @@
+ #ifdef LINUX_DRIVER
+ #include <linux/module.h>
+ #include <linux/string.h>
++#include <linux/slab.h>
+ #else
+ #include <memory.h>
+ #endif
+--- truecrypt-4.3a/Common/Crypto.c.orig	2010-05-18 00:12:47.460807274 +0900
++++ truecrypt-4.3a/Common/Crypto.c	2010-05-18 00:17:33.216612793 +0900
+@@ -16,6 +16,7 @@
+ #ifdef LINUX_DRIVER
+ #include <linux/module.h>
+ #include <linux/string.h>
++#include <linux/slab.h>
+ #else
+ #include <string.h>
+ #endif
+--- truecrypt-4.3a/Linux/Kernel/Dm-target.c.orig	2010-05-18 00:16:32.969951706 +0900
++++ truecrypt-4.3a/Linux/Kernel/Dm-target.c	2010-05-18 00:17:02.470782111 +0900
+@@ -6,6 +6,8 @@
+  distribution packages.
+ */
+ 
++#include <linux/slab.h>
++
+ #include <linux/bio.h>
+ #include <linux/blkdev.h>
+ #include <linux/ctype.h>
+@@ -16,7 +18,6 @@
+ #include <linux/moduleparam.h>
+ #include <linux/version.h>
+ #include <linux/workqueue.h>
+-#include <dm.h>
+ 
+ #include "Tcdefs.h"
+ #include "Crypto.h"

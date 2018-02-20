@@ -1,0 +1,65 @@
+# Description: Neverwinter Nights linux client (Diamond Edition)
+# URL: http://nwn.bioware.com/downloads/linuxclient.html
+# Maintainer: Matt Housh, jaeger at morpheus dot net
+# Depends on: xorg-libx11, xorg-libxau, xorg-libxcb, xorg-libxdmcp, xorg-libxext, libsdl
+
+name=nwn-diamond
+version=1.69
+release=1
+source=(http://nwdownloads.bioware.com/neverwinternights/linux/gold/nwclientgold.tar.gz \
+	http://nwdownloads.bioware.com/neverwinternights/linux/161/nwclienthotu.tar.gz \
+	http://files.bioware.com/neverwinternights/updates/linux/169/English_linuxclient169_xp2.tar.gz \
+	http://jaeger.morpheus.net/linux/crux/files/nwn.png \
+	run-nwn.sh)
+
+# override pkgmk's unpack_source() function so that the game sources don't
+# all get munged into the same place, overwriting important files.
+
+unpack_source() {
+
+	# first, get the files we need from the diamond edition disc
+	[ -z "$CDROM_LOCATION" ] && CDROM_LOCATION=/mnt/dvd
+	DISCFILES="Data_Shared Data_linux data/XP1 data/XP2"
+	for FILE in $DISCFILES
+	do
+		if [ ! -f $CDROM_LOCATION/$FILE.zip ]
+		then
+			echo -e "\nCould not find $FILE.zip in $CDROM_LOCATION! Please make sure your diamond edition disc is mounted. If the mount location is not $CDROM_LOCATION, please set the CDROM_LOCATION environment variable to the correct mountpoint.\n"
+			exit 1
+		fi
+		COMMAND="unzip -q -o $CDROM_LOCATION/$FILE.zip -d $SRC"
+		echo $COMMAND; $COMMAND
+	done
+
+	# now deal with the source array
+	mkdir $SRC/nwn
+	COMMAND="tar -C $SRC -zxf $PKGMK_SOURCE_DIR/nwclientgold.tar.gz"
+	echo $COMMAND; $COMMAND
+	COMMAND="tar -C $SRC -zxf $PKGMK_SOURCE_DIR/nwclienthotu.tar.gz"
+	echo $COMMAND; $COMMAND
+	COMMAND="tar -C $SRC -zxf $PKGMK_SOURCE_DIR/English_linuxclient168_xp2.tar.gz"
+	echo $COMMAND; $COMMAND
+	COMMAND="cp $PKGMK_SOURCE_DIR/nwn.png $SRC"
+	echo $COMMAND; $COMMAND
+	COMMAND="cp run-nwn.sh $SRC"
+	echo $COMMAND; $COMMAND
+}
+
+build() {
+	mkdir -p $PKG/usr/games/nwn $PKG/usr/bin $PKG/usr/share/pixmaps
+	mv $SRC/* $PKG/usr/games/nwn
+	mv $PKG/usr/games/nwn/run-nwn.sh $PKG/usr/bin/nwn
+	mv $PKG/usr/games/nwn/nwn.png $PKG/usr/share/pixmaps/
+	find $PKG ! -type d -exec chmod -x '{}' \;
+	chmod 755 $PKG/usr/bin/nwn \
+		$PKG/usr/games/nwn/{nwn,nwmain,nwserver,fixinstall}
+	chown -R root:games $PKG/usr/games/nwn
+	chmod -R ug+rw,o+r-w $PKG/usr/games/nwn
+	(cd $PKG/usr/games/nwn && ./fixinstall)
+	rm -rf $PKG/usr/games/nwn/docs \
+		$PKG/usr/games/nwn/readme*.txt \
+		$PKG/usr/games/nwn/movies*.txt \
+		$PKG/usr/games/nwn/SDL-1.2.5 \
+		$PKG/usr/games/nwn/NWN*.txt
+	sed -i -e 's|=./lib:|=|' $PKG/usr/games/nwn/nwn
+}

@@ -1,0 +1,24 @@
+# Description: Embeddable library implementation of Scheme
+# URL: http://www.gnu.org/software/guile/
+# Maintainer: Matt Housh, jaeger at morpheus dot net
+# Depends on: libgmp, libtool, ncurses, readline
+
+name=guile
+version=1.8.7
+release=1
+source=(http://ftp.gnu.org/gnu/$name/$name-$version.tar.gz \
+	$name-$version-cpp.patch)
+
+build() {
+	cd $name-$version
+	patch -i $SRC/$name-$version-cpp.patch libguile/guile-snarf-docs.in
+	sed -i -e 's/-Werror//g' configure
+	./configure --prefix=/usr \
+		--mandir=/usr/man \
+		--with-threads \
+		--with-modules \
+		--enable-deprecation=no
+	make
+	make DESTDIR=$PKG install
+	rm -rf $PKG/usr/share/info
+}

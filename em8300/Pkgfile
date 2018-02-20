@@ -1,0 +1,30 @@
+# Description:	Linux DXR3 and Hollywood+ Driver
+# URL:		http://dxr3.sf.net
+# Maintainer:	Alan Mizrahi, alan at mizrahi dot com dot ve
+# Depends on:
+
+name=em8300
+version=0.15.4cvs2
+release=2
+source=(http://download.sourceforge.net/dxr3/$name-0.15.3.tar.gz em8300_kernel_2.6.17_2.patch.gz em8300_zoom.patch.gz em8300_ntsc_pos.patch.gz em8300_ntsc_default.patch.gz)
+
+build () {
+	cd $name-0.15.3
+	# Changes to work with kernel 2.6.17 or superior
+	zcat ../em8300_kernel_2.6.17_2.patch.gz | patch -p0
+	# Enables the usage of a zoom factor in /sys/class/em8300/em8300-0/device/zoom
+	zcat ../em8300_zoom.patch.gz | patch -p0
+	# Fixes the position for ntsc video signal
+	zcat ../em8300_ntsc_pos.patch.gz | patch -p0
+	# Makes ntsc the default (you can change this with em8300setup, but you can comment this)
+	zcat ../em8300_ntsc_default.patch.gz | patch -p1
+	./configure --prefix=/usr
+	make
+	make DESTDIR=$PKG install
+	cd modules
+	make
+	make DESTDIR=$PKG install
+	rm -rf $PKG/usr/share/em8300 $PKG/usr/bin/{autocal,dhc,dxr3view}
+#	mkdir -p $PKG/etc/udev/rules.d
+#	install -m 644 em8300-udev.rules $PKG/etc/udev/rules.d/90-em8300.rules
+}

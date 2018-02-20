@@ -1,0 +1,26 @@
+# Description: Apache module that embeds the Python interpreter
+# URL: http://www.modpython.org
+# Maintainer: Jose V Beneyto, sepen at crux dot nu
+# Packager: James Mills, prologic at shortcircuit dot net dot au
+# Depends on: apache python
+
+name=mod_python
+version=3.3.1
+release=1
+source=(http://archive.apache.org/dist/httpd/modpython/$name-$version.tgz \
+        configure.patch)
+
+build() {
+  cd $name-$version
+
+  patch -p1 -i $SRC/configure.patch configure
+  # patch for mod_python build with apr-util >= 1.3.4
+  # https://bugzilla.redhat.com/show_bug.cgi?id=465246
+  sed -e 's|SENTINEL(b)|SENTINEL(bb)|' -i src/connobject.c
+
+  ./configure --prefix=/usr \
+              --with-apxs=/usr/sbin/apxs
+
+  make
+  make DESTDIR=$PKG install
+}

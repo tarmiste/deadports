@@ -1,0 +1,133 @@
+diff -pruN libfame-0.9.1.orig/src/fame_decoder_mpeg.c libfame-0.9.1/src/fame_decoder_mpeg.c
+--- libfame-0.9.1.orig/src/fame_decoder_mpeg.c	2008-08-02 22:44:06.860141435 +1000
++++ libfame-0.9.1/src/fame_decoder_mpeg.c	2008-08-02 22:55:42.516142586 +1000
+@@ -78,7 +78,9 @@ static void mpeg_pad(fame_decoder_t *dec
+ 		     fame_box_t *box);
+ static void mpeg_interpolate(fame_decoder_t *decoder, int rounding);
+ static void mpeg_leave(fame_decoder_t *decoder);
++#ifdef HAS_MMX
+ static void mpeg_close(fame_decoder_t *decoder);
++#endif
+ 
+ FAME_CONSTRUCTOR(fame_decoder_mpeg_t)
+ {
+@@ -90,7 +92,11 @@ FAME_CONSTRUCTOR(fame_decoder_mpeg_t)
+   FAME_DECODER(this)->pad = mpeg_pad;
+   FAME_DECODER(this)->interpolate = mpeg_interpolate;
+   FAME_DECODER(this)->leave = mpeg_leave;
++#ifdef HAS_MMX
+   FAME_DECODER(this)->close = mpeg_close;
++#else
++  FAME_DECODER(this)->close = NULL;
++#endif
+   return(this);
+ }
+ 
+@@ -603,6 +609,7 @@ static void mpeg_leave(fame_decoder_t *d
+   arch_leave_state();
+ }
+ 
++#ifdef HAS_MMX
+ /*  mpeg_close                                                              */
+ /*                                                                           */
+ /*  Description:                                                             */
+@@ -618,7 +625,6 @@ static void mpeg_close(fame_decoder_t *d
+ {
+   fame_decoder_mpeg_t *decoder_mpeg = FAME_DECODER_MPEG(decoder);
+ 
+-#ifdef HAS_MMX
+   /* free mismatch accumulator */
+   { 
+     int i;
+@@ -626,5 +632,5 @@ static void mpeg_close(fame_decoder_t *d
+       for(i = 0; i < 6; i++)
+ 	fame_free(decoder_mpeg->mismatch_accumulator[i]); 
+   }
+-#endif
+ }
++#endif
+diff -pruN libfame-0.9.1.orig/src/half_mmx.h libfame-0.9.1/src/half_mmx.h
+--- libfame-0.9.1.orig/src/half_mmx.h	2008-08-02 22:44:06.856141130 +1000
++++ libfame-0.9.1/src/half_mmx.h	2008-08-02 22:51:49.078142536 +1000
+@@ -28,10 +28,10 @@ static void inline mmx_interpolate(unsig
+   short _mmx_rc[4]; /* rounding control */
+   register short *rc = _mmx_rc;
+ 
+-  _mmx_rc[0] = 1 - rounding;
+-  _mmx_rc[1] = 1 - rounding;
+-  _mmx_rc[2] = 1 - rounding;
+-  _mmx_rc[3] = 1 - rounding;
++  _mmx_rc[0] = _mmx_one[0] - rounding;
++  _mmx_rc[1] = _mmx_one[1] - rounding;
++  _mmx_rc[2] = _mmx_one[2] - rounding;
++  _mmx_rc[3] = _mmx_one[3] - rounding;
+ 
+   asm volatile ("movl (%0), %3\n"          /* %3 = ref[0] */
+ 		"pxor %%mm7, %%mm7\n"      /* mm7 = 0 */
+diff -pruN libfame-0.9.1.orig/src/mae_int.h libfame-0.9.1/src/mae_int.h
+--- libfame-0.9.1.orig/src/mae_int.h	2008-08-02 22:44:06.862141891 +1000
++++ libfame-0.9.1/src/mae_int.h	2008-08-02 22:55:42.517140304 +1000
+@@ -18,10 +18,10 @@
+     Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+ */
+ 
+-static unsigned int MAE8x8_withmask(unsigned char *ref,
+-				    unsigned char *input,
+-				    unsigned char *shape,
+-				    int pitch)
++static inline unsigned int
++MAE8x8_withmask(unsigned char *ref, unsigned char *input,
++    unsigned char *shape,
++    int pitch)
+ {
+   int j,i;
+ 
+@@ -41,10 +41,11 @@ static unsigned int MAE8x8_withmask(unsi
+   return error;
+ }
+ 
+-static unsigned int MAE8x8_withoutmask(unsigned char *ref,
+-				       unsigned char *input,
+-				       unsigned char *shape,
+-				       int pitch)
++static inline unsigned int
++MAE8x8_withoutmask(unsigned char *ref,
++    unsigned char *input,
++    unsigned char *shape,
++    int pitch)
+ {
+   int j,i;
+ 
+diff -pruN libfame-0.9.1.orig/src/mae_mmx.h libfame-0.9.1/src/mae_mmx.h
+--- libfame-0.9.1.orig/src/mae_mmx.h	2008-08-02 22:44:06.855143632 +1000
++++ libfame-0.9.1/src/mae_mmx.h	2008-08-02 22:55:42.517140304 +1000
+@@ -18,10 +18,10 @@
+     Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+ */
+ 
+-static unsigned int MAE8x8_withmask(unsigned char *ref,
+-				    unsigned char *input,
+-				    unsigned char *shape,
+-				    int pitch)
++static inline unsigned int
++MAE8x8_withmask(unsigned char *ref, unsigned char *input,
++    unsigned char *shape,
++    int pitch)
+ {
+   int dummy;
+   unsigned long retval;
+@@ -70,10 +70,10 @@ static unsigned int MAE8x8_withmask(unsi
+   return (retval&65535);
+ }
+ 
+-static unsigned int MAE8x8_withoutmask(unsigned char *ref,
+-				       unsigned char *input,
+-				       unsigned char *shape,
+-				       int pitch)
++static inline unsigned int
++MAE8x8_withoutmask(unsigned char *ref, unsigned char *input,
++    unsigned char *shape,
++    int pitch)
+ {
+   int dummy;
+   unsigned long retval;

@@ -1,0 +1,5 @@
+#!/bin/sh
+
+enemy-territory "$@" +set fs_game tcetest
+
+# End of File

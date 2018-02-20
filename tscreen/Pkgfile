@@ -1,0 +1,20 @@
+# Description: A fork of GNU screen terminal manager
+# URL:         http://www.steve.org.uk/Software/tscreen
+# Maintainer:  Thomas Penteker, tek at serverop dot de
+# Depends on:  ncurses
+
+name=tscreen
+version=0.4.9
+release=1
+source=(http://www.steve.org.uk/Software/tscreen/dist/$name-$version.tar.gz)
+
+build () {
+    cd $name-$version
+    ./configure --prefix=/usr \
+                --enable-colors256 \
+                --mandir=/usr/man
+    make
+    make DESTDIR=$PKG install
+    rm -rf $PKG/usr/share/info
+    chmod -s $PKG/usr/bin/$name-$version
+}

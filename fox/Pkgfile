@@ -1,0 +1,29 @@
+# Description: FOX graphical toolkit.
+# URL:         http://www.fox-toolkit.org/
+# Packager:    Johannes, Schick dot Johannes at gmail dot com
+# Maintainer:  Bartlomiej Palmowski, maks1k at wp dot pl
+# Depends on:  mesa3d libpng libtiff xorg-libxft xorg-libxcursor
+
+name=fox
+version=1.6.34
+release=1
+source=(http://www.$name-toolkit.org/ftp/$name-$version.tar.gz)
+
+build() {
+    cd $name-$version
+    ./configure \
+        --prefix=/usr \
+        --with-shape \
+        --with-xshm \
+        --enable-threadsafe \
+        --enable-release \
+        --with-opengl \
+        --with-xcursor \
+        --with-xft \
+        --disable-nls
+    make
+    make prefix=$PKG/usr install
+
+    rm -rf $PKG/usr/share
+}
+

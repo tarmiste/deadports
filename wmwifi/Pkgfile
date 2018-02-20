@@ -1,0 +1,17 @@
+# Description: A dockapp to monitor wireless signal strength
+# URL: http://www.dockapps.org/file.php/id/222
+# Maintainer: Mikhail Kolesnik, mike at openbunker dot org
+# Packager: Martin Opel mo at obbl-net dot de
+# Depends on: xorg-libxpm
+
+name=wmwifi
+version=0.6
+release=1
+source=(http://www.dockapps.org/download.php/id/669/$name-$version.tar.gz)
+
+build() {
+	cd $name-$version
+	./configure --prefix=/usr
+	make
+	make DESTDIR=$PKG install
+}

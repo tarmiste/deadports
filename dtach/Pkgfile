@@ -1,0 +1,16 @@
+# Description:	Tiny implementation of the detach feature from screen(1)
+# URL:		http://dtach.sourceforge.net/
+# Maintainer:	Mark Rosenstand, mark at borkware dot net
+
+name=dtach
+version=0.7
+release=1
+source=(http://dl.sourceforge.net/sourceforge/dtach/dtach-$version.tar.gz)
+
+build() {
+	cd dtach-$version
+	./configure --prefix=/usr
+	make
+	install -D dtach $PKG/usr/bin/dtach
+	install -D -m 644 dtach.1 $PKG/usr/man/man1/dtach.1
+}

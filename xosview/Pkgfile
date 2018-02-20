@@ -1,0 +1,18 @@
+# Description: Displays many system related stats (cpu usage, memory usage, swap usage etc)
+# URL: http://xosview.sourceforge.net/
+# Maintainer: Mikhail Kolesnik, mike at openbunker dot org
+# Depends on: x11
+
+name=xosview
+version=1.8.3
+release=2
+source=(http://dl.sourceforge.net/sourceforge/xosview/$name-$version.tar.gz)
+
+build() {
+	cd $name-$version
+	./configure --prefix=/usr
+	make
+	/usr/bin/install xosview   -D -m 755 $PKG/usr/bin/xosview
+	/usr/bin/install Xdefaults -D -m 644 $PKG/etc/X11/app-defaults/XOsview
+	/usr/bin/install xosview.1 -D -m 644 $PKG/usr/man/man1/xosview.1
+}

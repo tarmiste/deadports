@@ -1,0 +1,21 @@
+# Description: Swarming peer-to-peer download tool
+# URL: http://www.bittorrent.com/
+# Maintainer: Matt Housh, jaeger at crux dot nu
+# Depends on: python, twisted-core, pycrypto
+# Nice to have: pygtk
+
+name=bittorrent
+version=4.20.6
+release=1
+source=(http://download.bittorrent.com/dl/BitTorrent-$version.tar.gz)
+
+build() {
+	cd BitTorrent-$version
+	:> makei18n.sh
+	cp BitTorrent/__init__.py{,.orig}
+	sed -i -e '94,95d' BitTorrent/__init__.py
+	python setup.py install --root=$PKG
+	rm -rf $PKG/usr/share/doc $PKG/usr/share/locale
+	cp -f BitTorrent/__init__.py.orig \
+		$PKG/usr/lib/python2.4/site-packages/BitTorrent/__init__.py
+}

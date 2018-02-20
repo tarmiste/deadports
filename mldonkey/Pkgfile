@@ -1,0 +1,32 @@
+# Description: Multi-platform multi-network peer-to-peer client.
+# URL: http://mldonkey.sourceforge.net/
+# Maintainer: Jose V Beneyto, sepen at crux dot nu
+# Packager: Jose V Beneyto, sepen at crux dot nu
+# Depends on: bzip2
+# Nice to have: libgd
+
+name=mldonkey
+version=3.1.5
+release=1
+source=(http://download.sourceforge.net/$name/$name-$version.tar.bz2 \
+        mlnetd)
+
+build() {
+  local ocamlsrc="$PKGMK_SOURCE_DIR/ocaml-3.12.0.tar.gz"
+  if [ ! -f "$ocamlsrc" ]; then
+    wget -c -O "$ocamlsrc".partial http://caml.inria.fr/distrib/ocaml-3.12/ocaml-3.12.0.tar.gz
+    mv "$ocamlsrc".partial "$ocamlsrc"
+  fi
+
+  cd $name-$version
+  ln -s "$ocamlsrc" patches/
+  ./configure --prefix=/usr \
+              --disable-gui \
+              --disable-bittorrent \
+              --enable-batch \
+              --disable-debug
+  make
+  make DESTDIR=$PKG install
+  install -d $PKG/var/mlnet
+  install -D -m 0755 $SRC/mlnetd $PKG/etc/rc.d/mlnetd
+}

@@ -1,0 +1,9 @@
+diff -pruN clearsilver-0.10.4-orig/scripts/document.py clearsilver-0.10.1/scripts/document.py
+--- clearsilver-0.10.4-orig/scripts/document.py	2005-08-02 01:30:42.000000000 +1000
++++ clearsilver-0.10.4/scripts/document.py	2005-08-02 01:31:08.000000000 +1000
+@@ -1,4 +1,4 @@
+-#!/bin/env python
++#!/usr/bin/env python
+ """
+   document.py -- Simple script to generate manpages from C header
+   files.  Looks for the following formatted C comments in the C header files:

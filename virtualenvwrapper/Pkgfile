@@ -1,0 +1,17 @@
+# Description:  A set of enhancements to virtualenv
+# URL:          http://www.doughellmann.com/projects/virtualenvwrapper/
+# Maintainer:   James Mills, prologic at shortcircuit dot net dot au
+
+# Depends on:   virtualenv virtualenv-clone stevedore
+
+name=virtualenvwrapper
+version=4.2
+release=1
+source=(http://pypi.python.org/packages/source/v/$name/$name-$version.tar.gz)
+
+build() {
+    cd $name-$version
+    /usr/bin/python setup.py install --root=$PKG
+    mkdir -p $PKG/etc/profile.d
+    ln -sf /usr/bin/virtualenvwrapper.sh $PKG/etc/profile.d/
+}

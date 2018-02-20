@@ -1,0 +1,17 @@
+# Description: TransGaming's flagship Linux portability product
+# URL: http://www.transgaming.com/
+# Maintainer: Lucas Hazel, lucas at die dot net dot au
+# Packager: Matt Housh, jaeger at morpheus dot net
+# Depends on: alsa-lib, pygtk, dbus-python
+
+name=cedega
+version=6.0.2
+release=1
+source=(file:///$name-small-$version.tgz)
+
+build() {
+	cp -a $SRC/* $PKG/
+	rm -rf $PKG/usr/share/{doc,gnome} \
+		$PKG/opt $PKG/etc
+	mv $PKG/usr/share/man $PKG/usr/
+}

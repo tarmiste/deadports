@@ -1,0 +1,47 @@
+# Description: Plugins for geany
+# URL: http://plugins.geany.org/geany-plugins/
+# Maintainer: Jose V Beneyto, sepen at crux dot nu
+# Packager: Jose V Beneyto, sepen at crux dot nu
+# Depends on: geany vte enchant
+
+name=geany-plugins
+version=1.28
+release=1
+source=(http://plugins.geany.org/$name/$name-$version.tar.bz2)
+
+build () {
+  cd $name-$version
+  ./configure --prefix=/usr \
+              --libexecdir=/usr/lib \
+              --disable-nls \
+              --enable-addons \
+              --enable-codenav \
+              --enable-debugger \
+              --enable-geanydoc \
+              --enable-geanyextrasel \
+              --enable-geanyinsertnum \
+              --enable-geanylatex \
+              --enable-geanylipsum \
+              --enable-geanymacro \
+              --enable-geanyprj \
+              --enable-geanysendmail \
+              --enable-geanyvc \
+              --enable-largefile \
+              --enable-gproject \
+              --enable-pretty_printer \
+              --enable-shiftcolumn \
+              --enable-spellcheck \
+              --enable-treebrowser \
+              --enable-tableconvert \
+              --enable-xmlsnippets \
+              --disable-devhelp \
+              --disable-geanylua \
+              --disable-gtkspell \
+              --disable-geanypg \
+              --disable-updatechecker \
+              --disable-webhelper
+
+  make
+  make DESTDIR=$PKG install
+  rm -rf $PKG/usr/share/{doc,locale}
+}

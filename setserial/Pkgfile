@@ -1,0 +1,19 @@
+# Description: A program that allows to view and change various attributes of a serial device
+# URL: http://setserial.sourceforge.net/
+# Maintainer: Mikhail Kolesnik, mike at openbunker dot org
+# Depends on:
+
+name=setserial
+version=2.17
+release=3
+source=(http://sourceforge.net/projects/setserial/files/$name-$version.tar.gz \
+		setserial-hayes.diff)
+
+build() {
+	cd $name-$version
+	patch -p0 -i $SRC/setserial-hayes.diff
+	./configure --prefix=/usr
+	make
+	/usr/bin/install -D -m 755 setserial $PKG/usr/bin/setserial
+	/usr/bin/install -D -m 644 setserial.8 $PKG/usr/man/man8/setserial.8
+}

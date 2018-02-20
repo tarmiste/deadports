@@ -1,0 +1,16 @@
+README for jenkins
+
+
+POST INSTALL
+
+        noexec and /tmp troubleshooting
+        -------------------------------
+
+        Many simple exploits that are used against servers rely upon being able
+        to execute commands in /tmp. As a security precaution, /tmp is mounted
+        with noexec. This is a good thing and should generally stay this way,
+        but jenkins doesn't think so, and it will give an error like:
+        "UnsatisfiedLinkError: ... failed to map segment from shared object".
+
+        In this situation, we need to edit file /usr/etc/jenkins.conf and add
+        "-Djava.io.tmpdir=/your/chrooted/tmp" into JENKINS_JAVA_OPTIONS variable.

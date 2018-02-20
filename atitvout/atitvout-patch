@@ -1,0 +1,25 @@
+diff -pruN atitvout.orig/Makefile atitvout/Makefile
+--- atitvout.orig/Makefile	2005-10-04 23:27:58.000000000 +1000
++++ atitvout/Makefile	2005-10-04 23:35:48.000000000 +1000
+@@ -4,6 +4,8 @@ OBJS=atitvout.o ati.o vbeinfo.o vbecall.
+ TAR=atitvout-$(VERSION).tar.gz
+ BINARY=atitvout
+ PACKAGE=atitvout
++PREFIX=/usr
++DESTDIR=
+ 
+ all: $(BINARY)
+ 
+@@ -21,10 +23,10 @@ clean:
+ 	make -C lrmi-0.6 clean
+ 
+ install: strip
+-	install -g root -o root -m 555 $(BINARY) /usr/local/sbin
++	install -D -m 0555 $(BINARY) ${DESTDIR}${PREFIX}/sbin/$(BINARY)
+ 
+ deinstall:
+-	rm -f /usr/local/sbin/$(BINARY)
++	rm -f ${DESTDIR}${PREFIX}/sbin
+ 
+ README: README.in
+ 	sed s/VERSION/$(VERSION)/ < README.in > README

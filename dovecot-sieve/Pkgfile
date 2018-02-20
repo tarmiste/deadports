@@ -1,0 +1,19 @@
+# Description: Mail filter for the dovecot LDA
+# URL: http://wiki.dovecot.org/LDA/Sieve
+# Maintainer: Lucas Hazel, lucas at die dot net dot au
+# Depends on: dovecot
+
+name=dovecot-sieve
+version=0.1.13
+release=1
+source=(http://www.rename-it.nl/dovecot/1.2/dovecot-1.2-sieve-$version.tar.gz)
+
+build() {
+    cd dovecot-1.2-sieve-$version
+    ./configure --prefix=/usr \
+	--libexecdir=/usr/lib \
+	--mandir=/usr/man \
+	--with-dovecot=/usr/lib/dovecot
+    make
+    make DESTDIR=$PKG install
+}

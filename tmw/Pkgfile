@@ -1,0 +1,16 @@
+# Description: 2D MMORPG (like tibia but w/o freaks throwing chairs at their mothers)
+# URL:         http://themanaworld.org/
+# Maintainer:  Bartlomiej Palmowski, rotwang at crux dot org dot pl
+# Depends on:  guichan physfs libxml2 libpng sdl_mixer sdl_net sdl_ttf
+
+name=tmw
+version=0.0.29.1
+release=1
+source=(http://downloads.sourceforge.net/project/themanaworld/The%20Mana%20World/$version/$name-$version.tar.gz)
+
+build() {
+    cd $name-$version
+    ./configure --prefix=/usr --mandir=/usr/man --disable-nls
+    make
+    make DESTDIR=$PKG install
+}

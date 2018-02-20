@@ -1,0 +1,15 @@
+# Description: A collection of extractor wrappers for deco.
+# URL: http://hartlich.com/deco/
+# Maintainer: Danny Rawlins, monster dot romster at gmail dot com
+# Packager: Danny Rawlins, monster dot romster at gmail dot com
+
+name=deco-archive
+version=1.6
+release=1
+source=(http://hartlich.com/deco/archive/download/$name-$version.tar.gz)
+
+build() {
+	cd $name-$version
+	sed -i -e 's|^PREFIX   = /usr/local|PREFIX   = /usr|' config.mk
+	make DESTDIR=$PKG install
+}

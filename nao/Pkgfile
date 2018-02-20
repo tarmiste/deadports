@@ -1,0 +1,22 @@
+# Description: powerful, flexible, and utterly configurable file manager for UNIX systems
+# URL:         http://nao.linux.pl/
+# Maintainer:  Bartlomiej Palmowski, maks1k at wp dot pl
+# Depends on:  boost fox python
+
+name=nao
+version=0.4.1
+release=2
+source=(http://$name.linux.pl/data/$name-$version.tar.bz2 
+    $name-${version}_ambiguous_reference.patch)
+
+build() {
+    cd $name-$version
+    patch -p1 -i ../$name-${version}_ambiguous_reference.patch
+    ./configure \
+        --prefix=/usr \
+        --sysconfdir=/etc \
+        --disable-nls \
+        --enable-python
+    make
+    make DESTDIR=$PKG install
+}

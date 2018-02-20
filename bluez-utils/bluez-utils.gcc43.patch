@@ -1,0 +1,40 @@
+--- bluez-utils-2.25/tools/hciconfig.c.orig	2009-05-29 23:20:42.465846076 +0900
++++ bluez-utils-2.25/tools/hciconfig.c	2009-05-29 23:20:24.656113414 +0900
+@@ -36,6 +36,7 @@
+ #include <getopt.h>
+ #include <sys/ioctl.h>
+ #include <sys/socket.h>
++#include <limits.h>
+ 
+ #include <bluetooth/bluetooth.h>
+ #include <bluetooth/hci.h>
+--- bluez-utils-2.25/tools/hciattach.c.orig	2009-05-29 23:09:38.201730680 +0900
++++ bluez-utils-2.25/tools/hciattach.c	2009-05-29 23:10:00.495664682 +0900
+@@ -40,6 +40,7 @@
+ #include <sys/time.h>
+ #include <sys/ioctl.h>
+ #include <sys/socket.h>
++#include <limits.h>
+ 
+ #include <bluetooth/bluetooth.h>
+ #include <bluetooth/hci.h>
+--- bluez-utils-2.25/sdpd/request.c.orig	2009-05-29 23:21:31.751057125 +0900
++++ bluez-utils-2.25/sdpd/request.c	2009-05-29 23:21:45.857770332 +0900
+@@ -33,6 +33,7 @@
+ #include <malloc.h>
+ #include <syslog.h>
+ #include <sys/socket.h>
++#include <limits.h>
+ 
+ #include <bluetooth/bluetooth.h>
+ #include <bluetooth/sdp.h>
+--- bluez-utils-2.25/hidd/sdp.c.orig	2009-05-29 23:23:37.324463314 +0900
++++ bluez-utils-2.25/hidd/sdp.c	2009-05-29 23:24:18.087891487 +0900
+@@ -34,6 +34,7 @@
+ #include <string.h>
+ #include <sys/stat.h>
+ #include <sys/socket.h>
++#include <limits.h>
+ 
+ #include <bluetooth/bluetooth.h>
+ #include <bluetooth/l2cap.h>

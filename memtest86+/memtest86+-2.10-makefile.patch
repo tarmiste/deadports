@@ -1,0 +1,31 @@
+diff -pruN memtest86+-2.10.orig/Makefile memtest86+-2.10/Makefile
+--- memtest86+-2.10.orig/Makefile	2008-11-18 15:16:45.879971731 +1100
++++ memtest86+-2.10/Makefile	2008-11-18 16:08:03.084953799 +1100
+@@ -8,10 +8,13 @@
+ #
+ FDISK=/dev/fd0
+ 
+-AS=as -32
+-CC=gcc
++AS?=as
++CC?=gcc
+ 
+-CFLAGS= -fno-stack-protector -Wall -march=i486 -m32 -Os -fomit-frame-pointer -fno-builtin -ffreestanding -fPIC
++CPPFLAGS=-m32
++CFLAGS?=-0s -march=i486 -fomit-frame-pointer
++CFLAGS+= -m32 -fPIC -Wall -ffreestanding -fno-builtin -fno-stack-protector
++ASFLAGS=-32
+ 
+ OBJS= head.o reloc.o main.o test.o init.o lib.o patn.o screen_buffer.o \
+       config.o linuxbios.o memsize.o pci.o controller.o random.o extra.o \
+@@ -65,6 +68,9 @@ install: all
+ 
+ install-precomp:
+ 	dd <precomp.bin >$(FDISK) bs=8192
++
++install-memtest.bin:
++	install -m 0644 -D memtest.bin $(DESTDIR)/boot/memtest.bin
+ 	
+ dos: all
+ 	cat mt86+_loader memtest.bin > memtest.exe
+

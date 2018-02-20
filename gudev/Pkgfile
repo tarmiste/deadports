@@ -1,0 +1,29 @@
+# Description: Gobject interface for udev.
+# URL: http://gudev.sourceforge.net/
+# Maintainer: Danny Rawlins, monster dot romster at gmail dot com
+# Packager: Jose V Beneyto, sepen at crux dot nu
+# Depends on: gobject-introspection gperf eudev
+
+name=gudev
+version=1.9
+release=1
+source=(http://dev.gentoo.org/~blueness/eudev/eudev-$version.tar.gz)
+
+build() {
+	cd eudev-$version
+
+	sed -i '/^Libs:/s/-ludev/-ludev -lrt/' src/libudev/libudev.pc.in
+
+	./configure \
+		--prefix=/usr \
+		--disable-manpages
+
+	make CFLAGS="$CFLAGS -D_GNU_SOURCE"
+	make install DESTDIR=$SRC/tmp
+
+	install -d $PKG/{lib,usr/{include,lib/pkgconfig,share/gir-1.0}}
+	mv $SRC/tmp/usr/include/gudev* $PKG/usr/include
+	mv $SRC/tmp/usr/lib/libgudev* $PKG/usr/lib
+	mv $SRC/tmp/usr/lib/pkgconfig/$name-1.0.pc $PKG/usr/lib/pkgconfig
+	mv $SRC/tmp/usr/share/gir-1.0/* $PKG/usr/share/gir-1.0/
+}

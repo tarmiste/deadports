@@ -1,0 +1,32 @@
+# Description: A multi-protocol instant messaging client with encryption
+# Maintainer: Matt Housh, jaeger at morpheus dot net
+# URL: http://gaim.sourceforge.net/
+# Depends on: gtk, nss, p5-xml-parser, avahi
+
+# Nice to have: libao
+# Note: mozilla will work in place of nss for building gaim
+
+name=gaim-beta
+version=2.0.0beta6
+release=1
+source=(http://dl.sourceforge.net/sourceforge/gaim/gaim-$version.tar.bz2)
+
+build () {
+	cd gaim-$version
+	./configure --prefix=/usr \
+		--disable-perl \
+		--disable-nls \
+		--disable-gnutls \
+		--with-nspr-includes=/usr/include/nspr \
+		--with-nss-includes=/usr/include/nss \
+		--with-nspr-libs=/usr/lib \
+		--with-nss-libs=/usr/lib \
+		--disable-gevolution \
+		--with-howl-includes=/usr/include/avahi-compat-howl
+	make
+	make DESTDIR=$PKG install
+	rm -rf $PKG/usr/share/locale
+	#mv $PKG/{Gaim.*,auto} $PKG/usr/lib/perl5/*/linux/
+	#find $PKG -name perllocal.pod -exec rm -f '{}' \;
+	#find $PKG -name .packlist -exec rm -f '{}' \;
+} 

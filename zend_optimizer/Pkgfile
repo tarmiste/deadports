@@ -1,0 +1,21 @@
+# Description: Runs the files encoded by the Zend Guard
+# Maintainer: Mikhail Kolesnik, mike at openbunker dot org
+# URL: http://www.zend.com/products/zend_optimizer
+# Depends on: mod_php
+
+name=zend_optimizer
+version=3.2.8
+release=2
+source=(http://some.site/ZendOptimizer-$version-linux-glibc21-i386.tar.gz)
+# Register, download pakage from http://www.zend.com/products/zend_optimizer
+# and put it to $PKGMK_SOURCE_DIR
+
+build(){
+	cd ZendOptimizer-$version-linux-glibc21-i386
+	
+	install -D -m 755 data/5_2_x_comp/ZendOptimizer.so $PKG/usr/lib/php/extensions/Optimizer/lib/ZendOptimizer.so
+	install -D -m 755 data/5_2_x_comp/TS/ZendOptimizer.so $PKG/usr/lib/php/extensions/Optimizer_TS/lib/ZendOptimizer.so
+	install -D -m 755 data/ZendExtensionManager.so $PKG/usr/lib/php/extensions/ZendExtensionManager.so
+	install -D -m 755 data/ZendExtensionManager_TS.so $PKG/usr/lib/php/extensions/ZendExtensionManager_TS.so
+	install -D -m 755 data/zendid $PKG/usr/bin/zendid
+}

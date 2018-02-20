@@ -1,0 +1,22 @@
+#!/bin/sh
+
+#
+# /etc/rc.d/mythbackend: start/stop the MythTV backend server
+#
+
+case "$1" in
+	"start")
+		/usr/bin/mythbackend -l /var/log/mythbackend.log -d
+		;;
+	"stop")
+		/usr/bin/killall mythbackend > /dev/null
+		;;
+	"restart")
+		$0 stop && sleep 1 && $0 start
+		;;
+	*)
+		echo "Usage: $0 start|stop|restart"
+		;;
+esac
+
+# End of file

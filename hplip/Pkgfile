@@ -1,0 +1,22 @@
+# Description: HP Printing and Imaging for Linux (Includes HPIJS)
+# URL:			http://hplip.sourceforge.net/ 
+# Maintainer:	James Mills, prologic at shortcircuit dot net dot au
+# Packager:		Diederick de Vries <diederick at diederickdevries dot net>
+#
+# Depends on:	net-snmp, pyqt, foomatic-filters, libgphoto2
+
+name=hplip
+version=2.7.12
+release=1
+source=(http://dl.sourceforge.net/sourceforge/$name/$name-$version.tar.gz \
+	hplip.desktop)
+
+build() {
+	cd $name-$version
+	./configure --prefix=/usr --enable-foomatic-ppd-install
+	make clean
+	make
+	make DESTDIR=$PKG install
+	install -D -m 0644 $SRC/hplip.desktop $PKG/usr/share/applications/hplip.desktop
+	chown -R root:root $PKG
+}

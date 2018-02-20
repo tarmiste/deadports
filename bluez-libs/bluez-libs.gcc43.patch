@@ -1,0 +1,10 @@
+--- bluez-libs-2.25/src/sdp.c.orig	2009-05-29 23:15:56.842504977 +0900
++++ bluez-libs-2.25/src/sdp.c	2009-05-29 23:16:10.695271325 +0900
+@@ -38,6 +38,7 @@
+ #include <sys/socket.h>
+ #include <sys/time.h>
+ #include <sys/types.h>
++#include <limits.h>
+ 
+ #include <bluetooth/bluetooth.h>
+ #include <bluetooth/hci.h>

@@ -1,0 +1,8 @@
+#!/bin/sh
+
+export PANDO_HOME=/usr/share/pando
+export LD_LIBRARY_PATH=${PANDO_HOME}/lib:${LD_LIBRARY_PATH}
+
+${PANDO_HOME}/pandoDownloader $@ 2>&1 >/dev/null &
+
+# End of file

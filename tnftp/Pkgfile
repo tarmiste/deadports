@@ -1,0 +1,17 @@
+# Description:	Port of the NetBSD FTP client
+# URL:		http://www.netbsd.org/
+# Maintainer:	Mark Rosenstand, mark at borkware dot net
+
+name=tnftp
+version=20050625
+release=1
+source=(ftp://ftp.netbsd.org/pub/NetBSD/misc/tnftp/tnftp-$version.tar.gz)
+
+build() {
+	cd tnftp-$version
+	./configure --prefix=/usr
+	make
+	mkdir -p $PKG/usr/{bin,man/man1}
+	cp src/ftp $PKG/usr/bin
+	cp src/ftp.1 $PKG/usr/man/man1
+}

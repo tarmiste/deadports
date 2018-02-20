@@ -1,0 +1,21 @@
+# Description: Lightweight X11 desktop panel
+# URL: http://fbpanel.sourceforge.net/
+# Maintainer: Jose V Beneyto, sepen at users dot sourceforge dot net
+# Packager: Han Boetes, han at mijncomputer dot nl
+# Depends on: gtk
+
+name=fbpanel
+version=4.12
+release=1
+source=(http://dl.sourceforge.net/sourceforge/$name/$name-$version.tgz \
+	config-default)
+
+build() {
+  cd $name-$version
+  ./configure --prefix=/usr \
+              --cpu=on
+  make
+  make PREFIX=$PKG/usr install
+  mv $PKG/usr/share/man $PKG/usr/man
+  install -D -m 0644 $SRC/config-default $PKG/usr/share/$name/default
+}

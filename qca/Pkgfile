@@ -1,0 +1,28 @@
+# Description: QCA aims to provide a straightforward and cross-platform crypto API, using Qt.
+# URL: https://userbase.kde.org/QCA
+# Maintainer: Jose V Beneyto, sepen at crux dot nu
+# Packager: Jose V Beneyto, sepen at crux dot nu
+# Depends on: qt4
+
+name=qca
+version=2.1.3
+release=1
+source=(http://download.kde.org/stable/$name/$version/src/$name-$version.tar.xz)
+
+build() {
+  cd $name-$version
+
+  install -d build
+  cd build
+
+  cmake .. \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DBUILD_TESTS=OFF \
+    -DQT4_BUILD=ON \
+    -DQCA_LIBRARY_INSTALL_DIR=/usr/lib \
+    -DQCA_FEATURE_INSTALL_DIR=/usr/share/qt4/mkspecs/features
+
+  make
+  make DESTDIR=$PKG install
+}

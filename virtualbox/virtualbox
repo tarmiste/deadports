@@ -1,0 +1,24 @@
+#!/bin/sh
+
+if [ ! -z "`/usr/bin/pgrep VBoxSVC`" ]; then
+  echo "Error, virtualbox is already running."
+  exit 1
+fi
+
+if [ -z "`/sbin/lsmod | /usr/bin/grep vboxdrv`" ]; then
+  echo "Error, vboxdrv kernel module isn't loaded."
+  exit 1
+fi
+
+VBOX_PATH=/usr/share/virtualbox/bin
+export LD_LIBRARY_PATH=${VBOX_PATH}:${LD_LIBRARY_PATH}
+
+cd ${VBOX_PATH}
+./VBoxSVC >/dev/null &
+sleep 2
+./VirtualBox
+cd - > /dev/null
+
+/usr/bin/pkill VBoxSVC || /bin/kill -9 `/usr/bin/pgrep VBoxSVC`
+
+# End of File

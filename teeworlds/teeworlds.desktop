@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=TeeWorlds
+Comment=multiplayer 2D shooter
+Exec=teeworlds
+Icon=/usr/share/pixmaps/gui_tee.png
+Terminal=false
+StartupNotify=false
+Categories=Game;
+Type=Application
+

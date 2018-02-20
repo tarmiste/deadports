@@ -1,0 +1,51 @@
+diff -pruN zsnes_1_51.orig/src/parsegen.cpp zsnes_1_51/src/parsegen.cpp
+--- zsnes_1_51.orig/src/parsegen.cpp	2008-12-29 11:14:50.415894893 +0000
++++ zsnes_1_51/src/parsegen.cpp	2008-12-29 11:16:04.956025228 +0000
+@@ -31,6 +31,7 @@ Config file handler creator by Nach (C) 
+ #include <sstream>
+ #include <set>
+ #include <stack>
++#include <cstring>
+ using namespace std;
+ 
+ #include <errno.h>
+@@ -1822,7 +1823,7 @@ void parser_generate(istream& psr_stream
+   }
+ }
+ 
+-int main(size_t argc, const char *const *const argv)
++int main(int argc, const char *const *const argv)
+ {
+   const char *cheader_file = 0;
+   bool compile = false;
+diff -pruN zsnes_1_51.orig/src/tools/depbuild.cpp zsnes_1_51/src/tools/depbuild.cpp
+--- zsnes_1_51.orig/src/tools/depbuild.cpp	2008-12-29 11:14:50.431894945 +0000
++++ zsnes_1_51/src/tools/depbuild.cpp	2008-12-29 11:16:04.956025228 +0000
+@@ -24,6 +24,7 @@ This program generates dependencies for 
+ #include <iostream>
+ #include <string>
+ #include <cstdio>
++#include <cstdlib>
+ using namespace std;
+ 
+ #include "fileutil.h"
+@@ -183,7 +184,7 @@ void dependency_calculate(const char *fi
+   }
+ }
+ 
+-int main(size_t argc, const char *const *const argv)
++int main(int argc, const char *const *const argv)
+ {
+   if (argc < 5)
+   {
+diff -pruN zsnes_1_51.orig/src/tools/strutil.h zsnes_1_51/src/tools/strutil.h
+--- zsnes_1_51.orig/src/tools/strutil.h	2008-12-29 11:14:50.431894945 +0000
++++ zsnes_1_51/src/tools/strutil.h	2008-12-29 11:16:04.956025228 +0000
+@@ -25,6 +25,7 @@ This is part of a toolkit used to assist
+ #include <string>
+ #include <vector>
+ #include <cctype>
++#include <cstring>
+ 
+ struct ci_char_traits : public std::char_traits<char>
+ {

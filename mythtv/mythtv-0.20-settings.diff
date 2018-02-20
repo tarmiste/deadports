@@ -1,0 +1,19 @@
+--- settings.pro.orig	2006-11-17 22:57:02.584884499 +0100
++++ settings.pro	2006-11-17 22:57:30.654638749 +0100
+@@ -1,7 +1,7 @@
+ CONFIG += $$CCONFIG
+ 
+ isEmpty( PREFIX ) {
+-    PREFIX = /usr/local
++    PREFIX = /usr
+ }
+ 
+ LIBVERSION = 0.20
+@@ -19,6 +19,7 @@
+ }
+ 
+ INCLUDEPATH += $${PREFIX}/include
++INCLUDEPATH += $${PREFIX}/include/qt
+ INCLUDEPATH += $$CONFIG_INCLUDEPATH
+ 
+ # figure out compile flags based on qmake info

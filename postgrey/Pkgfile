@@ -1,0 +1,22 @@
+# Description: Postfix greylisting policy server
+# URL: http://postgrey.schweikert.ch/
+# Maintainer: Lucas Hazel, lucas at die dot net dot au
+# Depends on: p5-net-server p5-io-multiplex p5-berkeleydb
+
+name=postgrey
+version=1.32
+release=1
+source=(http://postgrey.schweikert.ch/pub/$name-$version.tar.gz $name.rc)
+
+build() {
+	cd $name-$version
+	install -m 0755 -D postgrey $PKG/usr/sbin/postgrey
+
+	mkdir -p $PKG/etc/postfix
+	cp postgrey_whitelist* $PKG/etc/postfix
+
+	install -D -m 0755 $SRC/$name.rc $PKG/etc/rc.d/$name
+
+	mkdir -p $PKG/var/spool/postfix/postgrey
+	chown postgrey:postgrey $PKG/var/spool/postfix/postgrey
+}

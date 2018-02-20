@@ -1,0 +1,23 @@
+# Description: A combined network and serial communication software 
+# URL: http://www.columbia.edu/kermit/ck90.html
+# Maintainer: Mikhail Kolesnik, mike at openbunker dot org
+# Depends on: ncurses
+
+name=ckermit
+version=9.0.302
+release=1
+source=(ftp://ftp.kermitproject.org/kermit/archives/cku302.tar.gz 
+	lockdir.patch)
+
+build() {
+	chmod -R og-rwx $SRC
+	patch -p1 -i lockdir.patch
+
+	make linux
+	/usr/bin/install -D -m 0755 wermit $PKG/usr/bin/ckermit
+	/usr/bin/install -D -m 0644 ckuker.nr $PKG/usr/man/man1/ckermit.1
+
+	echo "#!/usr/bin/ckermit" > _tmp.ini
+	cat ckermit.ini >> _tmp.ini
+	install -m 0755 _tmp.ini $PKG/usr/bin/ckermit.ini
+}

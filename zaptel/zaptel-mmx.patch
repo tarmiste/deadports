@@ -1,0 +1,11 @@
+--- zaptel-1.4.11/kernel/zconfig.h.orig	2008-07-08 07:10:28.134773466 -0430
++++ zaptel-1.4.11/kernel/zconfig.h	2008-07-08 07:10:43.616179234 -0430
+@@ -52,7 +52,7 @@
+  * processors and can cause system instability!
+  * 
+  */
+-/* #define CONFIG_ZAPTEL_MMX */
++#define CONFIG_ZAPTEL_MMX
+ 
+ /** If defined: the user must define exactly one ECHO_CAN_ var: */
+ #ifndef ECHO_CAN_FROMENV 

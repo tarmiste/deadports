@@ -1,0 +1,15 @@
+# Description:  scalable, non-blocking webserver
+# URL:          http://tornadoweb.org
+# Maintainer:   Thomas Penteker, tek at serverop dot de
+# Depends on:   python
+# Nice to have: python-pycurl, python-simplejson
+
+name=tornadoweb
+version=4.3
+release=1
+source=(https://pypi.python.org/packages/source/t/tornado/tornado-${version}.tar.gz)
+
+build () {
+   cd tornado-$version
+   /usr/bin/python setup.py install --root=$PKG
+}

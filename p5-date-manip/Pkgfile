@@ -1,0 +1,28 @@
+# Description: perl date manip.
+# URL: http://search.cpan.org/~sbeck/Date-Manip-6.37/lib/Date/Manip.pod
+# Maintainer: Danny Rawlins, monster dot romster at gmail dot com
+# Packager: Han Boetes han at mijncomputer dot nl
+
+name=p5-date-manip
+version=6.39
+release=1
+source=(http://www.cpan.org/modules/by-module/Date/Date-Manip-$version.tar.gz)
+
+build() {
+	cd Date-Manip-$version
+
+	perl Makefile.PL
+	make OPTIMIZE="$CFLAGS"
+	make install DESTDIR=$PKG
+
+	# Remove perlcrap
+	find $PKG -type f \( \
+		-name '.packlist' -o \
+		-name '*.bs' -o \
+		-name 'autosplit.ix' -o \
+		-name 'perllocal.pod' \) -delete
+
+	# Remove empty directories
+	find $PKG -depth -empty -delete
+}
+

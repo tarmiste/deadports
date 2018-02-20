@@ -1,0 +1,11 @@
+[Desktop Entry]
+Encoding=UTF-8
+Comment=Voice Over IP Communications
+Exec=twinkle
+Icon=/usr/share/twinkle/twinkle48.png
+X-KDE-StartupNotify=true
+Type=Application
+Name=Twinkle
+GenericName=Internet Soft Phone
+GenericName[es]=Teléfono en Internet
+Categories=Qt;KDE;Internet

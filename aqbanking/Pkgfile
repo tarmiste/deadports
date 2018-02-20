@@ -1,0 +1,27 @@
+# Description: Basic HBCI interface
+# URL: http://www.aqbanking.de/
+# Maintainer: Simon Gloﬂner, viper at hometux dot de
+# Depends on: libgmp, ktoblzcheck, gwenhywfar, qt3
+
+name=aqbanking
+version=3.0.1
+release=1
+source=($name-$version.tar.gz)
+    
+build() {
+    cd $name-$version
+
+    ./configure \
+	--prefix=/usr \
+	--disable-kde \
+	--enable-gwenhywfar \
+	--with-backends=aqhbci \
+	--with-frontends="cbanking qbanking"
+    make 
+    make DESTDIR=$PKG install
+
+    rm -rf $PKG/usr/share/doc
+    rm -rf $PKG/usr/share/locale
+    rm -rf $PKG/usr/share/aqbanking/i18n
+    rm -rf $PKG/usr/share/aqbanking/frontends
+}

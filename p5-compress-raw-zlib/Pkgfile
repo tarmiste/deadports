@@ -1,0 +1,20 @@
+# Description: Low-Level Interface to zlib compression library
+# URL: http://search.cpan.org/~pmqs/Compress-Raw-Zlib/
+# Maintainer: Mikhail Kolesnik, mike at openbunker dot org
+# Depends on:
+
+name=p5-compress-raw-zlib
+version=2.015
+release=1
+source=(http://search.cpan.org/CPAN/authors/id/P/PM/PMQS/Compress-Raw-Zlib-$version.tar.gz)
+
+build() {
+	cd Compress-Raw-Zlib-$version
+	perl Makefile.PL
+	make OPTIMIZE="$CFLAGS"
+	make DESTDIR=$PKG install
+	find $PKG -name .packlist -exec rm {} \;
+	find $PKG -name "*.bs" -exec rm {} \;
+	find $PKG -name perllocal.pod -exec rm {} \;
+	find $PKG -depth -type d -empty -exec rm -rf {} \;
+}

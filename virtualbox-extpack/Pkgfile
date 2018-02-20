@@ -1,0 +1,22 @@
+# Description: Oracle VM VirtualBox Extension Pack
+# URL: http://www.virtualbox.org/
+# Maintainer: Jose V Beneyto, sepen at crux dot nu
+# Packager: Jose V Beneyto, sepen at crux dot nu
+# Depends on: virtualbox
+
+name=virtualbox-extpack
+version=5.1.18-114002
+release=1
+source=(http://download.virtualbox.org/virtualbox/${version%%-*}/Oracle_VM_VirtualBox_Extension_Pack-$version.vbox-extpack \
+        61-vboxdrv-extpack.rules)
+
+build() {
+  DESTDIR="$PKG/usr/share/virtualbox/bin/ExtensionPacks/Oracle_VM_VirtualBox_Extension_Pack"
+  mkdir -p $DESTDIR
+
+  tar xf $SRC/Oracle_VM_VirtualBox_Extension_Pack-$version.vbox-extpack -C $DESTDIR
+  rm -rf $DESTDIR/{darwin*,solaris*,win*,linux.x86}
+  chown -R root:root $DESTDIR
+
+  install -D -m 0644 $SRC/61-vboxdrv-extpack.rules $PKG/etc/udev/rules.d/61-vboxdrv-extpack.rules
+}

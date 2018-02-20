@@ -1,0 +1,43 @@
+#!/bin/sh
+#
+# /etc/rc.d/docker: start/stop docker daemon
+#
+
+source /etc/docker.conf
+
+case $1 in
+start)
+    # Ensure ownership and permissiong of log file.
+    touch /var/log/docker.log
+    chgrp docker /var/log/docker.log
+    chown 640 /var/log/docker.log
+
+    # Ensure cgroups is properly mounted.
+    cgroupfs-mount
+
+    nohup /usr/bin/docker $DOCKER_OPTS > /var/log/docker.log 2>&1 &
+    ;;
+stop)
+    if [ -f /var/run/docker.pid ]; then
+        kill $(< /var/run/docker.pid)
+        rm -f /var/run/docker.pid
+        rm -f /var/run/docker.sock
+    else
+        killall -q /usr/bin/docker
+        rm -f /var/run/docker.sock
+    fi
+
+    # Unmount cgroups is
+    cgroupfs-umount
+    ;;
+restart)
+    $0 stop
+    sleep 2
+    $0 start
+    ;;
+*)
+    echo "usage: $0 [start|stop|restart]"
+    ;;
+esac
+
+# End of file

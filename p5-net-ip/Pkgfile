@@ -1,0 +1,20 @@
+# Description: Perl extension for manipulating IPv4/IPv6 addresses
+# URL: http://search.cpan.org/~manu/Net-IP/
+# Maintainer: Mikhail Kolesnik, mike at openbunker dot org
+# Packager: Han Boetes, han at mijncomputer dot nl
+# Depends on:
+
+name=p5-net-ip
+version=1.26
+release=1
+source=(http://search.cpan.org/CPAN/authors/id/M/MA/MANU/Net-IP-$version.tar.gz)
+
+build() {
+	cd Net-IP-$version
+	perl Makefile.PL
+	make OPTIMIZE="$CFLAGS"
+	make DESTDIR=$PKG install
+	find $PKG -name .packlist -exec rm {} \;
+	find $PKG -name perllocal.pod -exec rm {} \;
+	find $PKG -depth -type d -empty -exec rm -rf {} \;
+}

@@ -1,0 +1,45 @@
+diff -pruN libfame-0.9.1.orig/src/fame_malloc.c libfame-0.9.1/src/fame_malloc.c
+--- libfame-0.9.1.orig/src/fame_malloc.c	2008-08-02 22:44:06.858140887 +1000
++++ libfame-0.9.1/src/fame_malloc.c	2008-08-02 22:44:35.795140914 +1000
+@@ -21,6 +21,8 @@
+ #define ALIGN 32
+ 
+ #include <stdlib.h>
++#include <stdio.h>
++#include <inttypes.h>
+ 
+ void* fame_malloc(size_t size)
+ {
+diff -pruN libfame-0.9.1.orig/src/fame_motion_pmvfast.c libfame-0.9.1/src/fame_motion_pmvfast.c
+--- libfame-0.9.1.orig/src/fame_motion_pmvfast.c	2008-08-02 22:44:06.857141618 +1000
++++ libfame-0.9.1/src/fame_motion_pmvfast.c	2008-08-02 22:44:35.795140914 +1000
+@@ -19,6 +19,7 @@
+ 
+ #include <stdio.h>
+ #include <stdlib.h>
++#include <string.h>	/* memcpy, memset */
+ #include "fame.h"
+ #include "fame_malloc.h"
+ #include "fame_motion.h"
+diff -pruN libfame-0.9.1.orig/src/fame_rate_1param.c libfame-0.9.1/src/fame_rate_1param.c
+--- libfame-0.9.1.orig/src/fame_rate_1param.c	2008-08-02 22:44:06.860141435 +1000
++++ libfame-0.9.1/src/fame_rate_1param.c	2008-08-02 22:44:35.794142186 +1000
+@@ -19,6 +19,7 @@
+ 
+ #include <stdio.h>
+ #include <stdlib.h>
++#include <string.h>	/* strlen() */
+ #include <math.h>
+ #include "fame.h"
+ #include "fame_rate_1param.h"
+diff -pruN libfame-0.9.1.orig/src/fame_rate_simple.c libfame-0.9.1/src/fame_rate_simple.c
+--- libfame-0.9.1.orig/src/fame_rate_simple.c	2008-08-02 22:44:06.860141435 +1000
++++ libfame-0.9.1/src/fame_rate_simple.c	2008-08-02 22:44:35.793143865 +1000
+@@ -19,6 +19,7 @@
+ 
+ #include <stdio.h>
+ #include <stdlib.h>
++#include <string.h>	/* strlen() */
+ #include <math.h>
+ #include "fame.h"
+ #include "fame_rate_simple.h"

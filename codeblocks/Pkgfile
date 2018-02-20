@@ -1,0 +1,19 @@
+# Description: Code::Blocks is a free C++ IDE
+# URL: http://www.codeblocks.org/
+# Maintainer: Victor Martinez, pitillo at ono dot com
+# Depends on: wxgtk
+
+name=codeblocks
+version=8.02
+release=1
+source=(http://downloads.sourceforge.net/codeblocks/$name-$version-src.tar.bz2)
+
+build() {
+  cd $name-$version
+  ./configure --prefix=/usr \
+              --disable-nls \
+              --enable-contrib \
+              --mandir=$PKG/usr/man
+  make
+  make prefix=$PKG/usr install
+}

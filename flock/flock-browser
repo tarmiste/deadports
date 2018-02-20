@@ -1,0 +1,11 @@
+#!/bin/sh
+
+FLOCK_HOME=/usr/lib/flock
+
+cd $FLOCK_HOME
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$FLOCK_HOME/components
+export PATH=$PATH:$FLOCK_HOME
+
+./flock-bin
+
+# End of file

@@ -1,0 +1,19 @@
+# Description: A Library for low-level mail work.
+# URL: http://www.etpan.org/
+# Maintainer: Mikhail Kolesnik, mike at openbunker dot org
+# Packager: Brett Goulder, predatorfreak at dcaf-security dot org
+# Depends on: db openssl
+
+# Nice to have: cyrus-sasl
+
+name=libetpan
+version=1.1
+release=1
+source=(http://download.sourceforge.net/project/$name/$name/$version/$name-$version.tar.gz)
+
+build() {
+	cd $name-$version
+	./configure --disable-nls --prefix=/usr
+	make
+	make DESTDIR=$PKG install
+}

@@ -1,0 +1,10 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=Graveman
+GenericName=CD Creator
+Comment=Create and copy data and audio CD
+Exec=graveman
+Terminal=false
+Type=Application
+Icon=graveman48.png
+Categories=Application;Utility;

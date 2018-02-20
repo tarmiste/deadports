@@ -1,0 +1,19 @@
+# Description: Cryptcat is the standard netcat enhanced with twofish encryption.
+# URL: http://sourceforge.net/projects/cryptcat/
+# Maintainer: Jose V Beneyto, sepen at users dot sourceforge dot net
+# Packager: Jose V Beneyto, sepen at users dot sourceforge dot net
+
+name=cryptcat
+version=1.2.1
+release=1
+source=(http://download.sourceforge.net/$name/$name-unix-$version.tar \
+	      netcat.patch)
+
+build() {
+  tar -C $SRC -xvf $name-unix-$version.tar
+	cd unix
+	patch netcat.c $SRC/netcat.patch
+	make linux
+	install -d $PKG/usr/bin
+	install -m 755 $name $PKG/usr/bin
+}

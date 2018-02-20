@@ -1,0 +1,29 @@
+# Description:  VTE-based terminal emulator (part of LXDE)
+# URL:          http://lxde.org
+# Maintainer:   James Mills, prologic at shortcircuit dot net dot au
+#
+# Depends on:   gtk vte
+
+name=lxterminal
+version=0.2.0
+release=2
+source=(http://downloads.sourceforge.net/lxde/$name-$version.tar.gz)
+
+build() {
+    cd $name-$version
+
+    # Configure
+    ./configure \
+        --prefix=/usr \
+        --sysconfdir=/etc \
+        --mandir=/usr/man
+
+    # Build
+    make
+
+    # Package
+    make DESTDIR=$PKG install
+
+    # Cleanup
+    rm -rf $PKG/usr/share/locale
+}

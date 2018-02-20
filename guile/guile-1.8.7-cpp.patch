@@ -1,0 +1,8 @@
+--- guile-snarf-docs.in.orig	2010-10-25 08:56:17.000000000 -0500
++++ guile-snarf-docs.in	2010-10-25 08:56:26.000000000 -0500
+@@ -23,4 +23,4 @@
+ ## Let the user override the preprocessor autoconf found.
+ test -n "${CPP+set}" || CPP="@CPP@"
+ 
+-${CPP} -DSCM_MAGIC_SNARF_DOCS "$@"
++${CPP} -P -DSCM_MAGIC_SNARF_DOCS "$@"

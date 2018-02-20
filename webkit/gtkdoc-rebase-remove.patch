@@ -1,0 +1,14 @@
+diff -ur webkit-1.8.1/Tools/gtk/generate-gtkdoc webkit-1.8.1-patched/Tools/gtk/generate-gtkdoc
+--- webkit-1.8.1/Tools/gtk/generate-gtkdoc	2012-04-22 19:27:07.000000000 -0400
++++ webkit-1.8.1-patched/Tools/gtk/generate-gtkdoc	2012-06-18 21:06:35.000000000 -0400
+@@ -142,8 +142,8 @@
+     if not os.path.isdir(options['output_dir']):
+         print "Documentation was not generated"
+         return
+-    generator = gtkdoc.PkgConfigGTKDoc(pkg_config_path, options)
+-    generator.rebase_installed_docs()
++    #generator = gtkdoc.PkgConfigGTKDoc(pkg_config_path, options)
++    #generator.rebase_installed_docs()
+ 
+ configure_logging()
+ 

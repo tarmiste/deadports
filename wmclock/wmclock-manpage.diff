@@ -1,0 +1,22 @@
+--- wmclock.man.in-orig	2008-11-16 18:22:33.061623927 +0100
++++ wmclock.man.in		2008-11-16 18:22:33.417626015 +0100
+@@ -25,9 +25,7 @@
+ .TH wmclock 1x "@DATE@" "Version @VERSION@"
+ .\" ----------------------------------------------------------------
+ .SH NAME
+-.PP
+-.BR wmclock :
+-a dockable clock for the Window Maker window manager
++wmclock \- A dockable clock for the Window Maker window manager
+ .\" ----------------------------------------------------------------
+ .SH SYNOPSIS
+ .HP
+@@ -196,7 +194,7 @@
+ .\" ----------------------------------------------------------------
+ .SH COPYRIGHT AND LICENSE
+ .PP
+-Copyright © 1999 by Jim Knoble <jmknoble@pobox.com>.  Significant
++Copyright \(co 1999 by Jim Knoble <jmknoble@pobox.com>.  Significant
+ portions of
+ .B wmclock
+ are directly derived from

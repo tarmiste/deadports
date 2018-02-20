@@ -1,0 +1,22 @@
+# Description: PHP based webmail client
+# URL: http://squirrelmail.org
+# Maintainer: Lucas Hazel, lucas at die dot net au
+# Depends on: php
+
+name=squirrelmail
+version=1.4.19
+release=1
+source=(http://prdownloads.sf.net/$name/$name-$version.tar.gz)
+
+build() {
+    cd $name-$version
+    mkdir -p $PKG/var/www/htdocs/$name
+    find . -maxdepth 0 -type d -exec cp -r {} $PKG/var/www/htdocs/$name \;
+    cp index.php $PKG/var/www/htdocs/$name
+    find $PKG/var/www/htdocs/$name \
+	-name 'README*' \
+	-o -name 'ChangeLog' \
+	-o -name AUTHORS -o -name COPYING -o -name INSTALL \
+	| xargs rm
+    rm -rf $PKG/var/www/htdocs/$name/doc
+}

@@ -1,0 +1,16 @@
+# Description: clone of a C64 game, goal of the game is to destroy the opponent's house with certain weather phenomenons
+# URL:         http://kiza.kcore.de/software/tornado/
+# Maintainer:  Bartlomiej Palmowski, rotwang at crux dot org dot pl
+
+name=tornado
+version=1.4
+release=1
+source=(http://kiza.kcore.de/software/$name/download/$name-$version.tar.gz)
+
+build() {
+  cd $name-$version
+  sed -i '92,97d' doc/man/tornado.6.in
+  make PREFIX=/usr tornado tornado.6
+  install -D -m 0644 doc/man/tornado.6 $PKG/usr/man/man6/tornado.6
+  install -D -m 0755 tornado $PKG/usr/bin/tornado
+}

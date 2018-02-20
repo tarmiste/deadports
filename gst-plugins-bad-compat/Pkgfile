@@ -1,0 +1,30 @@
+# Description: A set of plugins for gstreamer that may pose distribution problems.
+# URL: http://gstreamer.freedesktop.org/modules/gst-plugins-bad.html
+# Maintainer: Danny Rawlins, crux at romster dot me
+# Packager: Matt Housh, jaeger at morpheus dot net
+# Depends on: curl faad2 gst-plugins-base-compat libdca libdvdnav libmms libmpcdec libmusicbrainz librsvg libsndfile mjpegtools openldap ladspa
+
+name=gst-plugins-bad-compat
+version=0.10.23
+release=4
+source=(http://gstreamer.freedesktop.org/src/gst-plugins-bad/gst-plugins-bad-$version.tar.xz
+	drop-vpx-compat-defs.patch)
+
+build() {
+	cd gst-plugins-bad-$version
+
+	patch -p1 -i $SRC/drop-vpx-compat-defs.patch
+
+	./configure \
+		--prefix=/usr \
+		--mandir=/usr/man \
+		--disable-debug \
+		--disable-nls \
+		--disable-dependency-tracking \
+		--disable-valgrind \
+		--disable-examples
+
+	make
+	make DESTDIR=$PKG install
+	rm -r $PKG/usr/share/gtk-doc
+}

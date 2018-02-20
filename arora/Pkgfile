@@ -1,0 +1,24 @@
+# Description: Cross platform web browser
+# URL: http://arora.googlecode.com
+# Maintainer: Jose V Beneyto, sepen at crux dot nu
+# Packager: Jose V Beneyto, sepen at crux dot nu
+# Depends on: qt4
+
+name=arora
+version=0.11.0
+release=1
+source=(http://arora.googlecode.com/files/$name-$version.tar.gz)
+
+build() {
+  cd $name-$version
+  find . -type f -name '*.pro' -exec \
+    sed -e '/include(locale/d' \
+        -e '/man.*/ s/$$DATADIR/$$PREFIX/' \
+        -i {} \;
+
+  qmake PREFIX=/usr QMAKE_CXXFLAGS="$CXXFLAGS"
+  make
+
+  make INSTALL_ROOT=$PKG install
+  sed -r '/\[.+\]=/d' -i $PKG/usr/share/applications/$name.desktop
+}

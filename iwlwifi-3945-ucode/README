@@ -1,0 +1,38 @@
+
+README for iwlwifi-3945-ucode
+
+
+
+REQUERIMENTS
+
+   Download source manually from
+   - http://wireless.kernel.org/en/users/Drivers/iwlegacy
+
+   and put the file
+   - iwlwifi-3945-ucode-*.tgz
+
+   into the directory defined by PKGMK_SOURCE_DIR. See pkgmk.conf(5).
+
+
+
+NOTES
+
+
+*** Note for kernel >= 2.6.29 ***
+
+  Check that you enabled the following config options in the kernel:
+  
+  * CFG80211=m
+  * MAC80211=m
+  * WLAN_80211=y
+  * IWLWIFI=y
+  * IWL3945=m
+
+  The iwlwifi-3945 driver will look for the file iwlwifi-3945-2.ucode using the
+  kernel's firmware_loader infrastructure.  In order to function correctly, you
+  need to have this support enabled in your kernel.  When you configure the
+  kernel, you can find this option in the following location:
+
+  Device Drivers ->
+  	Generic Driver Options ->
+        	Hotplug firmware loading support

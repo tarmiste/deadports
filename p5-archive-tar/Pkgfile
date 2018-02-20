@@ -1,0 +1,21 @@
+# Description: A module for for tar archives manipulations
+# URL: http://search.cpan.org/~kane/Archive-Tar/
+# Maintainer: Mikhail Kolesnik, mike at openbunker dot org
+# Packager: Younes Hafri, ycrux at club-internet fr
+# Depends on: p5-io-zlib p5-io-string p5-io-compress-bzip2
+# Nice to have: p5-text-diff
+
+name=p5-archive-tar
+version=1.40
+release=1
+source=(http://search.cpan.org/CPAN/authors/id/K/KA/KANE/Archive-Tar-$version.tar.gz)
+
+build() {
+	cd Archive-Tar-$version
+	perl Makefile.PL
+	make OPTIMIZE="$CFLAGS"
+	make DESTDIR=$PKG install
+	find $PKG -name .packlist -exec rm {} \;
+	find $PKG -name perllocal.pod -exec rm {} \;
+	find $PKG -depth -type d -empty -exec rm -rf {} \;
+}

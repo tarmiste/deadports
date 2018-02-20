@@ -1,0 +1,27 @@
+README for zend_optimizer
+
+REQUIREMENTS
+
+PRE-INSTALL
+Register, download pakage from http://www.zend.com/products/zend_optimizer
+and put it to $PKGMK_SOURCE_DIR
+
+POST-INSTALL
+Add this lines to /etc/php.ini to enable zend optimizer:
+
+	zend_extension=/usr/lib/php/extensions/Optimizer/lib/ZendOptimizer.so
+	zend_extension_manager.optimizer=/usr/lib/php/extensions/ZendExtensionManager.so
+	
+	zend_extension_ts=/usr/lib/php/extensions/Optimizer_TS/lib/ZendOptimizer.so
+	zend_extension_manager.optimizer_ts=/usr/lib/php/extensions/ZendExtensionManager_TS.so
+	
+	zend_optimizer.optimization_level=15
+	zend_optimizer.version=3.x.x
+	
+	; set memory limit to some reasonable value:
+	memory_limit=100M
+
+and this to disable:
+	zend_optimizer.enable_loader = 0
+
+RESOURCES

@@ -1,0 +1,18 @@
+# Description: Web Based MPD Client in PHP.
+# URL:         http://www.musicpd.org/
+# Maintainer:  Thomas Penteker, tek at serverop dot de
+# Packager:    James Mills, prologic at shortcircuit dot net dot au
+# Depends on:  mpd, mod_php
+
+name=phpmp
+version=0.11.0
+release=1
+source=(http://prdownloads.sourceforge.net/musicpd/phpMp-$version.tar.gz)
+
+build() {
+   cd phpMp-$version
+   mkdir -p $PKG/usr/share/$name
+   cp * $PKG/usr/share/$name
+   chown -R root:root $PKG
+   rm $PKG/usr/share/phpmp/{COPYING,ChangeLog,INSTALL,README,TODO}
+}

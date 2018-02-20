@@ -1,0 +1,10 @@
+--- a/kvm/kernel/Makefile	2009-12-23 17:34:42.411376577 +0100
++++ b/kvm/kernel/Makefile	2009-12-23 17:35:42.057376730 +0100
+@@ -25,6 +25,7 @@
+ 
+ all:: prerequisite
+ #	include header priority 1) $LINUX 2) $KERNELDIR 3) include-compat
++	ln -f -s ../../arch/x86/kvm/mmutrace.h $(KERNELDIR)/include/trace
+ 	$(MAKE) -C $(KERNELDIR) M=`pwd` \
+ 		LINUXINCLUDE="-I`pwd`/include -Iinclude \
+ 		$(if $(KERNELSOURCEDIR),\

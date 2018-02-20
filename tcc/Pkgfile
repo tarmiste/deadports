@@ -1,0 +1,26 @@
+# Description: Tiny C Compiler
+# URL:         http://fabrice.bellard.free.fr/tcc/
+# Maintainer:  Thomas Penteker, tek at serverop dot de
+# Packager:    James Mills, prologic at shortcircuit dot net dot au
+# Depends on:
+
+name=tcc
+version=0.9.26
+release=1
+source=(http://download.savannah.nongnu.org/releases/tinycc/$name-$version.tar.bz2)
+
+build() {
+   cd $name-$version
+   ./configure --prefix=/usr
+   make CFLAGS="$CFLAGS"
+   make prefix=$PKG/usr \
+      bindir=$PKG/usr/bin \
+      tccdir=$PKG/usr/lib/tcc \
+      libdir=$PKG/usr/lib \
+      includedir=$PKG/usr/include \
+      mandir=$PKG/usr/man \
+      docdir=$PKG/usr/share/tcc/doc \
+      install
+   chmod 644 $PKG/usr/man/man1/tcc.1
+   rm -rf $PKG/usr/share
+}

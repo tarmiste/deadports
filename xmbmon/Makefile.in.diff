@@ -1,0 +1,33 @@
+--- Makefile.in.orig	2008-11-12 10:42:22.000000000 +0100
++++ Makefile.in	2008-11-12 10:44:11.000000000 +0100
+@@ -37,11 +37,12 @@ LINT=lint
+ RM=rm -f
+ INSTALL=install
+ 
+-INST_DIR=/usr/local/bin
+-INST_MANDIR=/usr/local/man/man1
+-INST_XDIR=/usr/X11R6/bin
+-INST_MANXDIR=/usr/X11R6/man/man1
+-INST_XRDIR=/usr/X11R6/lib/X11/app-defaults
++DESTDIR=
++INST_DIR=$(DESTDIR)/usr/bin
++INST_MANDIR=$(DESTDIR)/usr/man/man1
++INST_XDIR=$(DESTDIR)/usr/bin
++INST_MANXDIR=$(DESTDIR)/usr/man/man1
++INST_XRDIR=$(DESTDIR)/usr/lib/X11/app-defaults
+  
+ .c.o:
+ 	$(CC) -c $(CFLAGS) $*.c
+@@ -133,10 +134,12 @@ distclean: clean
+ 	$(RM) Makefile config.cache config.log config.h config.status
+ 
+ install: $(PROGRAM)
++	$(INSTALL) -d $(INST_DIR) $(INST_XDIR)
+ 	$(INSTALL) -o root -g wheel -m 4555 -c -p mbmon $(INST_DIR)
+ 	$(INSTALL) -o root -g wheel -m 4555 -c -p xmbmon $(INST_XDIR)
+ 
+ install-man: $(MANPAGE)
++	$(INSTALL) -d $(INST_MANDIR) $(INST_MANXDIR)
+ 	$(INSTALL) -o root -g wheel -m 444 -c -p mbmon.1 $(INST_MANDIR)
+ 	$(INSTALL) -o root -g wheel -m 444 -c -p xmbmon.1x $(INST_MANXDIR)
+ 

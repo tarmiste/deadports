@@ -1,0 +1,17 @@
+#!/bin/sh
+
+ET_HOME="/usr/share/enemy-territory"
+
+# check pbsetup
+
+
+# check etkey
+if [ ! -f $HOME/.etwolf/etmain/etkey ]; then
+  install -D $ET_HOME/etmain/etkey $HOME/.etwolf/etmain/etkey
+fi
+
+
+cd $ET_HOME && ./et.x86 $@
+
+# End of File
+

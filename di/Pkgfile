@@ -1,0 +1,24 @@
+# Description: disk information utility, displaying everything (and more) that your 'df' command does.
+# URL: http://www.gentoo.com/di/
+# Maintainer: Jose V Beneyto, sepen at crux dot nu
+# Packager: Jose V Beneyto, sepen at crux dot nu
+
+name=di
+version=4.42
+release=1
+source=(http://www.gentoo.com/$name/$name-$version.tar.gz)
+
+build() {
+  cd $name-$version
+
+  sed -e 's|#error|//#error|' \
+      -e 's|"config.h"|"config.h"\n#include <string.h>|' \
+      -i C/$name.h
+
+  make
+
+  install -D -m 0755 C/$name $PKG/usr/bin/$name
+  ln -s $name $PKG/usr/bin/mi
+  install -D -m 0644 $name.1 $PKG/usr/share/man/man1/$name.1
+  ln -s $name.1 $PKG/usr/share/man/man1/mi.1
+}

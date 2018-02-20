@@ -1,0 +1,17 @@
+# Description: Python interface to Speex.
+# URL:         http://www.freenet.org.nz/python/pySpeex/
+# Maintainer:  James Mills, prologic at shortcircuit dot net dot au
+# Packager:    James Mills, prologic at shortcircuit dot net dot au
+#
+# Depends on:  speex, pyrex
+
+name=pyspeex
+version=0.2
+release=2
+source=(http://www.freenet.org.nz/python/pySpeex/pySpeex-$version.tar.gz)
+
+build() {
+   cd pySpeex-$version
+   python setup.py install --root=$PKG
+   chown -R root:root $PKG
+}

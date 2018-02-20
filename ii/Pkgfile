@@ -1,0 +1,15 @@
+# Description: minimalist FIFO and filesystem-based IRC client
+# URL:         http://tools.suckless.org/ii/
+# Maintainer:  Bartlomiej Palmowski, rotwang at crux dot org dot pl
+
+name=ii
+version=1.7
+release=1
+source=(http://dl.suckless.org/tools/$name-$version.tar.gz)
+
+build() {
+    cd $name-$version
+    make
+    make DESTDIR=$PKG PREFIX=/usr MANDIR=/usr/man install
+    rm -rf $PKG/usr/share
+}

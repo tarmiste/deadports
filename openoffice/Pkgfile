@@ -1,0 +1,59 @@
+# Description: full featured cross platform office suite (binary)
+# URL: http://www.openoffice.org
+# Maintainer: Bartlomiej Palmowski, rotwang at crux dot org dot pl
+# Packager: Simone Rota, sip at crux dot nu
+# Depends on: mesa3d xorg-libxaw xorg-libxcursor xorg-libxft xorg-libxinerama xorg-libxi xorg-libxrandr
+
+name=openoffice
+version=3.2.1
+release=1
+source=(http://spout.ussg.indiana.edu/$name/stable/$version/OOo_${version}_Linux_x86_install-rpm_en-US.tar.gz)
+
+build() {
+    mkdir OOo_work
+    cd OOO*/RPMS
+
+    for i in *.rpm; do
+        bsdtar -p -o -C $SRC/OOo_work -xf $i
+    done
+
+    cd $SRC/OOo_work
+    mkdir -p $PKG/usr/lib/openoffice
+    mv opt/openoffice*/* $PKG/usr/lib/openoffice
+    cd $PKG/usr/lib/openoffice
+    ln -sf basis${version%.*} basis-link
+
+    mkdir -p $PKG/usr/bin
+    ln -sf /usr/lib/openoffice/program/soffice $PKG/usr/bin/soffice
+    ln -sf /usr/lib/openoffice/program/spadmin $PKG/usr/bin/spadmin
+
+    # install fancy desktop files
+    mkdir -p $PKG/usr/share/applications
+    cd share/xdg/
+    for i in *.desktop; do
+        sed -i '/Exec/s/openoffice\.org3/soffice /' $i 
+        cp $i $PKG/usr/share/applications/
+    done
+    # sed '/Exec/s/openoffice\.org3-printeradmin/spadmin/' printeradmin.desktop > $PKG/usr/share/applications/printeradmin.desktop
+
+    # icons
+    cd $SRC/OOO*/RPMS/desktop-integration
+    bsdtar -p -o -xf openoffice.org3.?-freedesktop-menus-*.noarch.rpm
+    mkdir -p $PKG/usr/share/mime
+    cp -r usr/share/mime/* $PKG/usr/share/mime
+    mkdir -p $PKG/usr/share/icons
+    cp -r usr/share/icons/hicolor $PKG/usr/share/icons
+    cp -r usr/share/icons/locolor $PKG/usr/share/icons
+
+    # remove junk files and dont care about return values
+    {
+        find $PKG \(\
+            -iname '*readme*' -o \
+            -iname '*changelog*' -o \
+            -name '*TODO*' -o \
+            -iname '*news*' -o \
+            -iname '*license*' -o \
+            -iname '*credits*' \
+         \) -exec rm -rf '{}' \;
+    } || true
+}

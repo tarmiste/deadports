@@ -1,0 +1,18 @@
+# Description: Django app for storing templates in database
+# URL: http://wiki.github.com/jezdez/django-dbtemplates
+# Maintainer: Lucas Hazel, lucas at die dot net dot au
+# Depends on: django
+
+name=django-dbtemplates
+version=0.5.3
+release=1
+source=(http://cloud.github.com/downloads/jezdez/$name/$name-$version.tar.gz)
+
+build() {
+	cd $name-$version
+	python setup.py install \
+	    --root=$PKG \
+            --install-purelib=/usr/share/django/apps \
+            --install-scripts=/usr/bin
+	find $PKG -name '*egg-info' | xargs rm -rf
+}

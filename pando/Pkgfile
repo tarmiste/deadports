@@ -1,0 +1,21 @@
+# Description: free P2P software that makes publishing, sending and downloading large media files fast, easy and fun.
+# URL: http://www.pando.com
+# Maintainer: Jose V Beneyto, sepen at users dot sourceforge dot net
+# Packager: Jose V Beneyto, sepen at users dot sourceforge dot net
+# Depends on: libstdc++-compat,gst-python
+
+name=pando
+version=0.9.2.0
+release=4
+source=(http://www.pando.com/dl/download/pandodl-${version}.tar.bz2 \
+        ${name} ${name}.desktop)
+
+build() {
+  install -d ${PKG}/usr/share/${name}
+  mv ${SRC}/pandodl/{bin/*,lib} ${PKG}/usr/share/${name}
+  install -D -m 0755 ${SRC}/${name} ${PKG}/usr/bin/${name}
+  install -D -m 0644 ${SRC}/pandodl/pando_icon48.png ${PKG}/usr/share/pixmaps/${name}.png
+  install -D -m 0644 ${SRC}/${name}.desktop ${PKG}/usr/share/applications/${name}.desktop
+  # fixes shared link until libtiff 4 is available
+  ln -sf /usr/lib/libtiff.so ${PKG}/usr/share/${name}/lib/libtiff.so.4
+}

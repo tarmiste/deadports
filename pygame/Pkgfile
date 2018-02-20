@@ -1,0 +1,29 @@
+# Description: Python bindings for SDL.
+# URL: http://pygame.org/
+# Maintainer: Danny Rawlins, crux at romster dot me
+# Packager: Han Boetes, han at mijncomputer dot nl
+# Depends on: numeric sdl_image sdl_mixer sdl_ttf
+
+name=pygame
+version=1.9.1
+release=1
+source=(http://www.pygame.org/ftp/$name-${version}release.tar.gz
+	pygame-1.9.1-config.patch)
+
+build() {
+	cd $name-${version}release
+
+	export CFLAGS="$CFLAGS -fno-strict-aliasing"
+	patch -p1 -i $SRC/pygame-1.9.1-config.patch
+
+	/usr/bin/python config.py -auto
+	/usr/bin/python setup.py install --prefix=/usr --root $PKG
+
+	chmod a-x $PKG/usr/lib/python*/site-packages/pygame/*.so
+	find $PKG -name '*.h' -exec chmod 0644 {} \;
+
+	find $PKG \( \
+		-name 'pygame.ico' -o \
+		-name 'pygame_icon.*' -o \
+		-name 'freesansbold.ttf' \) -exec chmod 0644 {} \;
+}

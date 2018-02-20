@@ -1,0 +1,5 @@
+#
+# /etc/udev/rules.d/60-vboxdrv.rules: VirtualBox udev rules
+#
+
+KERNEL=="vboxdrv", NAME="vboxdrv", OWNER="root", GROUP="vboxusers", MODE="0660"

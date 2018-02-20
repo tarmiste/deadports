@@ -1,0 +1,19 @@
+# Description: given a source file, produces a document with syntax highlighting
+# URL:         http://www.gnu.org/software/src-highlite/
+# Packager:    Younes Hafri <ycrux@club-internet.fr>
+# Maintainer:  Bartlomiej Palmowski, maks1k at wp dot pl
+# Depends on:  boost
+
+name=source-highlight
+version=2.9
+release=1
+source=(ftp://ftp.gnu.org/gnu/src-highlite/$name-$version.tar.gz)
+
+build() {
+    cd $name-$version
+    ./configure --prefix=/usr --mandir=/usr/man
+    make
+    make DESTDIR=$PKG install
+    rm -rf $PKG/usr/share/{doc,info}
+    mv $PKG/usr/bin/src-hilite-lesspipe.sh $PKG/usr/share/source-highlight/
+}

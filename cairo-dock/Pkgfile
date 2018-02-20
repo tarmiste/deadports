@@ -1,0 +1,22 @@
+# Description: Cairo-Dock is a highly customizable dock written in C
+# URL: http://glx-dock.org/
+# Maintainer: Jose V Beneyto, sepen at crux dot nu
+# Packager: Jose V Beneyto, sepen at crux dot nu
+# Depends on: dbus-glib glu librsvg xorg-libxcomposite
+
+name=cairo-dock
+version=3.4.1
+release=1
+source=(https://github.com/Cairo-Dock/cairo-dock-core/releases/download/$version/$name-$version.tar.gz)
+
+build() {
+  cd $name-$version
+
+  cmake -DCMAKE_INSTALL_PREFIX=/usr
+
+  make
+  make DESTDIR=$PKG install
+
+  rm -rf $PKG/usr/share/locale
+  mv $PKG/usr/share/man $PKG/usr
+}

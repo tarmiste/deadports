@@ -1,0 +1,19 @@
+# Description: A minimalistic music player
+# URL: http://herrie.info/
+# Maintainer: Antti Nykanen, aon at iki dot fi
+# Depends on: glib, alsa-lib, libid3tag, libmad, libmodplug, libsndfile, libvorbis
+
+name=herrie
+version=2.1
+release=1
+source=(http://herrie.info/distfiles/herrie-$version.tar.bz2)
+
+build() {
+        cd herrie-$version
+        MANDIR=/usr/man ./configure no_nls no_xspf alsa
+        make
+        make DESTDIR=$PKG install
+
+	# Remove sample configuration, look at the man page instead.
+	rm -rf $PKG/etc
+}

@@ -1,0 +1,25 @@
+# Description: Additional dcraw utilities
+# URL: http://www.cybercom.net/~dcoffin/dcraw/
+# Maintainer: Mikhail Kolesnik, mike at openbunker dot org
+# Depends on: 
+
+name=dcraw-utils
+version=6
+release=1
+source=(http://www.cybercom.net/~dcoffin/dcraw/clean_crw.c \
+		http://www.cybercom.net/~dcoffin/dcraw/fujiturn.c \
+		http://www.cybercom.net/~dcoffin/dcraw/fuji_green.c \
+		http://www.cybercom.net/~dcoffin/dcraw/parse.c)
+
+build() {
+	gcc $CFLAGS -o fuji_green fuji_green.c -lm
+	gcc $CFLAGS -o clean_crw clean_crw.c
+	gcc $CFLAGS -o fujiturn fujiturn.c
+	gcc $CFLAGS -o dcparse parse.c
+	
+	install -m 755 -d $PKG/usr/bin
+	install -m 755 fuji_green $PKG/usr/bin
+	install -m 755 clean_crw $PKG/usr/bin
+	install -m 755 fujiturn $PKG/usr/bin
+	install -m 755 dcparse $PKG/usr/bin
+}

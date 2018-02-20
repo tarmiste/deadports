@@ -1,0 +1,20 @@
+# Description: Converts files between character sets
+# URL: http://www.gnu.org/software/recode/recode.html
+# Maintainer: Simon Glossner, viper at hometux dot de
+
+name=recode
+version=3.6
+release=1
+source=(http://ftp.gnu.org/pub/gnu/${name}/${name}-${version}.tar.gz)
+
+build() {
+    cd $name-$version
+
+    ./configure \
+	--prefix=/usr \
+	--disable-nls
+    make
+    make DESTDIR=$PKG install
+
+    rm -rf $PKG/usr/info
+}

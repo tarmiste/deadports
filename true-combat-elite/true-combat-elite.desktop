@@ -1,0 +1,9 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=True Combat Elite
+Comment=Wolfstein Enemy Territory - True Combat Elite Mod
+Exec=/usr/bin/true-combat
+Icon=/usr/share/enemy-territory/tcetest/tce_icon_pc.ico
+Terminal=false
+Type=Application
+Categories=Application;Games;

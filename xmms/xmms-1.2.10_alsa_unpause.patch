@@ -1,0 +1,12 @@
+--- xmms-1.2.10-/Output/alsa/audio.c	Fri Apr  1 21:58:46 2005
++++ xmms-1.2.10/Output/alsa/audio.c	Fri Apr  1 21:53:12 2005
+@@ -166,6 +166,9 @@
+ 	else
+ 	{
+ 		int err;
++                if (snd_pcm_state(alsa_pcm) == SND_PCM_STATE_SETUP)
++                	snd_pcm_prepare(alsa_pcm);
++                
+ 		if (force_start &&
+ 		    snd_pcm_state(alsa_pcm) == SND_PCM_STATE_PREPARED)
+ 		{

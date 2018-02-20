@@ -1,0 +1,29 @@
+# Description: An X11 window manager with a NEXTSTEP look and feel
+# URL:         http://www.windowmaker.info/
+# Maintainer:  Mikhail Kolesnik, mike at openbunker dot org
+# Packager:    Per Liden
+# Depends on:  xorg-libxft libtiff libungif
+
+name=windowmaker
+version=0.92.0
+release=4
+source=(http://windowmaker.info/pub/source/release/WindowMaker-$version.tar.bz2 \
+        $name-$version-gcc4.patch)
+
+build() {
+    cd WindowMaker-$version
+    patch -p0 -i $SRC/$name-$version-gcc4.patch
+    aclocal
+    autoheader
+    autoconf
+    libtoolize --force --automake
+    automake -a --gnu --include-deps
+    ./configure --prefix=/usr --mandir=/usr/man
+    make
+    make DESTDIR=$PKG install
+    rm -rf $PKG/usr/share/WindowMaker/{README*,menu.*,plmenu.*} \
+	   $PKG/usr/lib/locale $PKG/usr/man/sk $PKG/usr/bin/wm-oldmenu2new
+    # Bugfix for WPrefs
+    mkdir -p $PKG/usr/GNUstep/Applications
+    ln -sf ../../share/WPrefs $PKG/usr/GNUstep/Applications/WPrefs.app
+}

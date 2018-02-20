@@ -1,0 +1,29 @@
+# Description: backup script utilizing DAR (Disk ARchive)
+# URL: http://sourceforge.net/projects/baras
+# Maintainer: Simon Glossner, viper at hometux dot de
+# Packager: Simon Glossner, viper at hometux dot de
+# Depends on: dar
+# Nice to have: par2cmdline
+
+name=baras
+version=099c
+release=1
+source=(http://download.sourceforge.net/baras/$name-$version.tar.bz2 baras.patch)
+
+build() {
+    cd $name
+
+    patch -p1 < $SRC/baras.patch
+    
+    mkdir -p $PKG/etc/baras
+    mkdir -p $PKG/usr/bin
+    mkdir -p $PKG/usr/lib/baras
+
+    install -m 0755 ADMConfProcess.pm $PKG/usr/lib/baras/
+    install -m 0644 ADMMailHandler.pm $PKG/usr/lib/baras/
+    install -m 0755 baras.pl $PKG/usr/lib/baras/
+
+    install -m 0644 etc/baras/* $PKG/etc/baras/
+
+    ln -s /usr/lib/baras/baras.pl $PKG/usr/bin/baras
+}

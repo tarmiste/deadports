@@ -1,0 +1,86 @@
+diff -pruN lxpanel-0.5.10/autogen.sh lxpanel-0.5.10_new/autogen.sh
+--- lxpanel-0.5.10/autogen.sh	2012-04-08 01:27:42.000000000 +0200
++++ lxpanel-0.5.10_new/autogen.sh	2012-12-17 19:03:28.000000000 +0100
+@@ -2,16 +2,6 @@
+ AC_VERSION=
+ 
+ AUTOMAKE=${AUTOMAKE:-automake}
+-AM_INSTALLED_VERSION=$($AUTOMAKE --version | sed -e '2,$ d' -e 's/.* \([0-9]*\.[0-9]*\).*/\1/')
+-
+-if [ "$AM_INSTALLED_VERSION" != "1.10" \
+-    -a "$AM_INSTALLED_VERSION" != "1.11" ];then
+-	echo
+-	echo "You must have automake > 1.10 or 1.11 installed to compile lxpanel."
+-	echo "Install the appropriate package for your distribution,"
+-	echo "or get the source tarball at http://ftp.gnu.org/gnu/automake/"
+-	exit 1
+-fi
+ 
+ set -x
+ 
+@@ -22,7 +12,6 @@ fi
+ ${ACLOCAL:-aclocal$AM_VERSION} ${ACLOCAL_ARG}
+ ${AUTOHEADER:-autoheader$AC_VERSION} --force
+ AUTOMAKE=$AUTOMAKE libtoolize -c --automake --force
+-AUTOMAKE=$AUTOMAKE intltoolize -c --automake --force
+ $AUTOMAKE --add-missing --copy --include-deps
+ ${AUTOCONF:-autoconf$AC_VERSION}
+ 
+diff -pruN lxpanel-0.5.10/configure.ac lxpanel-0.5.10_new/configure.ac
+--- lxpanel-0.5.10/configure.ac	2012-06-10 23:22:21.000000000 +0200
++++ lxpanel-0.5.10_new/configure.ac	2012-12-17 19:05:11.000000000 +0100
+@@ -1,6 +1,6 @@
+ AC_PREREQ(2.53)
+ AC_INIT(lxpanel, 0.5.10, http://lxde.org/)
+-AM_INIT_AUTOMAKE([1.11 -Wall -Werror foreign])
++AM_INIT_AUTOMAKE([1.11 -Wall foreign])
+ AC_CONFIG_HEADER([config.h])
+ 
+ # Support silent build rules. Disable by either passing --disable-silent-rules
+@@ -14,7 +14,6 @@ AC_DISABLE_STATIC
+ AC_PROG_CC
+ AC_PROG_INSTALL
+ AC_PROG_LN_S
+-AC_PROG_INTLTOOL(, [no-xml])
+ AM_PROG_CC_C_O
+ 
+ #Initialize libtool
+@@ -443,7 +442,6 @@ AC_CONFIG_FILES([
+     src/plugins/monitors/Makefile
+     src/plugins/wnckpager/Makefile
+     src/plugins/indicator/Makefile
+-    po/Makefile.in
+     data/Makefile
+     data/default/panels/panel
+     data/two_panels/panels/top
+diff -pruN lxpanel-0.5.10/Makefile.am lxpanel-0.5.10_new/Makefile.am
+--- lxpanel-0.5.10/Makefile.am	2012-04-08 01:27:42.000000000 +0200
++++ lxpanel-0.5.10_new/Makefile.am	2012-12-17 19:00:43.000000000 +0100
+@@ -1,13 +1,9 @@
+ ## Process this file with automake to produce Makefile.in
+ 
+-SUBDIRS = src data po man
++SUBDIRS = src data man
+ 
+ EXTRA_DIST = \
+ 	autogen.sh \
+-        autogen.sh \
+-        intltool-extract.in \
+-        intltool-merge.in \
+-        intltool-update.in \
+         lxpanel.pc.in
+ 
+ pkgconfigdir   = $(libdir)/pkgconfig
+diff -pruN lxpanel-0.5.10/src/Makefile.am lxpanel-0.5.10_new/src/Makefile.am
+--- lxpanel-0.5.10/src/Makefile.am	2012-04-08 01:27:42.000000000 +0200
++++ lxpanel-0.5.10_new/src/Makefile.am	2012-12-17 18:39:05.000000000 +0100
+@@ -46,7 +46,8 @@ lxpanel_LDADD = \
+ 		$(BUILTIN_PLUGINS) \
+ 		$(PACKAGE_LIBS) \
+ 		$(X11_LIBS) \
+-		$(INTLLIBS)
++		$(INTLLIBS) \
++		-lgmodule-2.0
+ 
+ lxpanelctl_SOURCES = lxpanelctl.c lxpanelctl.h
+ lxpanelctl_LDADD = $(X11_LIBS) $(INTLLIBS)

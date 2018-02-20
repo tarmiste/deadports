@@ -1,0 +1,29 @@
+# Description: Font rendering library for OpenGL
+# URL: http://homepages.paradise.net.nz/henryj/code/
+# Maintainer: Jose V Beneyto, sepen at users dot sourceforge dot net
+# Packager: Jose V Beneyto, sepen at users dot sourceforge dot net
+# Depends on: freetype, freeglut
+
+name=ftgl
+version=2.1.3-rc5
+release=3
+source=(http://download.sourceforge.net/$name/$name-$version.tar.bz2)
+
+build() {
+  cd $name-2.1.3~rc5
+
+  sed -e 's|SUBDIRS = .*|SUBDIRS = src|' -i Makefile.in
+
+  ./configure --prefix=/usr \
+              --with-x \
+              --disable-nls \
+              --disable-docs \
+              --disable-static \
+              --disable-freetypetest
+
+  make
+  make DESTDIR=$PKG install
+
+  install -m 06444 src/FT{Face,Library,Size}.h $PKG/usr/include/FTGL
+  rm -rf $PKG/usr/share
+}

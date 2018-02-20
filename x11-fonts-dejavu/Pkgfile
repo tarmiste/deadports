@@ -1,0 +1,16 @@
+# URL: http://dejavu.sourceforge.net
+# Description: A font family based on the Bitstream Vera Fonts
+# Maintainer: Rene Lengwinat, rugek at dirtyhack dot net
+# Depends on: x11
+
+name=x11-fonts-dejavu
+version=2.27
+release=1
+source=(http://dfn.dl.sourceforge.net/sourceforge/dejavu/dejavu-fonts-ttf-$version.tar.bz2)
+
+build() {
+    cd dejavu-fonts-ttf-$version
+    mkdir -p $PKG/usr/share/fonts/dejavu
+    install -o root -g root -m 0644 ttf/*.ttf \
+        $PKG/usr/share/fonts/dejavu/
+}
