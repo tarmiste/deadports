@@ -1,19 +1,21 @@
-# Description: An implementation of Microsoft's Media Transfer Protocol (MTP)
-# URL:         http://libmtp.sourceforge.net/
-#
-# Depends on:  libusb
+# Description: Library implementation of the Media Transfer Protocol (MTP)
+# URL:         http://sourceforge.net/projects/libmtp/
+# Maintainer:  Alexandr Savca, alexandrsavca89 at gmail dot com
+# Depends on:  libgcrypt libusb
 
 name=libmtp
-version=0.0.21
-release=2
-source=(http://dl.sourceforge.net/sourceforge/$name/$name-$version.tar.gz)
+version=1.1.18
+release=1
+source=(http://sourceforge.net/projects/$name/files/$name/$version/$name-$version.tar.gz)
 
 build() {
-   cd $name-$version
-   ./configure --prefix=/usr
-   make
-   make DESTDIR=$PKG install
-   mkdir -p $PKG/etc/udev/rules.d
-   install -m 755 libmtp.rules $PKG/etc/udev/rules.d/
-   chown -R root:root $PKG
+	cd $name-$version
+
+	./configure \
+		--prefix=/usr               \
+		--with-udev=/etc/udev/      \
+		--disable-dependency-tracking
+
+	make
+	make DESTDIR=$PKG install
 }

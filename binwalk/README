@@ -1,0 +1,43 @@
+README for binwalk
+
+NOTES
+    Optional software for special features:
+
+        arj:               ARJ decompression support
+        cabextract:        CAB archive support
+        capstone:          disassembly support
+        cramfs-tools:      extract CRAMFS file systems
+        cramfsswap:        swap to endianess of a CRAMFS filesystem
+        jefferson:         extract JFFS2 file systems
+        lhasa:             LHA support
+        lzop:              LZO decompression support
+        mtd-utils:         JFFS filesystem support
+        openjdk8/jdk8-bin: Java vm/objects/archives
+        p7zip:             ZIP, LZMA and ISO decompression support
+        python3-opengl:    binviz module support
+        python3-pycryptodome: decrypt some known encrypted firmware
+                              images
+        sasquatch:         extract non-standard SquashFS images
+        sleuthkit:         forensic analysis support
+        squashfs-tools:    SquashFS support
+        srecord:           extract EPROM load files
+        ubi_reader:        extract UBIFS file systems
+        unrar:             RAR decompression support
+        yaffshiv:          extract YAFFS file systems
+
+    StuffIt
+    -------
+
+    To extract StuffIt archive files:
+    !!! WARNING: closed source !!!
+
+    $ wget -O- http://downloads.tuxfamily.org/sdtraces/stuffit520.611linux-i386.tar.gz | tar -zxv
+    # cp bin/unstuff /opt/bin/
+
+    IDA
+    ---
+
+    If IDA is installed on your system, you may optionally install the
+    binwalk IDA plugin:
+    $ python setup.py idainstall --idadir=/home/user/ida
+

@@ -1,0 +1,26 @@
+# Description: Framework for reversing binaries
+# URL:         http://radare.org/
+# Maintainer:  Alexandr Savca, alexandrsavca89 at gmail dot com
+# Depends on:  capstone file libuv lz4 openssl xxhash
+
+name=radare2
+version=5.1.0
+release=1
+source=(https://github.com/radare/$name/archive/$version/$name-$version.tar.gz)
+
+build() {
+	cd $name-$version
+
+	./configure \
+		--prefix=/usr      \
+		--with-sysmagic    \
+		--with-syscapstone \
+		--with-syszip      \
+		--with-sysxxhash
+
+	make
+	make DESTDIR=$PKG install
+
+	# remove junk
+	rm -r $PKG/usr/share/doc
+}

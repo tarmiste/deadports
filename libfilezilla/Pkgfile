@@ -1,0 +1,22 @@
+# Description: Small and modern C++ library, which offers some basic functionalities
+# URL:         https://lib.filezilla-project.org/
+# Maintainer:  UNMAINTAINED
+# Depends on:  gnutls
+
+name=libfilezilla
+version=0.26.0
+release=2
+source=(https://download.filezilla-project.org/$name/$name-$version.tar.bz2)
+
+build() {
+	cd $name-$version
+
+	./configure \
+		--prefix=/usr          \
+		--disable-doxygen-doc  \
+		--disable-locales      \
+		--disable-static       \
+
+	make
+	make DESTDIR=$PKG install
+}

@@ -1,0 +1,11 @@
+#!/bin/sh
+
+# add user:group
+getent group polipo  || /usr/sbin/groupadd -r polipo
+getent passwd polipo || /usr/sbin/useradd -g polipo -d /var/empty -s /bin/sh polipo
+/usr/bin/passwd -l polipo
+
+# create the log file and change the owner
+touch /var/log/polipo.log
+chown polipo:polipo /var/log/polipo.log
+chmod 644 /var/log/polipo.log

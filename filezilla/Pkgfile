@@ -1,0 +1,35 @@
+# Description: Fast and reliable FTP, FTPS and SFTP client
+# URL:         https://filezilla-project.org
+# Maintainer:  UNMAINTAINED
+# Depends on:  libfilezilla pugixml wxgtk3 xdg-utils
+
+name=filezilla
+version=3.52.0.5
+release=2
+source=(https://download.filezilla-project.org/client/FileZilla_${version}_src.tar.bz2
+	filezilla-3.22.1-debug.patch
+	missing-list-include.patch)
+
+build() {
+	cd $name-$version
+
+	patch -Np0 -i $SRC/missing-list-include.patch
+	patch -p1  -i $SRC/filezilla-3.22.1-debug.patch
+
+	./configure \
+		--prefix=/usr                            \
+		--mandir=/usr/share/man                  \
+		--with-pugixml=system                    \
+		--with-wx-config=/usr/bin/wx-config-gtk3 \
+		--disable-manualupdatecheck              \
+		--disable-autoupdatecheck                \
+		--disable-locales                        \
+		--disable-static                         \
+		--disable-dependency-tracking            \
+
+	make
+	make DESTDIR=$PKG install
+
+	# remove junk
+	rm -r $PKG/usr/share/filezilla/docs
+}

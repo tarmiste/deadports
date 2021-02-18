@@ -1,0 +1,11 @@
+diff '--color=never' -pruN cramfs-1.1/mkcramfs.c cramfs-1.1-changed/mkcramfs.c
+--- cramfs-1.1/mkcramfs.c	2002-02-20 10:03:32.000000000 +0200
++++ cramfs-1.1/mkcramfs.c	2020-12-29 17:09:45.275959900 +0200
+@@ -23,6 +23,7 @@
+  */
+ 
+ #include <sys/types.h>
++#include <sys/sysmacros.h>
+ #include <stdio.h>
+ #include <sys/stat.h>
+ #include <unistd.h>

@@ -1,16 +1,21 @@
-# Description: Cramfs tools
-# URL: http://sourceforge.net/projects/cramfs
-# Depends on:
+# Description: Tools for CramFs (Compressed ROM File System)
+# URL:         https://github.com/npitre/cramfs-tools
+# Maintainer:  Alexandr Savca, alexandrsavca89 at gmail dot com
+# Depends on:  zlib
 
 name=cramfs-tools
-version=1.1
+version=2.1
 release=1
-source=(http://optusnet.download.sourceforge.net/cramfs/cramfs-$version.tar.gz)
+source=(https://github.com/npitre/$name/archive/v$version/$name-v$version.tar.gz
+	fix-build-undefined-reference-to-major-and-minor-1.1.diff)
 
-build() {
-    cd cramfs-$version
-    make
-    mkdir -p $PKG/usr/sbin
-    install -c -m 755 cramfsck $PKG/usr/sbin
-    install -c -m 755 mkcramfs $PKG/usr/sbin
+build () {
+	cd $name-$version
+
+	patch -p1 -i $SRC/fix-build-undefined-reference-to-major-and-minor-1.1.diff
+
+	make CFLAGS="$CFLAGS -Wall -W"
+
+	install -d $PKG/usr/bin	
+	install -m755 {cramfsck,mkcramfs} $PKG/usr/bin/
 }

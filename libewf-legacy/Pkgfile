@@ -1,0 +1,18 @@
+# Description: A library for support of the Expert Witness Compression Format (EWF)
+# URL:         https://github.com/libyal/libewf
+# Maintainer:  Alexandr Savca, alexandrsavca89 at gmail dot com
+# Depends on:  fuse util-linux
+
+name=libewf-legacy
+version=20140811
+release=1
+source=(https://github.com/libyal/$name/releases/download/$version/${name%%-*}-$version.tar.gz)
+build() {
+	cd ${name%%-*}-$version
+
+	CFLAGS+=" -std=gnu89"
+	./configure --prefix=/usr --sysconfdir=/etc --without-openssl
+
+	make
+	make DESTDIR=$PKG install
+}

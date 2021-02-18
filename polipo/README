@@ -1,0 +1,15 @@
+README for polipo
+
+NOTES
+
+    Using tor with polipo
+    ---------------------
+
+    /etc/polipo/config:
+
+    logFile = /var/log/polipo.log
+    socksParentProxy = "127.0.0.1:9050"
+    socksProxyType = socks5
+    proxyAddress = 127.0.0.1
+    proxyPort = 8123
+    allowedClients = 127.0.0.1

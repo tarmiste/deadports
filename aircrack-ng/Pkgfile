@@ -1,20 +1,30 @@
-# Description: Aircrack next generation
-# URL: http://www.aircrack-ng.org/
-# Depends on: openssl
-# Nice to have: iw
+# Description: Complete suite of tools to assess WiFi network security
+# URL:         https://github.com/aircrack-ng/aircrack-ng
+# Maintainer:  Alexandr Savca, alexandrsavca89 at gmail dot com
+# Depends on:  ethtool hwloc libnl libpcap openssl
 
 name=aircrack-ng
-version=1.1
+version=1.6
 release=1
-source=(http://download.aircrack-ng.org/$name-$version.tar.gz)
+source=(https://github.com/$name/$name/archive/$version/$name-$version.tar.gz
+	add-manufacturer-col-to-client-list.patch)
 
 build() {
-  cd $name-$version
+	cd $name-$version
 
-  make \
-      prefix=/usr \
-      mandir=/usr/share/man \
-      SQLITE=false \
-      REVISION=0 \
-      DESTDIR=$PKG install
+	#patch -p1 -i $SRC/add-manufacturer-col-to-client-list.patch
+
+	export CFLAGS+=" -fcommon"
+
+	echo $version > ./VERSION
+	NOCONFIGURE=1 ./autogen.sh
+	./configure --prefix=/usr --libexecdir=/usr/lib
+
+	# remove default optimization flags
+	find . -name Makefile -exec                   \
+		sed -i  -e '/CFLAGS =/s/-O3 //g'      \
+			-e '/CXXFLAGS =/s/-O3 //g' {} \;
+
+	make V=1
+	make DESTDIR=$PKG install
 }

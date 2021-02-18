@@ -1,0 +1,8 @@
+#!/bin/sh
+
+/usr/bin/getent group  tor || /usr/sbin/groupadd -r tor
+/usr/bin/getent passwd tor || /usr/sbin/useradd -r -d /var/lib/tor -s /bin/false tor
+
+/usr/bin/passwd -l tor
+
+# End of file

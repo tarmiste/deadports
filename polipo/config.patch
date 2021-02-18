@@ -1,0 +1,32 @@
+--- config.sample	2020-12-18 12:37:38.582739862 +0200
++++ config.sample	2020-12-18 13:12:16.728777317 +0200
+@@ -1,8 +1,9 @@
+-# Sample configuration file for Polipo. -*-sh-*-
++#
++# /etc/polipo/config: polipo web proxy configuration
++#
+ 
+-# You should not need to use a configuration file; all configuration
+-# variables have reasonable defaults.  If you want to use one, you
+-# can copy this to /etc/polipo/config or to ~/.polipo and modify.
++# You should not need to edit this configuration file; all configuration
++# variables have reasonable defaults.
+ 
+ # This file only contains some of the configuration variables; see the
+ # list given by ``polipo -v'' and the manual for more.
+@@ -17,11 +18,11 @@
+ # proxyAddress = "::0"        # both IPv4 and IPv6
+ # proxyAddress = "0.0.0.0"    # IPv4 only
+ 
+-# If you do that, you'll want to restrict the set of hosts allowed to
+-# connect:
++# If you are enabling 'proxyAddress' above, then you want to enable the
++# 'allowedClients' variable to the address of your network, e.g.
++# allowedClients = 127.0.0.1, 192.168.42.0/24
+ 
+-# allowedClients = 127.0.0.1, 134.157.168.57
+-# allowedClients = 127.0.0.1, 134.157.168.0/24
++# allowedClients = 127.0.0.1
+ 
+ # Uncomment this if you want your Polipo to identify itself by
+ # something else than the host name:

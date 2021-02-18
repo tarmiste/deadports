@@ -1,0 +1,22 @@
+# Description: Lightweight multi-platform, multi-architecture disassembly framework
+# URL:         https://www.capstone-engine.org/index.html
+# Maintainer:  Alexandr Savca, alexandrsavca89 at gmail dot com
+# Depends on:  python3-setuptools
+
+name=capstone
+version=4.0.2
+release=1
+source=(https://github.com/aquynh/$name/archive/$version/$name-$version.tar.gz)
+
+build() {
+	cd $name-$version
+
+	make V=1
+	make DESTDIR=$PKG install
+
+	cd bindings/python
+	python3 setup.py install --prefix=/usr --root=$PKG --optimize=1
+
+	# remove sdist metadata, as wheel metadata will be used with python3-pip
+	rm -r $PKG/usr/lib/python*/site-packages/$name-$version-py*.egg-info
+}

@@ -1,0 +1,45 @@
+# Description: Anonymizing overlay network
+# URL:         https://www.torproject.org
+# Maintainer:  Alexandr Savca, alexandrsavca89 at gmail dot com
+# Depends on:  libcap libevent libseccomp
+
+name=tor
+version=0.4.4.6
+release=1
+source=(https://www.torproject.org/dist/$name-$version.tar.gz
+	rc.tor)
+
+build() {
+	cd $name-$version
+
+	export PATH="/sbin:/usr/sbin:/bin:/usr/bin"
+
+	./configure \
+		--prefix=/usr          \
+		--sysconfdir=/etc      \
+		--localstatedir=/var   \
+		--enable-system-torrc  \
+		--disable-libfuzzer    \
+		--disable-android      \
+		--disable-html-manual  \
+		--disable-rust         \
+		--disable-zstd-advanced-apis
+
+	make V=1
+	make DESTDIR=$PKG install
+
+	# data
+	install -dm0700 -o tor -g tor $PKG/var/lib/tor
+	install -dm0700 -o tor -g tor $PKG/var/log/tor
+
+	# config
+	install -m600 -o tor -g tor $PKG/etc/tor/torrc.sample $PKG/etc/tor/torrc
+	rm $PKG/etc/tor/torrc.sample
+	sed -i \
+		-e 's/^#Log notice file/Log notice file/' \
+		-e 's/^#DataDirectory/DataDirectory/'     \
+		$PKG/etc/tor/torrc
+
+	# service
+	install -Dm0750 $SRC/rc.tor $PKG/etc/rc.d/tor
+}

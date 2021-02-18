@@ -1,0 +1,22 @@
+# Description: Tools for squashfs, a highly compressed read-only filesystem for Linux
+# URL:         https://github.com/devttys0/sasquatch
+# Maintainer:  Alexandr Savca, alexandrsavca89 at gmail dot com
+# Depends on:  squashfs-tools zlib
+
+name=sasquatch
+version=4.3-3e0cc40
+_commit=3e0cc40fc6dbe32bd3a5e6c553b3320d5d91ceed
+release=1
+source=(https://downloads.sourceforge.net/project/squashfs/squashfs/squashfs4.3/squashfs4.3.tar.gz 
+	https://github.com/devttys0/$name/archive/$_commit/$name-$_commit.tar.gz
+        read_fragment_table_n_stack_overflow-fix.patch)
+
+build() {
+	cd squashfs4.3/squashfs-tools
+
+	patch -p1 -i $SRC/$name-$_commit/patches/patch0.txt
+	patch -p0 -i $SRC/read_fragment_table_n_stack_overflow-fix.patch
+
+	make GZIP_SUPPORT=1 LZO_SUPPORT=1 XZ_SUPPORT=1 EXTRA_CFLAGS="-fcommon"
+	make install INSTALL_DIR=$PKG/sbin
+}

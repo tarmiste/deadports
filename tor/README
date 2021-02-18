@@ -1,0 +1,30 @@
+README for tor
+
+PRECAUTION
+
+    Make sure you edit /etc/pkgadd.conf and add the following lines:
+
+    UPGRADE         ^var/lib/tor/.*$            NO
+    UPGRADE         ^etc/tor/torrc$             NO
+    UPGRADE         ^etc/tor/torifyrc$          NO
+
+    Failure to do so will result in the loss of your tor data and
+    configuration upon update!
+
+    If you edit the torrc file for extra logging, make sure you:
+    chmod 0640 /var/log/tor/* files, for security reasons.
+
+PRE-INSTALL
+
+    Tor expects to have a user and group dedicated to it.
+    pre-install script takes care of this.
+
+NOTES
+
+    DNS
+    ---
+
+    If you want to use Tor DNS as default nameserver on port 53,
+    dont forget to allow non-root process to bind a privileged port:
+
+    sudo setcap 'cap_net_bind_service=+ep' /usr/bin/tor

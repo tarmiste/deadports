@@ -1,0 +1,20 @@
+# Description: File system and media management forensic analysis tools
+# URL:         https://www.sleuthkit.org/sleuthkit
+# Maintainer:  Alexandr Savca, alexandrsavca89 at gmail dot com
+# Depends on:  libewf-legacy perl sqlite3
+
+name=sleuthkit
+version=4.10.1
+release=1
+source=(https://github.com/$name/$name/releases/download/$name-$version/$name-$version.tar.gz)
+
+build() {
+	cd $name-$version
+
+	aclocal
+	automake
+	./configure --prefix=/usr
+
+	make
+	make DESTDIR=$PKG install
+}
